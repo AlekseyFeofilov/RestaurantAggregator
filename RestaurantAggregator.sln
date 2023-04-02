@@ -4,6 +4,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantAggregator.API", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantAggregator.Common", "RestaurantAggregator.Common\RestaurantAggregator.Common.csproj", "{062A3AE6-EA76-4998-A000-FF8D958012AF}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Auth", "Auth", "{49497F89-A991-401E-988B-1751CB691F93}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantAggregator.Auth.API", "RestaurantAggregator.Auth.API\RestaurantAggregator.Auth.API.csproj", "{BF11B132-F167-47D8-8C9B-97790CF646EB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,7 +22,12 @@ Global
 		{062A3AE6-EA76-4998-A000-FF8D958012AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{062A3AE6-EA76-4998-A000-FF8D958012AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{062A3AE6-EA76-4998-A000-FF8D958012AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF11B132-F167-47D8-8C9B-97790CF646EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF11B132-F167-47D8-8C9B-97790CF646EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF11B132-F167-47D8-8C9B-97790CF646EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF11B132-F167-47D8-8C9B-97790CF646EB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{BF11B132-F167-47D8-8C9B-97790CF646EB} = {49497F89-A991-401E-988B-1751CB691F93}
 	EndGlobalSection
 EndGlobal

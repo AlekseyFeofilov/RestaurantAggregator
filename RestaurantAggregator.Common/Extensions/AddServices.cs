@@ -5,9 +5,9 @@ using RestaurantAggregator.Common.Filters;
 
 namespace RestaurantAggregator.Common.Extensions;
 
-public static class AddServices 
+public static class AddServices
 {
-    public static void AddSwaggerServices(this IServiceCollection services)
+    public static void AddSwaggerService(this IServiceCollection services)
     {
         services.AddSwaggerGen(options =>
         {

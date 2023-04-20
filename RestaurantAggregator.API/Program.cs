@@ -1,3 +1,8 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using RestaurantAggregator.API.Middleware;
+using RestaurantAggregator.BL.Extensions;
+using RestaurantAggregator.BL.Helper;
+using RestaurantAggregator.Common.Configurations;
 using RestaurantAggregator.Common.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,9 +13,20 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 
-builder.Services.AddSwaggerServices();
+builder.Services.AddBL();
+builder.Services.AddSwaggerService();
+builder.Services.AddAuthorization();
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearerAuthenticationScheme();
+
+builder.Services.AddAutoMapper(typeof(MapperProfile));
 
 var app = builder.Build();
+
+app.AddBLPostBuild();
+app.UseMiddleware<ErrorHandlingMiddleware>();
+
+AppConfigurations.isDevelopmentEnvironment = app.Environment.IsDevelopment();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -21,6 +37,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

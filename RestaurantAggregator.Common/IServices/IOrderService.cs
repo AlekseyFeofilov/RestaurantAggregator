@@ -9,5 +9,6 @@ public interface IOrderService
     Task<IEnumerable<OrderInfoDto>> FetchAllOrders(ClaimsPrincipal claimsPrincipal, OrderOptions orderOptions);
     Task CreateOrder(ClaimsPrincipal claimsPrincipal, OrderCreateDto orderCreateDto);
     Task RepeatOrder(ClaimsPrincipal claimsPrincipal, Guid orderId); // todo проверять доступ с помощью Authorize 
-    Task CancelOrder(ClaimsPrincipal claimsPrincipal, Guid orderId); 
+    Task CancelOrder(ClaimsPrincipal claimsPrincipal, Guid orderId);
+    Task<OrderDto> FetchCurrentOrder(ClaimsPrincipal claimsPrincipal);
 }

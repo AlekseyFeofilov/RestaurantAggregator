@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RestaurantAggregator.Common.Configurations;
@@ -32,7 +33,7 @@ public class OrderController : ControllerBase
     {
         return Ok(await _orderService.FetchOrder(User, orderId));
     }
-
+    
     /// <summary>
     /// Get a list of orders
     /// </summary>
@@ -43,7 +44,7 @@ public class OrderController : ControllerBase
     [ProducesResponseType(typeof(IEnumerable<OrderInfoDto>), StatusCodes.Status200OK)]
     [HttpGet]
     [Authorize]
-    public async Task<IActionResult> FetchAllOrders(
+    public async Task<IActionResult> FetchAllOrdersByCustomer(
         bool current = false,
         int? numberStartWith = null,
         [FromQuery] DateTime? startDate = null,
@@ -53,7 +54,23 @@ public class OrderController : ControllerBase
         var orderOptions = new OrderOptions(current, numberStartWith, startDate, endDate, page);
         return Ok(await _orderService.FetchAllOrders(User, orderOptions));
     }
-
+    
+    /// <summary>
+    /// Get information about concrete order
+    /// </summary>
+    /// <response code="200">Success</response>
+    /// <response code="401">Unauthorized</response>
+    /// <response code="404">Not Found</response>
+    /// <response code="500">InternalServerError</response>
+    [Produces(AppConfigurations.ResponseContentType)]
+    [ProducesResponseType(typeof(OrderDto), StatusCodes.Status200OK)]
+    [HttpGet, Route("current")]
+    [Authorize]
+    public async Task<IActionResult> FetchCurrentOrder()
+    {
+        return Ok(await _orderService.FetchCurrentOrder(User));
+    }
+    
     /// <summary>
     /// Creating the order from dishes in basket
     /// </summary>
@@ -82,17 +99,23 @@ public class OrderController : ControllerBase
         await _orderService.RepeatOrder(User, orderId);
         return Ok();
     }
+    
+    
 
+    /// <summary>
+    /// Set a rating for a dish
+    /// </summary>
     /// <response code="200">Success</response>
     /// <response code="400">Bad Request</response>
     /// <response code="401">Unauthorized</response>
     /// <response code="403">Forbidden</response>
+    /// <response code="404">Not Found</response>
     /// <response code="500">InternalServerError</response>
-    [HttpPut, Route("{orderId::guid}")]
+    [HttpPost, Route("{orderId:guid}/dish/{dishId:guid}/rating")]
     [Authorize]
-    public async Task<IActionResult> CancelOrder(Guid orderId)
+    public async Task<IActionResult> SetReview(Guid orderId, Guid dishId, [Range(1, 10)] int ratingScore)
     {
-        await _orderService.CancelOrder(User, orderId);
-        return Ok();
+        // await _dishService.SetReview(User, dishId, ratingScore);
+        return StatusCode(StatusCodes.Status501NotImplemented);
     }
 }

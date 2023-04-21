@@ -112,4 +112,9 @@ public class OrderService : IOrderService
     {
         throw new NotImplementedException();
     }
+
+    public Task<OrderDto> FetchCurrentOrder(ClaimsPrincipal claimsPrincipal)
+    {
+        throw new NotImplementedException();
+    }
 }

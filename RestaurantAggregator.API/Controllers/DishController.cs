@@ -23,6 +23,8 @@ public class DishController : ControllerBase
     /// <response code="400">Bad Request</response>
     /// <response code="404">Not Found</response>
     /// <response code="500">InternalServerError</response>
+    [Produces(AppConfigurations.ResponseContentType)]
+    [ProducesResponseType(typeof(IEnumerable<DishDto>), StatusCodes.Status200OK)]
     [HttpGet]
     public async Task<IActionResult> FetchAllDishes(
         Guid restaurantId,
@@ -58,7 +60,8 @@ public class DishController : ControllerBase
     /// <response code="500">InternalServerError</response>
     [HttpPost]
     [Authorize]
-    public async Task<IActionResult> CreateDish() {
+    public async Task<IActionResult> CreateDish(DishCreateDto dishCreateDto)
+    {
         return StatusCode(StatusCodes.Status501NotImplemented);
     }
     
@@ -67,9 +70,11 @@ public class DishController : ControllerBase
     /// <response code="401">Unauthorized</response>
     /// <response code="403">Forbidden</response>
     /// <response code="500">InternalServerError</response>
-    [HttpPut]
+    [Produces(AppConfigurations.ResponseContentType)]
+    [ProducesResponseType(typeof(DishDto), StatusCodes.Status200OK)]
+    [HttpPatch]
     [Authorize]
-    public async Task<IActionResult> ModifyDish() {
+    public async Task<IActionResult> ModifyDish(DishModifyDto dishModifyDto) {
         return StatusCode(StatusCodes.Status501NotImplemented);
     }
     

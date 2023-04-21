@@ -29,6 +29,7 @@ public static class AddServices
         services.AddScoped<IDishService, DishServices>();
         services.AddScoped<IOrderService, OrderService>();
         services.AddScoped<IMenuService, MenuService>();
+        services.AddScoped<IRestaurantService, RestaurantService>();
         services.AddScoped<IRepositoryService, RepositoryService>();
         services.AddScoped<IOrderRepository, OrderRepository>();
         services.AddScoped<IDishRepository, DishRepository>();

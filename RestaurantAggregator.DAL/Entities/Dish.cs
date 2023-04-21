@@ -23,4 +23,8 @@ public class Dish
     public ICollection<Review> Reviews { get; set; }
     
     public DishCategory Category { get; set; }
+    
+    public Restaurant Restaurant { get; set; }
+
+    public IEnumerable<Menu> Menus { get; set; }
 }

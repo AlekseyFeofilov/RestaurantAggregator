@@ -24,4 +24,6 @@ public class DishDto
     public double? Rating { get; set; }
  
     public DishCategory Category { get; set; }
+    
+    public RestaurantDto Restaurant { get; set; }
 }

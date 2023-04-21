@@ -5,6 +5,10 @@ namespace RestaurantAggregator.Common.Models.Enums;
 [JsonConverter(typeof(JsonStringEnumConverter))]
 public enum OrderStatus
 {
-    InProcess, 
-    Delivered
+    Created, 
+    Kitchen, 
+    Packaging,
+    Delivery,
+    Delivered,
+    Canceled
 }

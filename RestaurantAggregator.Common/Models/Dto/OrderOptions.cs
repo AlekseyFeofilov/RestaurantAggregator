@@ -20,7 +20,6 @@ public class OrderOptions
         StartDate = startDate;
         EndDate = endDate;
         Page = page;
-        throw new NotImplementedException();
     }
 
     public OrderOptions()

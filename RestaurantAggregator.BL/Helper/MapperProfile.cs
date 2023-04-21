@@ -19,5 +19,6 @@ public class MapperProfile : Profile
             .ForMember(dto => dto.Image, options => options.MapFrom(dishBasket => dishBasket.Dish.Image));
         CreateMap<Menu, MenuDto>();
         CreateMap<Restaurant, RestaurantDto>();
+        CreateMap<Order, OrderDto>();
     }
 }

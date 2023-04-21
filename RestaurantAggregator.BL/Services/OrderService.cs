@@ -3,6 +3,7 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using RestaurantAggregator.BL.IRepositories;
 using RestaurantAggregator.Common.Configurations;
+using RestaurantAggregator.Common.Exceptions;
 using RestaurantAggregator.Common.IServices;
 using RestaurantAggregator.Common.Models.Dto;
 using RestaurantAggregator.Common.Models.Enums;
@@ -52,6 +53,14 @@ public class OrderService : IOrderService
         var cart = await GetOrderDishBaskets(userId);
         if (!cart.Any()) return;
 
+        var firstDish = cart.First().Dish;
+        var otherRestaurantDish =  cart.FirstOrDefault(cartDish => firstDish.Restaurant.Id != cartDish.Dish.Restaurant.Id);
+
+        if (otherRestaurantDish != null)
+        {
+            throw new DishFromDifferentRestaurantsException();
+        }
+
         await _context.Orders.AddAsync(CreateOrder(orderCreateDto, cart, userId));
         EmptyUserCart(userId);
 
@@ -77,6 +86,7 @@ public class OrderService : IOrderService
         return await _context.DishBaskets
             .Where(x => x.UserId == userId)
             .Include(x => x.Dish)
+            .ThenInclude(x => x.Restaurant)
             .ToListAsync();
     }
 
@@ -87,7 +97,7 @@ public class OrderService : IOrderService
             Id = Guid.NewGuid(),
             DeliveryTime = orderCreateDto.DeliveryTime,
             OrderTime = DateTime.Now,
-            Status = OrderStatus.InProcess,
+            Status = OrderStatus.Created,
             Price = cart.Sum(x => x.Amount * x.Dish.Price),
             DishBaskets = cart,
             Address = orderCreateDto.Address,
@@ -113,8 +123,14 @@ public class OrderService : IOrderService
         throw new NotImplementedException();
     }
 
-    public Task<OrderDto> FetchCurrentOrder(ClaimsPrincipal claimsPrincipal)
+    public async Task<IEnumerable<OrderDto>> FetchCurrentOrder(ClaimsPrincipal claimsPrincipal)
     {
-        throw new NotImplementedException();
+        var userId = Guid.Parse(claimsPrincipal.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+        
+        return await _context.Orders
+            .Where(x => x.UserId == userId && x.Status != OrderStatus.Canceled && x.Status != OrderStatus.Delivered)
+            .Include(x => x.DishBaskets)
+            .Select(x => _mapper.Map<OrderDto>(x))
+            .ToListAsync();
     }
 }

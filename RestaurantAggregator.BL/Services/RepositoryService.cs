@@ -10,23 +10,23 @@ namespace RestaurantAggregator.BL.Services;
 public interface IRepositoryService
 {
     Task<Dish> FetchDish(Guid id);
-    
+
     Task<Order> FetchOrder(Guid id);
-    
+
     Task<CartDish?> FetchCartDish(Guid dishId, Guid userId);
-    
+
     Task<CartDish?> FetchCart();
 }
 
 public class RepositoryService : IRepositoryService
 {
     private readonly ApplicationDbContext _context;
-    
+
     public RepositoryService(ApplicationDbContext context)
     {
         _context = context;
     }
-    
+
     // public async Task<User> GetUser(ClaimsPrincipal claims)
     // {
     //     var id = Guid.Parse(claims.FindFirst(ClaimTypes.NameIdentifier)!.Value);
@@ -35,13 +35,13 @@ public class RepositoryService : IRepositoryService
     //     
     //     return user;
     // }
-    
+
     public async Task<Dish> FetchDish(Guid id)
     {
         var dish = await _context.Dishes.SingleOrDefaultAsync(x => x.Id == id);
-        
+
         if (dish == null) throw new DishNotFoundException();
-        
+
         return dish;
     }
 
@@ -73,7 +73,12 @@ public class RepositoryService : IRepositoryService
 
     public Task<CartDish?> FetchCartDish(Guid dishId, Guid userId)
     {
-        throw new NotImplementedException();
+        return _context.DishBaskets
+            .SingleOrDefaultAsync(x =>
+                x.UserId != null
+                && x.Dish.Id == dishId
+                && x.UserId == userId
+            );
     }
 
     public Task<CartDish?> FetchCart()

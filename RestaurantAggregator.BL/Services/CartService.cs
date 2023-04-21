@@ -1,6 +1,7 @@
 using System.Security.Claims;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using RestaurantAggregator.Common.Exceptions;
 using RestaurantAggregator.Common.IServices;
 using RestaurantAggregator.Common.Models.Dto;
 using RestaurantAggregator.DAL.DbContexts;
@@ -38,7 +39,7 @@ public class CartService : ICartService
         var userId = Guid.Parse(claimsPrincipal.FindFirst(ClaimTypes.NameIdentifier)!.Value);
         var dishBasket = await _repositoryService.FetchCartDish(dishId, userId);
         var dish = await _repositoryService.FetchDish(dishId);
-        AddDishBasket(dishBasket, dish, userId);
+        await AddDishBasket(dishBasket, dish, userId);
     }
 
     public async Task RemoveDish(ClaimsPrincipal claimsPrincipal, Guid dishId, bool increase = false)
@@ -46,6 +47,11 @@ public class CartService : ICartService
         var userId = Guid.Parse(claimsPrincipal.FindFirst(ClaimTypes.NameIdentifier)!.Value);
         var cartDish = await _repositoryService.FetchCartDish(dishId, userId);
 
+        if (cartDish == null)
+        {
+            throw new DishNotFoundException();
+        }
+        
         if (!increase || cartDish.Amount == 1)
         {
             _context.DishBaskets.Remove(cartDish);
@@ -58,7 +64,7 @@ public class CartService : ICartService
         await _context.SaveChangesAsync();
     }
 
-    private void AddDishBasket(CartDish? dishBasket, Dish dish, Guid userId)
+    private Task AddDishBasket(CartDish? dishBasket, Dish dish, Guid userId)
     {
         if (dishBasket != null)
         {
@@ -75,6 +81,6 @@ public class CartService : ICartService
             });
         }
 
-        _context.SaveChangesAsync();
+        return _context.SaveChangesAsync();
     }
 }

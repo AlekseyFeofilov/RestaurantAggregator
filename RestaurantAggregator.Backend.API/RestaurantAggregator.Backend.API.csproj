@@ -4,13 +4,14 @@
         <TargetFramework>net6.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
-        
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <NoWarn>$(NoWarn);1591</NoWarn>
+        <RootNamespace>RestaurantAggregator.API</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\RestaurantAggregator.Backend.BL\RestaurantAggregator.Backend.BL.csproj" />
       <ProjectReference Include="..\RestaurantAggregator.Backend.Common\RestaurantAggregator.Backend.Common.csproj" />
-      <ProjectReference Include="..\RestaurantAggregator.Auth.Common\RestaurantAggregator.Auth.Common.csproj" />
-      <ProjectReference Include="..\RestaurantAggregator.Auth.BL\RestaurantAggregator.Auth.BL.csproj" />
     </ItemGroup>
 
     <ItemGroup>

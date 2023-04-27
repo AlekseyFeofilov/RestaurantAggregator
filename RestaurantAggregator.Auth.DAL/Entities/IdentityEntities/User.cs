@@ -1,7 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity;
 using RestaurantAggregator.Auth.Common.Models.Enums;
-using RestaurantAggregator.Auth.DAL.Entities.Users;
 
 namespace RestaurantAggregator.Auth.DAL.Entities.IdentityEntities;
 

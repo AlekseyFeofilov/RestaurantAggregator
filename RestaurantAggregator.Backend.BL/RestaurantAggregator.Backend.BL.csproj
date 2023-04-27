@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <RootNamespace>RestaurantAggregator.BL</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\RestaurantAggregator.Backend.Common\RestaurantAggregator.Backend.Common.csproj" />
+      <ProjectReference Include="..\RestaurantAggregator.Backend.DAL\RestaurantAggregator.Backend.DAL.csproj" />
+    </ItemGroup>
+
+</Project>

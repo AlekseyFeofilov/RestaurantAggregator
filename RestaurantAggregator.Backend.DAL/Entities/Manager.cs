@@ -4,5 +4,5 @@ public class Manager
 {
     public Guid Id;
 
-    public RestaurantEntity RestaurantEntity;
+    public Restaurant Restaurant;
 }

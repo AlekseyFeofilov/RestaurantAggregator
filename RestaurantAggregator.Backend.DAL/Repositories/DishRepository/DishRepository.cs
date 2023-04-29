@@ -17,7 +17,7 @@ public class DishRepository : IDishRepository
 
     public async Task<List<Dish>> FetchAllDishes(FetchDishOptions fetchDishOptions)
     {
-        var dishes = _context.Dishes.Where(dish => dish.RestaurantEntity.Id == fetchDishOptions.RestaurantId).AsQueryable();
+        var dishes = _context.Dishes.Where(dish => dish.Restaurant.Id == fetchDishOptions.RestaurantId).AsQueryable();
 
         if (fetchDishOptions.MenuId != null)
         {

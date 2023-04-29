@@ -53,7 +53,7 @@ public class OrderService : IOrderService
         if (!cart.Any()) return;
 
         var firstDish = cart.First().Dish;
-        var otherRestaurantDish =  cart.FirstOrDefault(cartDish => firstDish.RestaurantEntity.Id != cartDish.Dish.RestaurantEntity.Id);
+        var otherRestaurantDish =  cart.FirstOrDefault(cartDish => firstDish.Restaurant.Id != cartDish.Dish.Restaurant.Id);
 
         if (otherRestaurantDish != null)
         {
@@ -85,7 +85,7 @@ public class OrderService : IOrderService
         return await _context.DishBaskets
             .Where(x => x.UserId == userId)
             .Include(x => x.Dish)
-            .ThenInclude(x => x.RestaurantEntity)
+            .ThenInclude(x => x.Restaurant)
             .ToListAsync();
     }
 

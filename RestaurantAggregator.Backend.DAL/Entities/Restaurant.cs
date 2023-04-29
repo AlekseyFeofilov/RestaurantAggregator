@@ -1,6 +1,6 @@
 namespace RestaurantAggregator.DAL.Entities;
 
-public class RestaurantEntity
+public class Restaurant
 {
     public Guid Id { get; set; }
 

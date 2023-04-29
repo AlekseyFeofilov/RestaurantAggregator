@@ -11,7 +11,7 @@ public class ApplicationDbContext : DbContext
 {
     public DbSet<Dish> Dishes { get; set; }
     
-    public DbSet<RestaurantEntity> Restaurants { get; set; }
+    public DbSet<Restaurant> Restaurants { get; set; }
     
     public DbSet<Menu> Menus { get; set; }
     

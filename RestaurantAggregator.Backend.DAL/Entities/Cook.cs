@@ -4,5 +4,5 @@ public class Cook
 {
     public Guid Id { get; set; }
     
-    public RestaurantEntity RestaurantEntity { get; set; }
+    public Restaurant Restaurant { get; set; }
 }

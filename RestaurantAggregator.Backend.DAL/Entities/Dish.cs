@@ -24,7 +24,7 @@ public class Dish
     
     public DishCategory Category { get; set; }
     
-    public RestaurantEntity RestaurantEntity { get; set; }
+    public Restaurant Restaurant { get; set; }
 
     public IEnumerable<Menu> Menus { get; set; }
 }

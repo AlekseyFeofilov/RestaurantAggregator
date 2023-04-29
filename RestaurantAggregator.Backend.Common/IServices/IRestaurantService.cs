@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using RestaurantAggregator.Common.Models.Dto;
 
 namespace RestaurantAggregator.Common.IServices;

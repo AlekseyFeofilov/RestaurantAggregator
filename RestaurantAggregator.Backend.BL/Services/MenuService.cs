@@ -21,7 +21,7 @@ public class MenuService : IMenuService
     public async Task<IEnumerable<MenuDto>> FetchMenus(Guid restaurantId, int? page)
     {
         var menus = await _context.Menus
-            .Where(menu => restaurantId == menu.RestaurantEntity.Id)
+            .Where(menu => restaurantId == menu.Restaurant.Id)
             .ToListAsync();
         
         return menus.Select(menu => _mapper.Map<MenuDto>(menu));

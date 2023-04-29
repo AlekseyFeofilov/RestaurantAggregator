@@ -4,5 +4,5 @@ public class Courier
 {
     public Guid Id;
 
-    public RestaurantEntity RestaurantEntity;
+    public Restaurant Restaurant;
 }

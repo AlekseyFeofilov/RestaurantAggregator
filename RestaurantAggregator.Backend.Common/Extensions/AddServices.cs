@@ -13,16 +13,33 @@ public static class AddServices
         {
             var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
             options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
+            
             options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
             {
                 In = ParameterLocation.Header,
                 Description = "Please enter a valid token",
                 Name = "Authorization",
-                Type = SecuritySchemeType.Http,
+                Type = SecuritySchemeType.ApiKey,
                 BearerFormat = "JWT",
                 Scheme = "Bearer"
             });
-            options.OperationFilter<AuthResponsesOperationFilter>();
+
+            options.AddSecurityRequirement(new OpenApiSecurityRequirement
+            {
+                {
+                    new OpenApiSecurityScheme
+                    {
+                        Name = "Bearer",
+                        In = ParameterLocation.Header,
+                        Reference = new OpenApiReference
+                        {
+                            Id = "Bearer",
+                            Type = ReferenceType.SecurityScheme
+                        }
+                    },
+                    new List<string>()
+                }
+            });
         });
     }
 }

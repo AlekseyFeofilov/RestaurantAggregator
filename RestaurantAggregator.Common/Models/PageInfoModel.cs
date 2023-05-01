@@ -6,8 +6,10 @@ public class PageInfoModel
 {
     [JsonPropertyName("size")]
     public int Size { get; }
+    
     [JsonPropertyName("count")]
     public int Count { get; }
+    
     [JsonPropertyName("current")]
     public int Current { get; }
 

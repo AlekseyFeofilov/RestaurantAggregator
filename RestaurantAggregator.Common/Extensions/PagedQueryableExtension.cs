@@ -2,7 +2,7 @@ namespace RestaurantAggregator.Common.Extensions;
 
 public static class PagedQueryableExtension
 {
-    public static IQueryable GetPagedQueryable<T>(this IQueryable<T> queryable, int skip, int take)
+    public static IQueryable<T> GetPagedQueryable<T>(this IQueryable<T> queryable, int skip, int take)
     {
         take = RecalculateTakeCount(queryable.Count(), skip, take);
         
@@ -11,13 +11,9 @@ public static class PagedQueryableExtension
             .Take(take);
     }
 
-    private static int RecalculateTakeCount(int dishCount, int skip, int take)
+    private static int RecalculateTakeCount(int count, int skip, int take)
     {
-        if (dishCount < skip + take) //todo maybe кидать 404, если dishCount <= skip
-        {
-            return Math.Max(0, dishCount - skip);
-        }
-
-        return take;
+        return count < skip + take ? //todo maybe кидать 404, если dishCount <= skip
+            Math.Max(0, count - skip) : take;
     }
 }

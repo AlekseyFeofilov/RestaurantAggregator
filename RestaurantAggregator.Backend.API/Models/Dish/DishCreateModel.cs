@@ -1,12 +1,10 @@
 using System.ComponentModel.DataAnnotations;
 using RestaurantAggregator.Common.Models.Enums;
 
-namespace RestaurantAggregator.Common.Models.Dto;
+namespace RestaurantAggregator.API.Models.Dish;
 
-public class DishDto
-{ 
-    public Guid Id { get; set; }
-
+public class DishCreateModel
+{
     [MinLength(1), Required]
     public string Name { get; set; }
  
@@ -19,10 +17,7 @@ public class DishDto
      
     public bool Vegetarian { get; set; }
 
-    [Range(1, 10)]
-    public double? Rating { get; set; }
- 
     public DishCategory Category { get; set; }
     
-    public RestaurantDto Restaurant { get; set; }
+    public Guid RestaurantId { get; set; }
 }

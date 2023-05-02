@@ -2,13 +2,13 @@ namespace RestaurantAggregator.Common.Models;
 
 public class PagedEnumerable<T>
 {
-    public IEnumerable<T> Values { get; set; }
+    public IEnumerable<T> Items { get; set; }
     
     public PageInfoModel Pagination { get; set; }
 
-    public PagedEnumerable(IEnumerable<T> values, PageInfoModel pagination)
+    public PagedEnumerable(IEnumerable<T> items, PageInfoModel pagination)
     {
-        Values = values;
+        Items = items;
         Pagination = pagination;
     }
 }

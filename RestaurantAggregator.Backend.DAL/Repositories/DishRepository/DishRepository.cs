@@ -1,4 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using RestaurantAggregator.Common.Exceptions;
+using RestaurantAggregator.Common.Extensions;
 using RestaurantAggregator.Common.Models.Enums;
 using RestaurantAggregator.DAL.DbContexts;
 using RestaurantAggregator.DAL.Entities;
@@ -15,21 +17,58 @@ public class DishRepository : IDishRepository
         _context = context;
     }
 
-    public async Task<List<Dish>> FetchAllDishes(FetchDishOptions fetchDishOptions)
+    public Task<List<Dish>> FetchAllDishesAsync(FetchDishOptions fetchDishOptions) //todo кидать bad request если это меню не из указанного ресторана
     {
-        var dishes = _context.Dishes.Where(dish => dish.Restaurant.Id == fetchDishOptions.RestaurantId).AsQueryable();
-
-        if (fetchDishOptions.MenuId != null)
-        {
-            dishes = dishes.Where(dish => dish.Menus.Any(menu => menu.Id == fetchDishOptions.MenuId));
-        }
+        var dishes = fetchDishOptions.MenuId == null 
+            ? _context.Dishes.Where(dish => dish.Restaurant.Id == fetchDishOptions.RestaurantId).AsQueryable()
+            : _context.Dishes.Where(dish => dish.Menus.Any(menu => menu.Id == fetchDishOptions.MenuId)).AsQueryable(); 
         
         dishes = GetVegetarian(dishes, fetchDishOptions.Vegetarian);
         dishes = GetCategory(dishes, fetchDishOptions.Categories);
         dishes = Sort(dishes, fetchDishOptions.Sorting);
-        var take = GetDishPageCount(dishes.Count(), fetchDishOptions.Skip, fetchDishOptions.Take);
 
-        return await GetDishPage(dishes, fetchDishOptions.Skip, take);
+        return dishes
+            .GetPagedQueryable(fetchDishOptions.Skip, fetchDishOptions.Take)
+            .Include(x => x.Restaurant)
+            .ToListAsync();
+    }
+    
+    public async Task<Dish> FetchDishAsync(Guid dishId)
+    {
+        var dish = await _context.Dishes
+            .Include(x => x.Restaurant)
+            .SingleOrDefaultAsync(x => x.Id == dishId);
+
+        if (dish == null) throw new DishNotFoundException();
+
+        return dish;
+    }
+
+    public async Task CreateDishAsync(Dish dish)
+    {
+        await _context.Dishes.AddAsync(dish);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task ModifyDishAsync(Dish dish)
+    {
+        var oldDish = await FetchDishAsync(dish.Id);
+
+        oldDish.Name = dish.Name;
+        oldDish.Description = dish.Description;
+        oldDish.Price = dish.Price;
+        oldDish.Image = dish.Image;
+        oldDish.Vegetarian = dish.Vegetarian;
+        oldDish.Category = dish.Category;
+        oldDish.Restaurant = dish.Restaurant;
+
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task DeleteDishAsync(Guid dishId)
+    {
+        _context.Dishes.Remove(await FetchDishAsync(dishId));
+        await _context.SaveChangesAsync();
     }
 
     private static IQueryable<Dish> GetVegetarian(IQueryable<Dish> dishes, bool available = true)
@@ -39,9 +78,9 @@ public class DishRepository : IDishRepository
 
     private static IQueryable<Dish> GetCategory(IQueryable<Dish> dishes, DishCategory[]? category = null)
     {
-        return !(category == null || !category.Any<DishCategory>())
-            ? dishes.Where(x => category != null && category.Contains(x.Category))
-            : dishes;
+        return category == null || !category.Any()
+            ? dishes
+            : dishes.Where(x => category.Contains(x.Category));
     }
 
     private static IQueryable<Dish> Sort(IQueryable<Dish> dishes, DishSorting? sorting = null)
@@ -57,26 +96,5 @@ public class DishRepository : IDishRepository
             null => dishes,
             _ => throw new ArgumentOutOfRangeException(nameof(sorting), sorting, null)
         };
-    }
-
-    private async Task<List<Dish>> GetDishPage(IQueryable<Dish> dishes, int skip, int take)
-    {
-        var test = await dishes
-            .Skip(skip)
-            .Take(take)
-            .Include(x => x.Reviews)
-            .ToListAsync();
-
-        return test;
-    }
-
-    private int GetDishPageCount(int dishCount, int skip, int take)
-    {
-        if (dishCount < skip + take) //todo maybe кидать 404, если dishCount <= skip
-        {
-            return Math.Max(0, dishCount - skip);
-        }
-
-        return take;
     }
 }

@@ -1,15 +1,19 @@
 using System.Security.Claims;
+using RestaurantAggregator.Common.Models;
 using RestaurantAggregator.Common.Models.Dto;
+using RestaurantAggregator.Common.Models.Dto.Dish;
 
 namespace RestaurantAggregator.Common.IServices;
 
 public interface IDishService
 {
-    Task<DishPagedListDto> FetchAllDishes(DishOptions dishOptions);
+    Task<PagedEnumerable<DishDto>> FetchAllDishesAsync(DishOptions dishOptions);
     
-    Task<DishDto> FetchDish(Guid dishId);
+    Task<DishDto> FetchDishAsync(Guid dishId);
     
-    bool CheckReviewAccess(ClaimsPrincipal claimsPrincipal, Guid dishId);
+    Task CreateDishAsync(DishCreateDto dishCreateDto);
     
-    Task SetReview(ClaimsPrincipal claimsPrincipal, Guid dishId, int rating);
+    Task ModifyDishAsync(DishModifyDto dishCreateDto);
+    
+    Task DeleteDishAsync(Guid dishId);
 }

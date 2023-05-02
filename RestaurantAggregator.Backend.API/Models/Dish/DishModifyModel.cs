@@ -1,10 +1,12 @@
 using System.ComponentModel.DataAnnotations;
 using RestaurantAggregator.Common.Models.Enums;
 
-namespace RestaurantAggregator.Common.Models.Dto;
+namespace RestaurantAggregator.API.Models.Dish;
 
-public class DishCreateDto
+public class DishModifyModel
 {
+    public Guid Id { get; set; }
+    
     [MinLength(1), Required]
     public string Name { get; set; }
  

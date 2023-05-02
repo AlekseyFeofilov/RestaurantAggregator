@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using RestaurantAggregator.DAL.DbContexts;
@@ -11,9 +12,10 @@ using RestaurantAggregator.DAL.DbContexts;
 namespace RestaurantAggregator.API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230502142039_AddReviewAverageScore")]
+    partial class AddReviewAverageScore
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -89,7 +91,7 @@ namespace RestaurantAggregator.API.Migrations
                     b.Property<Guid>("RestaurantId")
                         .HasColumnType("uuid");
 
-                    b.Property<int>("ReviewsAverageScore")
+                    b.Property<int>("ReviewAverageScore")
                         .HasColumnType("integer");
 
                     b.Property<bool>("Vegetarian")

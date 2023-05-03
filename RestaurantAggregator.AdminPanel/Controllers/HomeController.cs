@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using RestaurantAggregator.AdminPannel.Models;
+using RestaurantAggregator.AdminPanel.Models;
 
-namespace RestaurantAggregator.AdminPannel.Controllers;
+namespace RestaurantAggregator.AdminPanel.Controllers;
 
 public class HomeController : Controller
 {

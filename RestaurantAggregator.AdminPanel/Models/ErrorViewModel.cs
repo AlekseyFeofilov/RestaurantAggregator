@@ -1,4 +1,4 @@
-namespace RestaurantAggregator.AdminPannel.Models;
+namespace RestaurantAggregator.AdminPanel.Models;
 
 public class ErrorViewModel
 {

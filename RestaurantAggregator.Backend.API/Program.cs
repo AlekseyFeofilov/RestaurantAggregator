@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using RestaurantAggregator.API.Middleware;
+using RestaurantAggregator.Backend.API.Middleware;
 using RestaurantAggregator.BL.Extensions;
 using RestaurantAggregator.BL.Helper;
 using RestaurantAggregator.Common.Configurations;
@@ -20,7 +20,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearerAuthenticationScheme();
 
 builder.Services.AddAutoMapper(typeof(MapperProfile));
-builder.Services.AddAutoMapper(typeof(RestaurantAggregator.API.Helper.MapperProfile));
+builder.Services.AddAutoMapper(typeof(RestaurantAggregator.Backend.API.Helper.MapperProfile));
 
 var app = builder.Build();
 

@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
-using RestaurantAggregator.API.Models.Restaurant;
+using RestaurantAggregator.Backend.API.Models.Restaurant;
 using RestaurantAggregator.Common.Models.Enums;
 
-namespace RestaurantAggregator.API.Models.Dish;
+namespace RestaurantAggregator.Backend.API.Models.Dish;
 
 public class DishModel // todo maybe сделать shortModel. За одно проверить гибкость моделей, когда они разделены по слоям
 {

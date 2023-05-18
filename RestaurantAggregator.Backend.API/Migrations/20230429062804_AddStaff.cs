@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace RestaurantAggregator.API.Migrations
+namespace RestaurantAggregator.Backend.API.Migrations
 {
     public partial class AddStaff : Migration
     {

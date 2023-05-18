@@ -4,16 +4,16 @@ using RestaurantAggregator.Common.Configurations;
 using RestaurantAggregator.Common.IServices;
 using RestaurantAggregator.Common.Models.Dto;
 
-namespace RestaurantAggregator.API.Controllers;
+namespace RestaurantAggregator.Backend.API.Controllers;
 
 [ApiController]
 [Route("api")]
-public class StaffOrderController : ControllerBase
+public class OrderStaffController : ControllerBase
 {
     private readonly IOrderService _orderService;
 
 
-    public StaffOrderController(IOrderService orderService)
+    public OrderStaffController(IOrderService orderService)
     {
         _orderService = orderService;
     }

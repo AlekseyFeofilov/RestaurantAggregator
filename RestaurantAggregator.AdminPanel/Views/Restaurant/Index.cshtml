@@ -1,0 +1,10 @@
+@model PagedNamedListModel
+
+@{
+    ViewBag.Title = "Restaurants";
+    Layout = "_Layout";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@{ await Html.RenderPartialAsync("PagedNamedListView", Model);}

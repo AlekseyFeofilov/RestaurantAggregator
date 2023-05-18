@@ -18,7 +18,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantAggregator.Backen
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantAggregator.Backend.BL", "RestaurantAggregator.Backend.BL\RestaurantAggregator.Backend.BL.csproj", "{44EA8790-0AEA-4892-909D-8C8BA4A4FC24}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantAggregator.AdminPannel", "RestaurantAggregator.AdminPannel\RestaurantAggregator.AdminPannel.csproj", "{25939C96-FFDA-4366-A018-9423393B4DD4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantAggregator.AdminPanel", "RestaurantAggregator.AdminPanel\RestaurantAggregator.AdminPanel.csproj", "{25939C96-FFDA-4366-A018-9423393B4DD4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantAggregator.Common", "RestaurantAggregator.Common\RestaurantAggregator.Common.csproj", "{CD1BCBA2-94FB-40A7-88AD-0767242F5ACC}"
 EndProject

@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
+using RestaurantAggregator.Common.Configurations;
 using RestaurantAggregator.Common.Exceptions;
 using RestaurantAggregator.Common.Extensions;
+using RestaurantAggregator.Common.Models;
 using RestaurantAggregator.Common.Models.Enums;
 using RestaurantAggregator.DAL.DbContexts;
 using RestaurantAggregator.DAL.Entities;
@@ -17,22 +19,29 @@ public class DishRepository : IDishRepository
         _context = context;
     }
 
-    public Task<List<Dish>> FetchAllDishesAsync(FetchDishOptions fetchDishOptions) //todo кидать bad request если это меню не из указанного ресторана
+    public async Task<PagedEnumerable<Dish>>
+        FetchAllDishesAsync(
+            FetchDishOptions fetchDishOptions) //todo кидать bad request если это меню не из указанного ресторана
     {
-        var dishes = fetchDishOptions.MenuId == null 
+        var dishes = fetchDishOptions.MenuId == null
             ? _context.Dishes.Where(dish => dish.Restaurant.Id == fetchDishOptions.RestaurantId).AsQueryable()
-            : _context.Dishes.Where(dish => dish.Menus.Any(menu => menu.Id == fetchDishOptions.MenuId)).AsQueryable(); 
-        
+            : _context.Dishes.Where(dish => dish.Menus.Any(menu => menu.Id == fetchDishOptions.MenuId)).AsQueryable();
+
         dishes = GetVegetarian(dishes, fetchDishOptions.Vegetarian);
         dishes = GetCategory(dishes, fetchDishOptions.Categories);
         dishes = Sort(dishes, fetchDishOptions.Sorting);
 
-        return dishes
-            .GetPagedQueryable(fetchDishOptions.Skip, fetchDishOptions.Take)
-            .Include(x => x.Restaurant)
-            .ToListAsync();
+        var pagedDishes = dishes.GetPagedQueryable(fetchDishOptions.Page, AppConfigurations.PageSize);
+        var pagedEnumerableDishes = new PagedEnumerable<Dish>(
+            await pagedDishes.Items!
+                .Include(x => x.Restaurant)
+                .ToListAsync(),
+            pagedDishes.Pagination
+        );
+
+        return pagedEnumerableDishes;
     }
-    
+
     public async Task<Dish> FetchDishAsync(Guid dishId)
     {
         var dish = await _context.Dishes

@@ -1,3 +1,5 @@
+using RestaurantAggregator.Common.Models.Dto.Dish;
+
 namespace RestaurantAggregator.Common.Models.Dto;
 
 public class DishPagedListDto

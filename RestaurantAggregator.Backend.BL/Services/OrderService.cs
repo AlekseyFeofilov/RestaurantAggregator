@@ -1,13 +1,14 @@
 using System.Security.Claims;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using RestaurantAggregator.BL.IRepositories;
 using RestaurantAggregator.Common.Exceptions;
 using RestaurantAggregator.Common.IServices;
 using RestaurantAggregator.Common.Models.Dto;
 using RestaurantAggregator.Common.Models.Enums;
 using RestaurantAggregator.DAL.DbContexts;
 using RestaurantAggregator.DAL.Entities;
+using RestaurantAggregator.DAL.Repositories.OrderRepository;
+using RestaurantAggregator.DAL.Repositories.ReviewRepository;
 
 namespace RestaurantAggregator.BL.Services;
 
@@ -18,12 +19,21 @@ public class OrderService : IOrderService
     private readonly IMapper _mapper;
 
     private readonly IOrderRepository _orderRepository;
+    
+    private readonly IRepositoryService _repositoryService;
 
-    public OrderService(IMapper mapper, IOrderRepository orderRepository, ApplicationDbContext context)
+    private readonly IReviewRepository _reviewRepository;
+
+    private readonly IUserService _userService;
+
+    public OrderService(IMapper mapper, IOrderRepository orderRepository, ApplicationDbContext context, IRepositoryService repositoryService, IReviewRepository reviewRepository, IUserService userService)
     {
         _mapper = mapper;
         _orderRepository = orderRepository;
         _context = context;
+        _repositoryService = repositoryService;
+        _reviewRepository = reviewRepository;
+        _userService = userService;
     }
 
     public async Task<OrderDto> FetchOrder(ClaimsPrincipal claimsPrincipal, Guid orderId)
@@ -131,5 +141,47 @@ public class OrderService : IOrderService
             .Include(x => x.DishBaskets)
             .Select(x => _mapper.Map<OrderDto>(x))
             .ToListAsync();
+    }
+
+    public Task<bool> CheckReviewAccess(ClaimsPrincipal claimsPrincipal, Guid dishId)
+    {
+        var userId = _userService.GetUserId(claimsPrincipal);
+        return _reviewRepository.IsAnyOrderWithDish(userId, dishId);
+    }
+
+    public async Task SetReview(ClaimsPrincipal claimsPrincipal, Guid dishId, int rating)
+    {
+        var userId = _userService.GetUserId(claimsPrincipal);
+        var dish = await _repositoryService.FetchDish(dishId);
+        var review = await FetchReview(dishId, userId); 
+        await SetReview(review, dish, userId, rating);
+    }
+    
+    private async Task<Review?> FetchReview(Guid dishId, Guid userId)
+    {
+        return await _reviewRepository.FetchReview(dishId, userId);
+    }
+
+    private async Task SetReview(Review? review, Dish dish, Guid userId, int rating)
+    {
+        if (review != null)
+        {
+            await _reviewRepository.UpdateReview(review, rating);
+        }
+        else
+        {
+            await _reviewRepository.CreateReview(CreateReview(dish, userId, rating));
+        }
+    }
+
+    private Review CreateReview(Dish dish, Guid userId, int rating)
+    {
+        return new Review
+        {
+            Id = Guid.NewGuid(),
+            Dish = dish,
+            UserId = userId,
+            Rating = rating
+        };
     }
 }

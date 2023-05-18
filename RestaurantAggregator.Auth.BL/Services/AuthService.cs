@@ -203,6 +203,8 @@ public class AuthService : IAuthService
         
         foreach (var roleName in roleNames)
         {
+            roleClaims.Add(new Claim(ClaimTypes.Role, roleName));
+            
             var role = await _roleManager.FindByNameAsync(roleName);
             var claimsAsync = await _roleManager.GetClaimsAsync(role);
             roleClaims.AddRange(claimsAsync);

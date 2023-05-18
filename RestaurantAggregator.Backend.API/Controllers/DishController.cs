@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using RestaurantAggregator.API.Models.Dish;
+using RestaurantAggregator.Backend.API.Models.Dish;
 using RestaurantAggregator.Common.Configurations;
 using RestaurantAggregator.Common.IServices;
 using RestaurantAggregator.Common.Models;
@@ -10,7 +10,7 @@ using RestaurantAggregator.Common.Models.Dto;
 using RestaurantAggregator.Common.Models.Dto.Dish;
 using RestaurantAggregator.Common.Models.Enums;
 
-namespace RestaurantAggregator.API.Controllers;
+namespace RestaurantAggregator.Backend.API.Controllers;
 
 [ApiController]
 [Route("api/dish")]

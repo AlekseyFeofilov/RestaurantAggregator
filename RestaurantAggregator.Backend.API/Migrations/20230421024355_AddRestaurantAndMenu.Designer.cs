@@ -9,7 +9,7 @@ using RestaurantAggregator.DAL.DbContexts;
 
 #nullable disable
 
-namespace RestaurantAggregator.API.Migrations
+namespace RestaurantAggregator.Backend.API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20230421024355_AddRestaurantAndMenu")]

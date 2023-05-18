@@ -1,3 +1,6 @@
+using RestaurantAggregator.Common.Models.Dto.Dish;
+using RestaurantAggregator.Common.Models.Dto.Restaurant;
+
 namespace RestaurantAggregator.Common.Models.Dto;
 
 public class MenuDto

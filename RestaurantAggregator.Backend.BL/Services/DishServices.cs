@@ -27,7 +27,8 @@ public class DishServices : IDishService
 
     private readonly IRestaurantRepository _restaurantRepository;
 
-    public DishServices(IMapper mapper, IDishRepository dishRepository, IReviewRepository reviewRepository, IRestaurantRepository restaurantRepository)
+    public DishServices(IMapper mapper, IDishRepository dishRepository, IReviewRepository reviewRepository,
+        IRestaurantRepository restaurantRepository)
     {
         _mapper = mapper;
         _dishRepository = dishRepository;
@@ -39,10 +40,13 @@ public class DishServices : IDishService
     {
         var fetchDishOptions = _mapper.Map<FetchDishOptions>(dishOptions);
 
-        var dishes = await _dishRepository.FetchAllDishesAsync(fetchDishOptions);
-        var dishDtos = dishes.Select(x => _mapper.Map<DishDto>(x));
+        var pagedDishes = await _dishRepository.FetchAllDishesAsync(fetchDishOptions);
+        var pagedDishDtos = new PagedEnumerable<DishDto>(
+            pagedDishes.Items.Select(x => _mapper.Map<DishDto>(x)),
+            pagedDishes.Pagination
+        );
 
-        return dishDtos.GetPagedEnumerable(PageSize, dishOptions.Page);
+        return pagedDishDtos;
     }
 
     public async Task<DishDto> FetchDishAsync(Guid dishId)
@@ -67,7 +71,7 @@ public class DishServices : IDishService
         var restaurant = await _restaurantRepository.FetchRestaurant(dishModifyDto.RestaurantId);
         var dish = _mapper.Map<Dish>(dishModifyDto);
         dish.Restaurant = restaurant;
-        
+
         await _dishRepository.ModifyDishAsync(dish);
     }
 

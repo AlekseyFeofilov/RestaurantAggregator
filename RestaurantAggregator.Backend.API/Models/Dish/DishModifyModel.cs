@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using RestaurantAggregator.Common.Models.Enums;
 
-namespace RestaurantAggregator.API.Models.Dish;
+namespace RestaurantAggregator.Backend.API.Models.Dish;
 
 public class DishModifyModel
 {

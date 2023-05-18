@@ -8,7 +8,7 @@ using RestaurantAggregator.DAL.DbContexts;
 
 #nullable disable
 
-namespace RestaurantAggregator.API.Migrations
+namespace RestaurantAggregator.Backend.API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot

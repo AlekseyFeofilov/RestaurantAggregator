@@ -5,7 +5,7 @@ using RestaurantAggregator.Common.Configurations;
 using RestaurantAggregator.Common.IServices;
 using RestaurantAggregator.Common.Models.Dto;
 
-namespace RestaurantAggregator.API.Controllers;
+namespace RestaurantAggregator.Backend.API.Controllers;
 
 [ApiController]
 [Route("api/order")]

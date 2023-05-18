@@ -17,4 +17,18 @@
       <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.13" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Areas" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\RestaurantAggregator.Backend.BL\RestaurantAggregator.Backend.BL.csproj" />
+      <ProjectReference Include="..\RestaurantAggregator.Backend.Common\RestaurantAggregator.Backend.Common.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <AdditionalFiles Include="Views\RestaurantStaff\CourierIndex.cshtml" />
+      <AdditionalFiles Include="Views\Restaurant\Index.cshtml" />
+    </ItemGroup>
+
 </Project>

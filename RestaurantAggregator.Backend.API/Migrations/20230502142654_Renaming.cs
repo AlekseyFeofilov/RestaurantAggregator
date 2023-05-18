@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace RestaurantAggregator.API.Migrations
+namespace RestaurantAggregator.Backend.API.Migrations
 {
     public partial class Renaming : Migration
     {

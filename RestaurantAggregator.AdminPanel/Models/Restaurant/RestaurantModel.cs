@@ -1,4 +1,4 @@
-namespace RestaurantAggregator.Backend.API.Models.Restaurant;
+namespace RestaurantAggregator.AdminPanel.Models;
 
 public class RestaurantModel
 {

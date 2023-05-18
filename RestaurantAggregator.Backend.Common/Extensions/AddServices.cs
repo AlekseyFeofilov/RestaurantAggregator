@@ -24,22 +24,24 @@ public static class AddServices
                 Scheme = "Bearer"
             });
 
-            options.AddSecurityRequirement(new OpenApiSecurityRequirement
-            {
-                {
-                    new OpenApiSecurityScheme
-                    {
-                        Name = "Bearer",
-                        In = ParameterLocation.Header,
-                        Reference = new OpenApiReference
-                        {
-                            Id = "Bearer",
-                            Type = ReferenceType.SecurityScheme
-                        }
-                    },
-                    new List<string>()
-                }
-            });
+            // options.AddSecurityRequirement(new OpenApiSecurityRequirement
+            // {
+            //     {
+            //         new OpenApiSecurityScheme
+            //         {
+            //             Name = "Bearer",
+            //             In = ParameterLocation.Header,
+            //             Reference = new OpenApiReference
+            //             {
+            //                 Id = "Bearer",
+            //                 Type = ReferenceType.SecurityScheme
+            //             }
+            //         },
+            //         new List<string>()
+            //     }
+            // });
+            
+            options.OperationFilter<AuthResponsesOperationFilter>();
         });
     }
 }

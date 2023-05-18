@@ -1,12 +1,12 @@
 using AutoMapper;
-using RestaurantAggregator.API.Models.Dish;
-using RestaurantAggregator.API.Models.Restaurant;
+using RestaurantAggregator.Backend.API.Models.Dish;
+using RestaurantAggregator.Backend.API.Models.Restaurant;
 using RestaurantAggregator.Common.Models;
 using RestaurantAggregator.Common.Models.Dto;
 using RestaurantAggregator.Common.Models.Dto.Dish;
 using RestaurantAggregator.Common.Models.Dto.Restaurant;
 
-namespace RestaurantAggregator.API.Helper;
+namespace RestaurantAggregator.Backend.API.Helper;
 
 public class MapperProfile : Profile
 {
@@ -18,5 +18,6 @@ public class MapperProfile : Profile
         CreateMap<DishModifyModel, DishModifyDto>();
 
         CreateMap<PagedEnumerable<DishDto>, PagedEnumerable<DishModel>>();
+        CreateMap<PagedEnumerable<RestaurantDto>, PagedEnumerable<RestaurantModel>>();
     }
 }

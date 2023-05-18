@@ -1,6 +1,6 @@
 using RestaurantAggregator.Common.Configurations;
 
-namespace RestaurantAggregator.API.Middleware;
+namespace RestaurantAggregator.Backend.API.Middleware;
 
 public class ErrorHandlingMiddleware // todo попробовать сделать через IErrorHandlerMiddleware
 {

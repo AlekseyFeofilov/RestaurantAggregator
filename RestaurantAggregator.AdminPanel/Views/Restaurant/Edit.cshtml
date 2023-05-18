@@ -1,0 +1,30 @@
+@model RestaurantModel
+
+@{
+    ViewBag.Title = "Edit restaurant";
+    Layout = "_Layout";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="text" name="name" value="@Model.Name"/>
+    <input type="hidden" name="id" value="@Model.Id"/>
+    <button type="submit">Save</button>
+</form>
+
+<div style="display:flex">
+    <form asp-controller="RestaurantStaff" asp-action="ManagerIndex">
+        <button type="submit" name="id" value="@Model.Id">Managers</button>
+    </form>
+    <form asp-controller="RestaurantStaff" asp-action="CookIndex">
+        <button type="submit" name="id" value="@Model.Id">Cooks</button>
+    </form>
+    <form asp-controller="RestaurantStaff" asp-action="CourierIndex">
+        <button type="submit" name="id" value="@Model.Id">Couriers</button>
+    </form>
+</div>
+
+<form asp-action="Delete" method="post">
+    <button style="background: orangered" type="submit" name="id" value="@Model.Id">Delete</button>
+</form>

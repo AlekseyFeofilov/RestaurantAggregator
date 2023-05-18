@@ -1,3 +1,4 @@
+using RestaurantAggregator.Common.Models;
 using RestaurantAggregator.DAL.Entities;
 using RestaurantAggregator.DAL.Models;
 
@@ -5,7 +6,7 @@ namespace RestaurantAggregator.DAL.Repositories.DishRepository;
 
 public interface IDishRepository
 {
-    Task<List<Dish>> FetchAllDishesAsync(FetchDishOptions fetchDishOptions);
+    Task<PagedEnumerable<Dish>> FetchAllDishesAsync(FetchDishOptions fetchDishOptions);
     
     Task<Dish> FetchDishAsync(Guid dishId);
     

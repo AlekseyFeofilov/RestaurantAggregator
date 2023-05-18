@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using RestaurantAggregator.DAL.DbContexts;
 using RestaurantAggregator.DAL.Entities;
 
-namespace RestaurantAggregator.DAL.ReviewRepository;
+namespace RestaurantAggregator.DAL.Repositories.ReviewRepository;
 
 public class ReviewRepository : IReviewRepository
 {
@@ -20,11 +20,11 @@ public class ReviewRepository : IReviewRepository
             .ToListAsync();
     }
 
-    public bool IsAnyOrderWithDish(Guid userId, Guid dishId)
+    public Task<bool> IsAnyOrderWithDish(Guid userId, Guid dishId)
     {
         return _context.Orders
             .Where(x => x.UserId == userId)
-            .Any(order => order.DishBaskets
+            .AnyAsync(order => order.DishBaskets
                 .Any(dishBasket => dishBasket.Dish.Id == dishId)
             );
     }

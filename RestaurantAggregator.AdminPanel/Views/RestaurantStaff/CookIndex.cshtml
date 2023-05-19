@@ -1,8 +1,10 @@
-@model dynamic
+@model RestaurantAggregator.AdminPanel.Models.Shared.PagedNamedListModel
 
 @{
-    ViewBag.Title = "title";
+    ViewBag.Title = "Restaurant cooks";
     Layout = "_Layout";
 }
 
-<h2>title</h2>
+<h2>@ViewBag.Title</h2>
+
+@{ await Html.RenderPartialAsync("PagedNamedListView", Model);}

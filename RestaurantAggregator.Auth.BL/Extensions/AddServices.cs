@@ -3,6 +3,8 @@ using Microsoft.Extensions.DependencyInjection;
 using RestaurantAggregator.Auth.BL.Services;
 using RestaurantAggregator.Auth.Common.IServices;
 using RestaurantAggregator.Auth.DAL.Extensions;
+using RestaurantAggregator.Auth.DAL.Repositories.MangerRepository;
+using RestaurantAggregator.Auth.DAL.Repositories.UserRepository;
 
 namespace RestaurantAggregator.Auth.BL.Extensions;
 
@@ -24,5 +26,7 @@ public static class AddServices
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IAccountService, AccountService>();
         services.AddScoped<IJwtService, JwtService>();
+        services.AddScoped<IManagerRepository, ManagerRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
     }
 }

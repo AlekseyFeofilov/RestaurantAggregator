@@ -1,4 +1,4 @@
-@model RestaurantModel
+@model RestaurantAggregator.AdminPanel.Models.Restaurant.RestaurantModel
 
 @{
     ViewBag.Title = "Edit restaurant";
@@ -14,14 +14,14 @@
 </form>
 
 <div style="display:flex">
-    <form asp-controller="RestaurantStaff" asp-action="ManagerIndex">
-        <button type="submit" name="id" value="@Model.Id">Managers</button>
+    <form asp-controller="Manager" asp-action="Index">
+        <button type="submit" name="restaurantId" value="@Model.Id">Managers</button>
     </form>
     <form asp-controller="RestaurantStaff" asp-action="CookIndex">
-        <button type="submit" name="id" value="@Model.Id">Cooks</button>
+        <button type="submit" name="restaurantId" value="@Model.Id">Cooks</button>
     </form>
     <form asp-controller="RestaurantStaff" asp-action="CourierIndex">
-        <button type="submit" name="id" value="@Model.Id">Couriers</button>
+        <button type="submit" name="restaurantId" value="@Model.Id">Couriers</button>
     </form>
 </div>
 

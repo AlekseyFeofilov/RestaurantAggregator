@@ -1,0 +1,10 @@
+@model IEnumerable<RestaurantAggregator.AdminPanel.Models.Shared.NamedItem>
+
+<form>
+    @{
+        foreach (var item in Model)
+        {
+            <button style="display: block" type="submit" asp-action="Edit" formmethod="get" name="id" value="@item.Id" class="btn btn-link">@item.Name</button>
+        }
+    }
+</form>

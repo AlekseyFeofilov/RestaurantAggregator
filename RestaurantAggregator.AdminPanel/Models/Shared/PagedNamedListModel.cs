@@ -1,6 +1,6 @@
 using RestaurantAggregator.Common.Models;
 
-namespace RestaurantAggregator.AdminPanel.Models;
+namespace RestaurantAggregator.AdminPanel.Models.Shared;
 
 public class PagedNamedListModel
 {

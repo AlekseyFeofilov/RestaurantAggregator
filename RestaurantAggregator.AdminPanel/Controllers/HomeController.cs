@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using RestaurantAggregator.AdminPanel.Models;
+using RestaurantAggregator.AdminPanel.Models.Shared;
 
 namespace RestaurantAggregator.AdminPanel.Controllers;
 

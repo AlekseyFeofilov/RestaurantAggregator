@@ -22,8 +22,10 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\RestaurantAggregator.Auth.BL\RestaurantAggregator.Auth.BL.csproj" />
       <ProjectReference Include="..\RestaurantAggregator.Backend.BL\RestaurantAggregator.Backend.BL.csproj" />
       <ProjectReference Include="..\RestaurantAggregator.Backend.Common\RestaurantAggregator.Backend.Common.csproj" />
+      <ProjectReference Include="..\RestaurantAggregator.Auth.DAL\RestaurantAggregator.Auth.DAL.csproj" />
     </ItemGroup>
 
     <ItemGroup>

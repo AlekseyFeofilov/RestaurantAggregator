@@ -1,0 +1,10 @@
+@model Tuple<Guid, RestaurantAggregator.AdminPanel.Models.Shared.PagedNamedListModel>
+
+@{
+    ViewBag.Title = "Restaurant managers";
+    Layout = "_Layout";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@{ await Html.RenderPartialAsync("PagedNamedRestaurantListView", Model);}

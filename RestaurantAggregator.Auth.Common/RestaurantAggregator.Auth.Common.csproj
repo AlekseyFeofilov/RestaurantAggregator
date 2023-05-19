@@ -30,4 +30,8 @@
       <Folder Include="Models" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\RestaurantAggregator.Common\RestaurantAggregator.Common.csproj" />
+    </ItemGroup>
+
 </Project>

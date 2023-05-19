@@ -1,7 +1,7 @@
 using RestaurantAggregator.Common.Models;
 using RestaurantAggregator.Common.Models.Dto.Restaurant;
 
-namespace RestaurantAggregator.AdminPanel.Models;
+namespace RestaurantAggregator.AdminPanel.Models.Restaurant;
 
 public class RestaurantSearchResult
 {

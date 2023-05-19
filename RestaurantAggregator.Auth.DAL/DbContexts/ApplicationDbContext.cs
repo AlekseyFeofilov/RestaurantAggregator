@@ -29,6 +29,8 @@ public class ApplicationDbContext : IdentityDbContext<User, Role, Guid>
     {
         base.OnModelCreating(modelBuilder);
 
+        modelBuilder.Entity<Manager>().HasKey(x => x.Id);
+        
         modelBuilder.Entity<User>()
             .HasOne<Customer>()
             .WithOne(x => x.User)

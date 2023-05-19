@@ -2,9 +2,11 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using RestaurantAggregator.BL.Services;
 using RestaurantAggregator.Common.IServices;
+using RestaurantAggregator.DAL.Entities;
 using RestaurantAggregator.DAL.Extensions;
 using RestaurantAggregator.DAL.Repositories;
 using RestaurantAggregator.DAL.Repositories.DishRepository;
+using RestaurantAggregator.DAL.Repositories.ManagerRepository;
 using RestaurantAggregator.DAL.Repositories.OrderRepository;
 using RestaurantAggregator.DAL.Repositories.RestaurantRepository;
 using RestaurantAggregator.DAL.Repositories.ReviewRepository;
@@ -36,6 +38,7 @@ public static class AddServices
         services.AddScoped<IDishRepository, DishRepository>();
         services.AddScoped<IReviewRepository, ReviewRepository>();
         services.AddScoped<IRestaurantRepository, RestaurantRepository>();
+        services.AddScoped<IManagerRepository, ManagerRepository>();
         services.AddScoped<IUserService, UserService>();
     }
 }

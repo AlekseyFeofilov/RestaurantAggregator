@@ -1,5 +1,6 @@
 using AutoMapper;
 using RestaurantAggregator.AdminPanel.Models;
+using RestaurantAggregator.AdminPanel.Models.Manager;
 using RestaurantAggregator.AdminPanel.Models.Restaurant;
 using RestaurantAggregator.Common.Models.Dto.Restaurant;
 
@@ -11,6 +12,8 @@ public class MapperProfile : Profile
     {
         CreateMap<CreateRestaurantModel, CreateRestaurantDto>();
         CreateMap<RestaurantDto, RestaurantModel>();
+        
+        // CreateMap<ManagerDto, ManagerModel>();
         CreateMap<ModifyRestaurantModel, ModifyRestaurantDto>();
     }
 }

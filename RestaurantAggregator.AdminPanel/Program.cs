@@ -1,3 +1,7 @@
+
+using RestaurantAggregator.Auth.DAL.Extensions;
+using RestaurantAggregator.Auth.DAL.Repositories.MangerRepository;
+using RestaurantAggregator.Auth.DAL.Repositories.UserRepository;
 using RestaurantAggregator.BL.Extensions;
 using RestaurantAggregator.BL.Helper;
 using RestaurantAggregator.BL.Services;
@@ -8,6 +12,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
+
+builder.Services.AddDAL();
+builder.Services.AddScoped<IManagerRepository, ManagerRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 builder.Services.AddBL();
 builder.Services.AddAutoMapper(typeof(MapperProfile));

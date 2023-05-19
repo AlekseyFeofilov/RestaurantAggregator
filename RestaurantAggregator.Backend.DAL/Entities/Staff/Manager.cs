@@ -1,6 +1,8 @@
+using RestaurantAggregator.Common.Models;
+
 namespace RestaurantAggregator.DAL.Entities.Staff;
 
-public class Manager
+public class Manager : EntityWithId
 {
     public Guid Id { get; set; }
     

@@ -14,7 +14,7 @@ public class RestaurantRepository : IRestaurantRepository
         _context = context;
     }
 
-    public async Task<Restaurant> FetchRestaurant(Guid restaurantId)
+    public async Task<Restaurant> FetchRestaurantAsync(Guid restaurantId)
     {
         var restaurant = await _context.Restaurants.SingleOrDefaultAsync(x => x.Id == restaurantId);
 

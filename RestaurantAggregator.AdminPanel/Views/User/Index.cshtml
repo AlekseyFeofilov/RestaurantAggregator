@@ -1,0 +1,30 @@
+@model Tuple<RestaurantAggregator.AdminPanel.Models.Shared.PagedNamedListModel, string, Guid>
+
+@{
+    ViewBag.Title = "Users";
+    Layout = "_Layout";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<form style="display: inline">
+    <input type="hidden" name="controller" value="@Model.Item2"/>
+    @{ await Html.RenderPartialAsync("SearchView", Model.Item1.Contains);}
+</form>
+
+@* ReSharper disable once Mvc.ActionNotResolved *@
+<form asp-controller="@Model.Item2" asp-action="Create" method="post">
+    <input type="hidden" name="RestaurantId" value="@Model.Item3"/>
+    
+    @{
+        foreach (var item in Model.Item1.NamedItems)
+        {
+            <button style="display: block" type="submit" name="id" value="@item.Id" class="btn btn-link">@item.Name</button>
+        }
+    }
+</form>
+
+<form>
+    <input type="hidden" name="controller" value="@Model.Item2"/>
+    @{ await Html.RenderPartialAsync("PageNavigationView", Model.Item1.PageInfoModel);}
+</form>

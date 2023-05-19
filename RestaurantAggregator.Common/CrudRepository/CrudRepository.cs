@@ -9,22 +9,22 @@ public abstract class CrudRepository<T> : ICrudRepository<T> where T : EntityWit
 {
     private readonly DbContext _context;
 
-    private readonly DbSet<T> _dbSet;
+    protected readonly DbSet<T> DbSet;
 
     protected CrudRepository(DbContext context)
     {
         _context = context;
-        _dbSet = context.Set<T>();
+        DbSet = context.Set<T>();
     }
 
     public IQueryable<T> FetchAllElements()
     {
-        return _dbSet;
+        return DbSet;
     }
 
-    public T FetchDetails(Guid id)
+    public virtual T FetchDetails(Guid id)
     {
-        var entity = _dbSet.SingleOrDefault(x => x.Id == id);
+        var entity = DbSet.SingleOrDefault(x => x.Id == id);
 
         if (entity == null)
         {
@@ -36,7 +36,7 @@ public abstract class CrudRepository<T> : ICrudRepository<T> where T : EntityWit
 
     public async Task CreateAsync(T element)
     {
-        await _dbSet.AddAsync(element);
+        await DbSet.AddAsync(element);
         await SaveChangesAsync();
     }
 
@@ -45,7 +45,7 @@ public abstract class CrudRepository<T> : ICrudRepository<T> where T : EntityWit
     public async Task DeleteAsync(Guid id)
     {
         var entity = FetchDetails(id);
-        _dbSet.Remove(entity);
+        DbSet.Remove(entity);
         await SaveChangesAsync();
     }
 

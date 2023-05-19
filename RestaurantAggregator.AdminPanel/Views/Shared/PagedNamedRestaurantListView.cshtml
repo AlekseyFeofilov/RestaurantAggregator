@@ -1,12 +1,13 @@
-@model Tuple<Guid, RestaurantAggregator.AdminPanel.Models.Shared.PagedNamedListModel>
+@model Tuple<Guid, RestaurantAggregator.AdminPanel.Models.Shared.PagedNamedListModel, string>
 
 <form style="display: inline">
     <input type="hidden" name="restaurantId" value="@Model.Item1"/>
     @{ await Html.RenderPartialAsync("SearchView", Model.Item2.Contains);}
 </form>
 <form style="display: inline">
-    <input type="hidden" name="restaurantId" value="@Model.Item1"/>
-    @{ await Html.RenderPartialAsync("AddButtonView");}
+    <input type="hidden" name="staff" value="@Model.Item3"/>
+    <input type="hidden" name="RestaurantId" value="@Model.Item1"/>
+    <button type="submit" asp-controller="User" asp-action="Index" formmethod="get">Add</button>
 </form>
 <form>
     <input type="hidden" name="restaurantId" value="@Model.Item1"/>

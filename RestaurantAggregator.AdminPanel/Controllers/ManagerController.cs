@@ -1,12 +1,15 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RestaurantAggregator.AdminPanel.Models;
+using RestaurantAggregator.AdminPanel.Models.Manager;
 using RestaurantAggregator.AdminPanel.Models.Restaurant;
 using RestaurantAggregator.AdminPanel.Models.Shared;
 using RestaurantAggregator.Auth.DAL.Repositories.MangerRepository;
 using RestaurantAggregator.Auth.DAL.Repositories.UserRepository;
 using RestaurantAggregator.Common.Configurations;
 using RestaurantAggregator.Common.Extensions;
+using RestaurantAggregator.DAL.Entities.Staff;
+using RestaurantAggregator.DAL.Repositories.RestaurantRepository;
 
 namespace RestaurantAggregator.AdminPanel.Controllers;
 
@@ -18,11 +21,14 @@ public class ManagerController : Controller
 
     private readonly IUserRepository _userRepository;
 
-    public ManagerController(IManagerRepository authManagerRepository, DAL.Repositories.ManagerRepository.IManagerRepository managerRepository, IUserRepository userRepository)
+    private readonly IRestaurantRepository _restaurantRepository;
+
+    public ManagerController(IManagerRepository authManagerRepository, DAL.Repositories.ManagerRepository.IManagerRepository managerRepository, IUserRepository userRepository, IRestaurantRepository restaurantRepository)
     {
         _authManagerRepository = authManagerRepository;
         _managerRepository = managerRepository;
         _userRepository = userRepository;
+        _restaurantRepository = restaurantRepository;
     }
 
     public async Task<ActionResult> Index(Guid restaurantId, string contains = "", int page = 1)
@@ -33,7 +39,7 @@ public class ManagerController : Controller
             .ToListAsync();
 
         var users = _userRepository
-            .FetchAllElements()
+            .FetchAllUsers()
             .Where(x => managers.Select(manager => manager.Id).Contains(x.Id) && x.FullName.Contains(contains ?? ""))
             .GetPagedQueryable(page, AppConfigurations.PageSize);
 
@@ -51,29 +57,51 @@ public class ManagerController : Controller
         return await Index(restaurantId, contains);
     }
     
-    // public ActionResult Create()
-    // {
-    //     return View();
-    // }
-    //
-    // [HttpPost]
-    // [ValidateAntiForgeryToken]
-    // public async Task<ActionResult> Create(CreateRestaurantModel createRestaurantModel)
-    // {
-    //     //
-    //     // var authManager = new Manager()
-    //     // await _managerRepository.CreateAsync();
-    //     // await _authManagerRepository.CreateAsync();
-    //     await _restaurantService.CreateRestaurantAsync(_mapper.Map<CreateRestaurantDto>(createRestaurantModel));
-    //     return await Index(createRestaurantModel.Name);
-    // }
-    //
-    // public async Task<ActionResult> Edit(Guid id)
-    // {
-    //     var restaurant = await _restaurantService.FetchRestaurantDetailsAsync(id);
-    //     return View(_mapper.Map<RestaurantModel>(restaurant));
-    // }
-    //
+    public ActionResult Create()
+    {
+        return View("../Home/Index");
+    }
+    
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<ActionResult> Create(CreateManagerModel createManagerModel)
+    {
+        var restaurant = await _restaurantRepository.FetchRestaurantAsync(createManagerModel.RestaurantId);
+        var user = _userRepository.FetchUserDetails(createManagerModel.Id);
+
+        await _authManagerRepository.CreateAsync(new Auth.DAL.Entities.Users.Manager
+        {
+            Id = user.Id,
+            User = user
+        });
+        
+        await _managerRepository.CreateAsync(new Manager
+        {
+            Id = user.Id,
+            Restaurant = restaurant
+        });
+        
+        return await Index(createManagerModel.RestaurantId);
+    }
+    
+    public ActionResult Edit(Guid id)
+    {
+        var manager = _managerRepository.FetchDetails(id); //crutch нельзя получить ресторана( 
+        var user = _userRepository.FetchUserDetails(id);
+        
+        
+        return View(new ManagerModel
+        {
+            Id = id,
+            Name = $"{user.FullName} ({user.Email})",
+            Restaurant = new RestaurantModel
+            {
+                Id = manager.Restaurant.Id,
+                Name = manager.Restaurant.Name
+            } 
+        });
+    }
+    
     // [HttpPost]
     // [ValidateAntiForgeryToken]
     // public async Task<ActionResult> Edit(ModifyRestaurantModel modifyRestaurantModel)
@@ -81,13 +109,13 @@ public class ManagerController : Controller
     //     await _restaurantService.ModifyRestaurantAsync(_mapper.Map<ModifyRestaurantDto>(modifyRestaurantModel));
     //     return await Edit(modifyRestaurantModel.Id);
     // }
-    //
-    // [HttpPost]
-    // [ValidateAntiForgeryToken]
-    // public async Task<ActionResult> Delete(Guid restaurantId, Guid managerId)
-    // {
-    //     await _managerRepository.DeleteAsync(managerId);
-    //     await _authManagerRepository.DeleteAsync(managerId);
-    //     return await Index(restaurantId);
-    // }
+    
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<ActionResult> Delete(Guid restaurantId, Guid managerId)
+    {
+        await _managerRepository.DeleteAsync(managerId);
+        await _authManagerRepository.DeleteAsync(managerId);
+        return RedirectToAction("Index", restaurantId); //todo make this way any time that i actually redirect
+    }
 }

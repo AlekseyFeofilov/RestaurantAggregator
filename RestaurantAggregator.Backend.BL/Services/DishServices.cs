@@ -59,7 +59,7 @@ public class DishServices : IDishService
 
     public async Task CreateDishAsync(DishCreateDto dishCreateDto)
     {
-        var restaurant = await _restaurantRepository.FetchRestaurant(dishCreateDto.RestaurantId);
+        var restaurant = await _restaurantRepository.FetchRestaurantAsync(dishCreateDto.RestaurantId);
         var dish = _mapper.Map<Dish>(dishCreateDto);
         dish.Restaurant = restaurant;
 
@@ -68,7 +68,7 @@ public class DishServices : IDishService
 
     public async Task ModifyDishAsync(DishModifyDto dishModifyDto)
     {
-        var restaurant = await _restaurantRepository.FetchRestaurant(dishModifyDto.RestaurantId);
+        var restaurant = await _restaurantRepository.FetchRestaurantAsync(dishModifyDto.RestaurantId);
         var dish = _mapper.Map<Dish>(dishModifyDto);
         dish.Restaurant = restaurant;
 

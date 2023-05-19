@@ -1,4 +1,6 @@
+using Microsoft.EntityFrameworkCore;
 using RestaurantAggregator.Common.CrudRepository;
+using RestaurantAggregator.Common.Exceptions;
 using RestaurantAggregator.Common.Models;
 using RestaurantAggregator.DAL.DbContexts;
 using RestaurantAggregator.DAL.Entities.Staff;
@@ -9,6 +11,18 @@ public class ManagerRepository : CrudRepository<Manager>, IManagerRepository
 {
     public ManagerRepository(ApplicationDbContext context) : base(context)
     {
+    }
+
+    public override Manager FetchDetails(Guid id)
+    {
+        var manager = DbSet.Include(x => x.Restaurant).SingleOrDefault(x => x.Id == id);
+
+        if (manager == null)
+        {
+            throw new NotFoundException();
+        }
+
+        return manager;
     }
 
     public override async Task ModifyAsync(Manager element)

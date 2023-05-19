@@ -4,5 +4,5 @@ namespace RestaurantAggregator.DAL.Repositories.RestaurantRepository;
 
 public interface IRestaurantRepository
 {
-    Task<Restaurant> FetchRestaurant(Guid restaurantId);
+    Task<Restaurant> FetchRestaurantAsync(Guid restaurantId);
 }

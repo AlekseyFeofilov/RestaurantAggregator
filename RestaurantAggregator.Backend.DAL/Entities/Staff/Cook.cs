@@ -1,8 +1,8 @@
+using RestaurantAggregator.Common.Models;
+
 namespace RestaurantAggregator.DAL.Entities.Staff;
 
-public class Cook
+public class Cook : EntityWithId
 {
-    public Guid Id { get; set; }
-    
     public Restaurant Restaurant { get; set; }
 }

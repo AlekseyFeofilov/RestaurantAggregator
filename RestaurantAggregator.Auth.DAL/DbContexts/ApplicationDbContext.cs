@@ -30,6 +30,8 @@ public class ApplicationDbContext : IdentityDbContext<User, Role, Guid>
         base.OnModelCreating(modelBuilder);
 
         modelBuilder.Entity<Manager>().HasKey(x => x.Id);
+        modelBuilder.Entity<Cook>().HasKey(x => x.Id);
+        modelBuilder.Entity<Courier>().HasKey(x => x.Id);
         
         modelBuilder.Entity<User>()
             .HasOne<Customer>()

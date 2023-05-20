@@ -1,12 +1,9 @@
 using RestaurantAggregator.Auth.DAL.Entities.IdentityEntities;
+using RestaurantAggregator.Common.Models;
 
 namespace RestaurantAggregator.Auth.DAL.Entities.Users;
 
-public class Cook
+public class Cook : EntityWithId
 {
-    public Guid Id { get; set; }
-    
     public User User { get; set; }
-    
-    public string ForTest { get; set; }
 }

@@ -34,6 +34,6 @@ public class ApplicationDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        
+        modelBuilder.Entity<Cook>().HasKey(x => x.Id);
     }
 }

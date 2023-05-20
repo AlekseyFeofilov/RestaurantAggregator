@@ -1,6 +1,7 @@
 
 using RestaurantAggregator.Auth.DAL.Extensions;
 using RestaurantAggregator.Auth.DAL.Repositories.CookRepository;
+using RestaurantAggregator.Auth.DAL.Repositories.CourierRepository;
 using RestaurantAggregator.Auth.DAL.Repositories.MangerRepository;
 using RestaurantAggregator.Auth.DAL.Repositories.UserRepository;
 using RestaurantAggregator.BL.Extensions;
@@ -17,6 +18,7 @@ builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 builder.Services.AddDAL();
 builder.Services.AddScoped<IManagerRepository, ManagerRepository>();
 builder.Services.AddScoped<ICookRepository, CookRepository>();
+builder.Services.AddScoped<ICourierRepository, CourierRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 builder.Services.AddBL();

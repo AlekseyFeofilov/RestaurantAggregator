@@ -6,6 +6,7 @@ using RestaurantAggregator.DAL.Entities;
 using RestaurantAggregator.DAL.Extensions;
 using RestaurantAggregator.DAL.Repositories;
 using RestaurantAggregator.DAL.Repositories.CookRepository;
+using RestaurantAggregator.DAL.Repositories.CourierRepository;
 using RestaurantAggregator.DAL.Repositories.DishRepository;
 using RestaurantAggregator.DAL.Repositories.ManagerRepository;
 using RestaurantAggregator.DAL.Repositories.OrderRepository;
@@ -41,6 +42,7 @@ public static class AddServices
         services.AddScoped<IRestaurantRepository, RestaurantRepository>();
         services.AddScoped<IManagerRepository, ManagerRepository>();
         services.AddScoped<ICookRepository, CookRepository>();
+        services.AddScoped<ICourierRepository, CourierRepository>();
         services.AddScoped<IUserService, UserService>();
     }
 }

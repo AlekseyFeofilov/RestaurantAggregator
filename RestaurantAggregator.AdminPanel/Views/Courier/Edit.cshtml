@@ -1,0 +1,16 @@
+@model RestaurantAggregator.AdminPanel.Models.Courier.CourierModel
+
+@{
+    ViewBag.Title = "Edit Courier";
+    Layout = "_Layout";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>@Model.Name</p>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" name="courierId" value="@Model.Id"/>
+    <input type="hidden" name="restaurantId" value="@Model.Restaurant.Id"/>
+    <button style="background: orangered" type="submit" name="id" value="@Model.Id">Delete</button>
+</form>

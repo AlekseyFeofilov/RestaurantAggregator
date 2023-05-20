@@ -22,9 +22,9 @@ public abstract class CrudRepository<T> : ICrudRepository<T> where T : EntityWit
         return DbSet;
     }
 
-    public virtual T FetchDetails(Guid id)
+    public T FetchDetails(Guid id)
     {
-        var entity = DbSet.SingleOrDefault(x => x.Id == id);
+        var entity = PrepareToFetchDetails().SingleOrDefault(x => x.Id == id);
 
         if (entity == null)
         {
@@ -52,5 +52,16 @@ public abstract class CrudRepository<T> : ICrudRepository<T> where T : EntityWit
     protected Task SaveChangesAsync()
     {
         return _context.SaveChangesAsync();
+    }
+
+    protected virtual IQueryable<T> PrepareToFetchAll()
+    {
+        return DbSet;
+    }
+
+
+    protected virtual IQueryable<T> PrepareToFetchDetails()
+    {
+        return DbSet;
     }
 }

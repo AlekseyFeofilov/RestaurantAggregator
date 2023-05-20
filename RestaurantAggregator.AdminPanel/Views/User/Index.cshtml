@@ -8,7 +8,8 @@
 <h2>@ViewBag.Title</h2>
 
 <form style="display: inline">
-    <input type="hidden" name="controller" value="@Model.Item2"/>
+    <input type="hidden" name="staff" value="@Model.Item2"/>
+    <input type="hidden" name="RestaurantId" value="@Model.Item3"/>
     @{ await Html.RenderPartialAsync("SearchView", Model.Item1.Contains);}
 </form>
 
@@ -25,6 +26,7 @@
 </form>
 
 <form>
-    <input type="hidden" name="controller" value="@Model.Item2"/>
+    <input type="hidden" name="staff" value="@Model.Item2"/>
+    <input type="hidden" name="RestaurantId" value="@Model.Item3"/>
     @{ await Html.RenderPartialAsync("PageNavigationView", Model.Item1.PageInfoModel);}
 </form>

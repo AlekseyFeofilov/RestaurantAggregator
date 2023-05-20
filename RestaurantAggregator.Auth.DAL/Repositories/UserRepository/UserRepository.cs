@@ -19,6 +19,15 @@ public class UserRepository : IUserRepository
         return _context.Users;
     }
 
+    public IQueryable<User> FetchAllNonStaffUsers()
+    {
+        return _context.Users.Where(user =>
+            !(_context.Managers.Any(manager => manager.Id == user.Id)
+              || _context.Cooks.Any(cook => cook.Id == user.Id)
+              || _context.Couriers.Any(courier => courier.Id == user.Id))
+        );
+    }
+
     public User FetchUserDetails(Guid id)
     {
         var user = FetchAllUsers().SingleOrDefault(x => x.Id == id);

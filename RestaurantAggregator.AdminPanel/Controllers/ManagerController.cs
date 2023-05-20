@@ -116,6 +116,6 @@ public class ManagerController : Controller
     {
         await _managerRepository.DeleteAsync(managerId);
         await _authManagerRepository.DeleteAsync(managerId);
-        return RedirectToAction("Index", restaurantId); //todo make this way any time that i actually redirect
+        return RedirectToAction("Index", new {restaurantId}); //todo make this way any time that i actually redirect
     }
 }

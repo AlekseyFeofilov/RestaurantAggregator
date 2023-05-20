@@ -13,16 +13,9 @@ public class ManagerRepository : CrudRepository<Manager>, IManagerRepository
     {
     }
 
-    public override Manager FetchDetails(Guid id)
+    protected override IQueryable<Manager> PrepareToFetchDetails()
     {
-        var manager = DbSet.Include(x => x.Restaurant).SingleOrDefault(x => x.Id == id);
-
-        if (manager == null)
-        {
-            throw new NotFoundException();
-        }
-
-        return manager;
+        return DbSet.Include(x => x.Restaurant);
     }
 
     public override async Task ModifyAsync(Manager element)

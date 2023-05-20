@@ -20,7 +20,7 @@ public class UserController : Controller
             int page = 1) //todo высвечивать только тех, кто ещё не стафф или не добавлять стаффа, если он уже есть
     {
         var users = _userRepository
-            .FetchAllUsers()
+            .FetchAllNonStaffUsers()
             .Where(x => x.FullName.Contains(contains ?? "") || x.Email.Contains(contains ?? ""))
             .GetPagedQueryable(page, AppConfigurations.PageSize);
 

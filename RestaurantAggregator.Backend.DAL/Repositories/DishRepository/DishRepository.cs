@@ -1,9 +1,13 @@
 using Microsoft.EntityFrameworkCore;
 using RestaurantAggregator.Backend.Common.Configurations;
 using RestaurantAggregator.Backend.Common.Exceptions;
+using RestaurantAggregator.Backend.Common.Exceptions.BadRequestExceptions;
+using RestaurantAggregator.Backend.Common.Exceptions.NotFoundException;
 using RestaurantAggregator.Backend.DAL.DbContexts;
 using RestaurantAggregator.Backend.DAL.Entities;
 using RestaurantAggregator.Backend.DAL.Models;
+using RestaurantAggregator.Backend.DAL.Repositories.MenuRepository;
+using RestaurantAggregator.Backend.DAL.Repositories.RestaurantRepository;
 using RestaurantAggregator.Common.Extensions;
 using RestaurantAggregator.Common.Models;
 using RestaurantAggregator.Common.Models.Enums;
@@ -14,18 +18,52 @@ public class DishRepository : IDishRepository
 {
     private readonly ApplicationDbContext _context;
 
-    public DishRepository(ApplicationDbContext context)
+    private readonly IMenuRepository _menuRepository;
+
+    private readonly IRestaurantRepository _restaurantRepository;
+
+    public DishRepository(ApplicationDbContext context, IMenuRepository menuRepository,
+        IRestaurantRepository restaurantRepository)
     {
         _context = context;
+        _menuRepository = menuRepository;
+        _restaurantRepository = restaurantRepository;
     }
 
-    public async Task<PagedEnumerable<Dish>>
-        FetchAllDishesAsync(
-            FetchDishOptions fetchDishOptions) //todo кидать bad request если это меню не из указанного ресторана
+    public async Task<PagedEnumerable<Dish>> FetchAllDishesAsync(FetchDishOptions fetchDishOptions,
+        bool isManager = false)
     {
-        var dishes = fetchDishOptions.MenuId == null
-            ? _context.Dishes.Where(dish => dish.Restaurant.Id == fetchDishOptions.RestaurantId).AsQueryable()
-            : _context.Dishes.Where(dish => dish.Menus.Any(menu => menu.Id == fetchDishOptions.MenuId)).AsQueryable();
+        //todo кидать bad request если это меню не из указанного ресторана
+        IQueryable<Dish> dishes;
+
+        if (fetchDishOptions.MenuId != null)
+        {
+            var menu = _menuRepository.FetchDetails((Guid)fetchDishOptions.MenuId);
+
+            if (menu.Restaurant.Id != fetchDishOptions.RestaurantId)
+            {
+                throw new MenuIsNotExistInRestaurant();
+            }
+
+            if (!menu.Active && !isManager)
+            {
+                throw new MenuNotFoundException();
+            }
+
+            dishes = menu.Dishes.Where(x => x.Active).AsQueryable();
+        }
+        else
+        {
+            if ((await _restaurantRepository.FetchRestaurantAsync(fetchDishOptions.RestaurantId)) == null)
+            {
+                throw new RestaurantNotFoundException();
+            }
+
+            dishes = _context.Dishes.Where(dish =>
+                dish.Restaurant.Id == fetchDishOptions.RestaurantId
+                && (isManager || dish.Active)
+            ).AsQueryable();
+        }
 
         dishes = GetVegetarian(dishes, fetchDishOptions.Vegetarian);
         dishes = GetCategory(dishes, fetchDishOptions.Categories);
@@ -42,13 +80,14 @@ public class DishRepository : IDishRepository
         return pagedEnumerableDishes;
     }
 
-    public async Task<Dish> FetchDishAsync(Guid dishId)
+    public async Task<Dish> FetchDishAsync(Guid dishId, bool isManager = false)
     {
         var dish = await _context.Dishes
             .Include(x => x.Restaurant)
             .SingleOrDefaultAsync(x => x.Id == dishId);
 
         if (dish == null) throw new DishNotFoundException();
+        if (!dish.Active && !isManager) throw new DishNotFoundException();
 
         return dish;
     }

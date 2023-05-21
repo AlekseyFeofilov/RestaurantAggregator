@@ -1,11 +1,12 @@
 using Microsoft.EntityFrameworkCore;
+using RestaurantAggregator.Backend.Common.Exceptions.NotFoundException;
 using RestaurantAggregator.Backend.DAL.DbContexts;
 using RestaurantAggregator.Backend.DAL.Entities.Staff;
 using RestaurantAggregator.Common.CrudRepository;
 
 namespace RestaurantAggregator.Backend.DAL.Repositories.CookRepository;
 
-public class CookRepository : CrudRepository<Cook>, ICookRepository
+public class CookRepository : CrudRepository<Cook, CookNotfoundException>, ICookRepository
 {
     public CookRepository(ApplicationDbContext context) : base(context)
     {

@@ -5,7 +5,9 @@ using RestaurantAggregator.Common.Models;
 
 namespace RestaurantAggregator.Common.CrudRepository;
 
-public abstract class CrudRepository<T> : ICrudRepository<T> where T : class, IClassWithId
+public abstract class CrudRepository<T, TNotFoundException> : ICrudRepository<T> 
+    where T : class, IClassWithId 
+    where TNotFoundException : Exception, new()
 {
     private readonly DbContext _context;
 
@@ -28,7 +30,7 @@ public abstract class CrudRepository<T> : ICrudRepository<T> where T : class, IC
 
         if (entity == null)
         {
-            throw new NotFoundException();
+            throw new TNotFoundException();
         }
 
         return entity;

@@ -72,6 +72,8 @@ public class CartService : ICartService
         }
         else
         {
+            if (!dish.Active) throw new DishNotFoundException();
+            
             _context.DishBaskets.Add(new CartDish
             {
                 Amount = 1,

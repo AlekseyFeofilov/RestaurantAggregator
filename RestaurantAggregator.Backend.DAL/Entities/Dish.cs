@@ -20,6 +20,9 @@ public class Dish
     public string? Image { get; set; }
     
     public bool Vegetarian { get; set; }
+
+    [DefaultValue(false)]
+    public bool Active { get; set; }
     
     public ICollection<Review> Reviews { get; set; }
     

@@ -35,7 +35,7 @@ public class DishServices : IDishService
 
     public async Task<PagedEnumerable<DishDto>> FetchAllAsync(DishOptions dishOptions)
     {
-        var fetchDishOptions = _mapper.Map<FetchDishOptions>(dishOptions);
+        var fetchDishOptions = _mapper.Map<FetchDishOptions>(dishOptions); //todo remove FetchDishOptions and use DishOptions in Common
 
         var pagedDishes = await _dishRepository.FetchAllDishesAsync(fetchDishOptions);
         var pagedDishDtos = new PagedEnumerable<DishDto>(

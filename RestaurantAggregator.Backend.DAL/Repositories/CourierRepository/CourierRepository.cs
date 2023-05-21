@@ -1,11 +1,12 @@
 using Microsoft.EntityFrameworkCore;
+using RestaurantAggregator.Backend.Common.Exceptions.NotFoundException;
 using RestaurantAggregator.Backend.DAL.DbContexts;
 using RestaurantAggregator.Backend.DAL.Entities.Staff;
 using RestaurantAggregator.Common.CrudRepository;
 
 namespace RestaurantAggregator.Backend.DAL.Repositories.CourierRepository;
 
-public class CourierRepository : CrudRepository<Courier>, ICourierRepository
+public class CourierRepository : CrudRepository<Courier, CourierNotFoundException>, ICourierRepository
 {
     public CourierRepository(ApplicationDbContext context) : base(context)
     {

@@ -1,11 +1,12 @@
 using Microsoft.EntityFrameworkCore;
+using RestaurantAggregator.Backend.Common.Exceptions.NotFoundException;
 using RestaurantAggregator.Backend.DAL.DbContexts;
 using RestaurantAggregator.Backend.DAL.Entities.Staff;
 using RestaurantAggregator.Common.CrudRepository;
 
 namespace RestaurantAggregator.Backend.DAL.Repositories.ManagerRepository;
 
-public class ManagerRepository : CrudRepository<Manager>, IManagerRepository
+public class ManagerRepository : CrudRepository<Manager, ManagerNotFoundException>, IManagerRepository
 {
     public ManagerRepository(ApplicationDbContext context) : base(context)
     {

@@ -1,8 +1,14 @@
+using System.ComponentModel;
+using RestaurantAggregator.Common.Models;
+
 namespace RestaurantAggregator.Backend.DAL.Entities;
 
-public class Menu
+public class Menu : IClassWithId
 {
     public Guid Id { get; set; }
+    
+    [DefaultValue(false)]
+    public bool Active { get; set; }
     
     public Restaurant Restaurant { get; set; }
     

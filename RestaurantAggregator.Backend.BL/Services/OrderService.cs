@@ -3,6 +3,7 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using RestaurantAggregator.Backend.Common.Dto;
 using RestaurantAggregator.Backend.Common.Exceptions;
+using RestaurantAggregator.Backend.Common.Exceptions.BadRequestExceptions;
 using RestaurantAggregator.Backend.Common.IServices;
 using RestaurantAggregator.Backend.DAL.DbContexts;
 using RestaurantAggregator.Backend.DAL.Entities;
@@ -60,7 +61,9 @@ public class OrderService : IOrderService
     {
         var userId = Guid.Parse(claimsPrincipal.FindFirst(ClaimTypes.NameIdentifier)!.Value);
         var cart = await GetOrderDishBaskets(userId);
-        if (!cart.Any()) return;
+
+        if (cart.Any(x => !x.Dish.Active)) throw new DishInCartNotAvailableException(); //todo make message: which one
+        if (!cart.Any()) throw new CartIsEmptyException();
 
         var firstDish = cart.First().Dish;
         var otherRestaurantDish =  cart.FirstOrDefault(cartDish => firstDish.Restaurant.Id != cartDish.Dish.Restaurant.Id);

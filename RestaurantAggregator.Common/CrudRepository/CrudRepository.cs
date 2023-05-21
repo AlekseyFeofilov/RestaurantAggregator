@@ -24,7 +24,7 @@ public abstract class CrudRepository<T, TNotFoundException> : ICrudRepository<T>
         return DbSet;
     }
 
-    public T FetchDetails(Guid id)
+    public T FetchDetails(Guid id) //todo make async
     {
         var entity = PrepareToFetchDetails().SingleOrDefault(x => x.Id == id);
 

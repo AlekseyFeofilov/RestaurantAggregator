@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using RestaurantAggregator.Backend.Common.IServices;
 
-namespace RestaurantAggregator.Backend.API.Controllers;
+namespace RestaurantAggregator.Backend.API.Controllers.CustomerControllers;
 
 [ApiController]
 [Route("api/menu")]

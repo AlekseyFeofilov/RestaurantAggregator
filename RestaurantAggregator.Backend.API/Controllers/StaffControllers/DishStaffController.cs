@@ -5,9 +5,8 @@ using RestaurantAggregator.Backend.Common.Dto;
 using RestaurantAggregator.Backend.Common.Dto.Dish;
 using RestaurantAggregator.Backend.Common.Enums;
 using RestaurantAggregator.Backend.Common.IServices;
-using RestaurantAggregator.Common.Models.Enums;
 
-namespace RestaurantAggregator.Backend.API.Controllers;
+namespace RestaurantAggregator.Backend.API.Controllers.StaffControllers;
 
 [ApiController]
 [Route("api")]

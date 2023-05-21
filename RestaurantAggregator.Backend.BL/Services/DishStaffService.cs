@@ -4,6 +4,7 @@ using RestaurantAggregator.Backend.Common.Dto;
 using RestaurantAggregator.Backend.Common.Exceptions;
 using RestaurantAggregator.Backend.Common.IServices;
 using RestaurantAggregator.Backend.DAL.DbContexts;
+using RestaurantAggregator.Common.Extensions;
 
 namespace RestaurantAggregator.Backend.BL.Services;
 

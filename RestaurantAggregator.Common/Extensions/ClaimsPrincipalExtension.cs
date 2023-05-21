@@ -1,6 +1,6 @@
 using System.Security.Claims;
 
-namespace RestaurantAggregator.Backend.BL.Extensions;
+namespace RestaurantAggregator.Common.Extensions;
 
 public static class ClaimsPrincipalExtension
 {

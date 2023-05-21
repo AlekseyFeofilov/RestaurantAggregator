@@ -6,9 +6,9 @@ namespace RestaurantAggregator.Backend.DAL.Repositories.DishRepository;
 
 public interface IDishRepository
 {
-    Task<PagedEnumerable<Dish>> FetchAllDishesAsync(FetchDishOptions fetchDishOptions, bool isManager = false);
+    Task<PagedEnumerable<Dish>> FetchAllDishesAsync(FetchDishOptions fetchDishOptions, bool onlyActive = false);
     
-    Task<Dish> FetchDishAsync(Guid dishId, bool isManager = false);
+    Task<Dish> FetchDishAsync(Guid dishId, bool onlyActive = false);
     
     Task CreateDishAsync(Dish dish);
     

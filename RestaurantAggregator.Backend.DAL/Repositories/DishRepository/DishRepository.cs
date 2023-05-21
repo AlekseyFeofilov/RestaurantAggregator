@@ -31,9 +31,8 @@ public class DishRepository : IDishRepository
     }
 
     public async Task<PagedEnumerable<Dish>> FetchAllDishesAsync(FetchDishOptions fetchDishOptions,
-        bool isManager = false)
+        bool onlyActive = true)
     {
-        //todo кидать bad request если это меню не из указанного ресторана
         IQueryable<Dish> dishes;
 
         if (fetchDishOptions.MenuId != null)
@@ -45,7 +44,7 @@ public class DishRepository : IDishRepository
                 throw new MenuIsNotExistInRestaurant();
             }
 
-            if (!menu.Active && !isManager)
+            if (!menu.Active && onlyActive)
             {
                 throw new MenuNotFoundException();
             }
@@ -54,14 +53,14 @@ public class DishRepository : IDishRepository
         }
         else
         {
-            if ((await _restaurantRepository.FetchRestaurantAsync(fetchDishOptions.RestaurantId)) == null)
+            if ((await _restaurantRepository.FetchRestaurantAsync((Guid)fetchDishOptions.RestaurantId!)) == null)
             {
                 throw new RestaurantNotFoundException();
             }
 
             dishes = _context.Dishes.Where(dish =>
                 dish.Restaurant.Id == fetchDishOptions.RestaurantId
-                && (isManager || dish.Active)
+                && (!onlyActive || dish.Active)
             ).AsQueryable();
         }
 
@@ -80,14 +79,14 @@ public class DishRepository : IDishRepository
         return pagedEnumerableDishes;
     }
 
-    public async Task<Dish> FetchDishAsync(Guid dishId, bool isManager = false)
+    public async Task<Dish> FetchDishAsync(Guid dishId, bool onlyActive = true)
     {
         var dish = await _context.Dishes
             .Include(x => x.Restaurant)
             .SingleOrDefaultAsync(x => x.Id == dishId);
 
         if (dish == null) throw new DishNotFoundException();
-        if (!dish.Active && !isManager) throw new DishNotFoundException();
+        if (!dish.Active && onlyActive) throw new DishNotFoundException();
 
         return dish;
     }

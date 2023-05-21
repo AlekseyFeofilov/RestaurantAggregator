@@ -4,7 +4,7 @@ using RestaurantAggregator.Backend.API.Models.Restaurant;
 using RestaurantAggregator.Backend.Common.IServices;
 using RestaurantAggregator.Common.Models;
 
-namespace RestaurantAggregator.Backend.API.Controllers;
+namespace RestaurantAggregator.Backend.API.Controllers.CustomerControllers;
 
 [ApiController]
 [Route("api/restaurant")]

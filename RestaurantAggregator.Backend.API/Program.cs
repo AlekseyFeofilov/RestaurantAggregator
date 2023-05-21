@@ -22,6 +22,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearerAuthenticationScheme();
 
 builder.Services.AddAutoMapper();
+builder.Services.AddAuthorizationPolicies();
+builder.Services.AddAuthorizationHandlers();
 
 var app = builder.Build();
 

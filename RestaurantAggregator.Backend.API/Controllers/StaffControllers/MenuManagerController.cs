@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace RestaurantAggregator.Backend.API.Controllers;
+namespace RestaurantAggregator.Backend.API.Controllers.StaffControllers;
 
 [ApiController]
 [Route("api/manager/menu")]

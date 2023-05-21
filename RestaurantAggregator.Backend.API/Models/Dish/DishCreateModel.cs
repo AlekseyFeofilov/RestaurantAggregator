@@ -3,7 +3,7 @@ using RestaurantAggregator.Common.Models.Enums;
 
 namespace RestaurantAggregator.Backend.API.Models.Dish;
 
-public class DishCreateModel
+public class DishCreateModel //todo add Active field
 {
     [MinLength(1), Required]
     public string Name { get; set; }
@@ -18,6 +18,4 @@ public class DishCreateModel
     public bool Vegetarian { get; set; }
 
     public DishCategory Category { get; set; }
-    
-    public Guid RestaurantId { get; set; }
 }

@@ -5,7 +5,7 @@ namespace RestaurantAggregator.Backend.Common.Dto;
 
 public class DishOptions
 {
-    public Guid RestaurantId { get; set; }
+    public Guid? RestaurantId { get; set; }
     
     public Guid? MenuId { get; set; }
     
@@ -17,7 +17,7 @@ public class DishOptions
     
     public int Page { get; set; }
 
-    public DishOptions(Guid restaurantId, Guid? menuId, DishCategory[]? categories, bool vegetarian, DishSorting? sorting, int page)
+    public DishOptions(Guid? restaurantId, Guid? menuId, DishCategory[]? categories, bool vegetarian, DishSorting? sorting, int page)
     {
         RestaurantId = restaurantId;
         MenuId = menuId;

@@ -4,7 +4,7 @@ using RestaurantAggregator.Backend.Common.Configurations;
 using RestaurantAggregator.Backend.Common.Dto;
 using RestaurantAggregator.Backend.Common.IServices;
 
-namespace RestaurantAggregator.Backend.API.Controllers;
+namespace RestaurantAggregator.Backend.API.Controllers.CustomerControllers;
 
 [ApiController]
 [Route("api/cart")]

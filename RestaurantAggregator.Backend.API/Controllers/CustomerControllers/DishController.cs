@@ -1,16 +1,14 @@
 using System.ComponentModel.DataAnnotations;
 using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RestaurantAggregator.Backend.API.Models.Dish;
 using RestaurantAggregator.Backend.Common.Configurations;
 using RestaurantAggregator.Backend.Common.Dto;
-using RestaurantAggregator.Backend.Common.Dto.Dish;
 using RestaurantAggregator.Backend.Common.IServices;
 using RestaurantAggregator.Common.Models;
 using RestaurantAggregator.Common.Models.Enums;
 
-namespace RestaurantAggregator.Backend.API.Controllers;
+namespace RestaurantAggregator.Backend.API.Controllers.CustomerControllers;
 
 [ApiController]
 [Route("api/dish")] // todo make with configuration
@@ -60,44 +58,5 @@ public class DishController : ControllerBase
     {
         var dishDto = await _dishService.FetchDetailsAsync(dishId);
         return Ok(_mapper.Map<DishModel>(dishDto));
-    }
-
-    /// <response code="200">Success</response>
-    /// <response code="400">Bad Request</response>
-    /// <response code="401">Unauthorized</response>
-    /// <response code="403">Forbidden</response>
-    /// <response code="500">InternalServerError</response>
-    [HttpPost]
-    [Authorize(Roles = "Manager")]
-    public async Task<IActionResult> CreateDish(DishCreateModel dishCreateModel)
-    {
-        var dishCreateDto = _mapper.Map<DishCreateDto>(dishCreateModel);
-        await _dishService.CreateAsync(dishCreateDto);
-        return Ok();
-    }
-    
-    /// <response code="200">Success</response>
-    /// <response code="400">Bad Request</response>
-    /// <response code="401">Unauthorized</response>
-    /// <response code="403">Forbidden</response>
-    /// <response code="500">InternalServerError</response>
-    [HttpPut] // todo поприкалываться с тем, чтобы сделать patch
-    [Authorize]
-    public async Task<IActionResult> ModifyDish(DishModifyModel dishModifyModel) {
-        var dishCreateDto = _mapper.Map<DishModifyDto>(dishModifyModel);
-        await _dishService.ModifyAsync(dishCreateDto);
-        return Ok();
-    }
-    
-    /// <response code="200">Success</response>
-    /// <response code="400">Bad Request</response>
-    /// <response code="401">Unauthorized</response>
-    /// <response code="403">Forbidden</response>
-    /// <response code="500">InternalServerError</response>
-    [HttpDelete, Route("{dishId:guid}")]
-    [Authorize]
-    public async Task<IActionResult> DeleteDish(Guid dishId) {
-        await _dishService.DeleteAsync(dishId);
-        return Ok();
     }
 }

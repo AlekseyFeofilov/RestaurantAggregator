@@ -14,7 +14,9 @@ public class ManagerRepository : CrudRepository<Manager, ManagerNotFoundExceptio
 
     protected override IQueryable<Manager> PrepareToFetchDetails()
     {
-        return DbSet.Include(x => x.Restaurant);
+        return DbSet
+            .Include(x => x.Restaurant)
+            .ThenInclude(x => x.Menus);
     }
 
     public override async Task ModifyAsync(Manager element)
@@ -23,7 +25,7 @@ public class ManagerRepository : CrudRepository<Manager, ManagerNotFoundExceptio
 
         oldElement.Id = element.Id;
         oldElement.Restaurant = element.Restaurant;
-        
+
         await SaveChangesAsync();
     }
 }

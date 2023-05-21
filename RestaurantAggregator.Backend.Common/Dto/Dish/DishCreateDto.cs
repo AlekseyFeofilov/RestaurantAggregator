@@ -18,6 +18,4 @@ public class DishCreateDto
     public bool Vegetarian { get; set; }
 
     public DishCategory Category { get; set; }
-    
-    public Guid RestaurantId { get; set; }
 }

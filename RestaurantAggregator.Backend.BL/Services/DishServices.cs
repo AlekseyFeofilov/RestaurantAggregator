@@ -1,19 +1,16 @@
-using System.Security.Claims;
 using AutoMapper;
-using RestaurantAggregator.Common.Configurations;
-using RestaurantAggregator.Common.Exceptions;
-using RestaurantAggregator.Common.Extensions;
-using RestaurantAggregator.Common.IServices;
+using RestaurantAggregator.Backend.Common.Configurations;
+using RestaurantAggregator.Backend.Common.Dto;
+using RestaurantAggregator.Backend.Common.Dto.Dish;
+using RestaurantAggregator.Backend.Common.IServices;
+using RestaurantAggregator.Backend.DAL.Entities;
+using RestaurantAggregator.Backend.DAL.Models;
+using RestaurantAggregator.Backend.DAL.Repositories.DishRepository;
+using RestaurantAggregator.Backend.DAL.Repositories.RestaurantRepository;
+using RestaurantAggregator.Backend.DAL.Repositories.ReviewRepository;
 using RestaurantAggregator.Common.Models;
-using RestaurantAggregator.Common.Models.Dto;
-using RestaurantAggregator.Common.Models.Dto.Dish;
-using RestaurantAggregator.DAL.Entities;
-using RestaurantAggregator.DAL.Models;
-using RestaurantAggregator.DAL.Repositories.DishRepository;
-using RestaurantAggregator.DAL.Repositories.RestaurantRepository;
-using RestaurantAggregator.DAL.Repositories.ReviewRepository;
 
-namespace RestaurantAggregator.BL.Services;
+namespace RestaurantAggregator.Backend.BL.Services;
 
 public class DishServices : IDishService
 {

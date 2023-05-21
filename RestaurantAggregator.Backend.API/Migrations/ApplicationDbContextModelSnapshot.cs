@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using RestaurantAggregator.DAL.DbContexts;
+using RestaurantAggregator.Backend.DAL.DbContexts;
 
 #nullable disable
 

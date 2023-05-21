@@ -4,7 +4,7 @@ using System.Security.Cryptography;
 using Microsoft.IdentityModel.Tokens;
 using RestaurantAggregator.Auth.Common.IServices;
 using RestaurantAggregator.Auth.Common.Models.Dtos;
-using RestaurantAggregator.Common.Configurations;
+using RestaurantAggregator.Backend.Common.Configurations;
 
 namespace RestaurantAggregator.Auth.BL.Services;
 

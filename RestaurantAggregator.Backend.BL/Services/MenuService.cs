@@ -1,10 +1,10 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using RestaurantAggregator.Common.IServices;
-using RestaurantAggregator.Common.Models.Dto;
-using RestaurantAggregator.DAL.DbContexts;
+using RestaurantAggregator.Backend.Common.Dto;
+using RestaurantAggregator.Backend.Common.IServices;
+using RestaurantAggregator.Backend.DAL.DbContexts;
 
-namespace RestaurantAggregator.BL.Services;
+namespace RestaurantAggregator.Backend.BL.Services;
 
 public class MenuService : IMenuService
 {

@@ -1,11 +1,11 @@
 using System.Security.Claims;
-using RestaurantAggregator.BL.Extensions;
-using RestaurantAggregator.Common.Exceptions;
-using RestaurantAggregator.Common.IServices;
-using RestaurantAggregator.Common.Models.Dto;
-using RestaurantAggregator.DAL.DbContexts;
+using RestaurantAggregator.Backend.BL.Extensions;
+using RestaurantAggregator.Backend.Common.Dto;
+using RestaurantAggregator.Backend.Common.Exceptions;
+using RestaurantAggregator.Backend.Common.IServices;
+using RestaurantAggregator.Backend.DAL.DbContexts;
 
-namespace RestaurantAggregator.BL.Services;
+namespace RestaurantAggregator.Backend.BL.Services;
 
 public class DishStaffService : IDishStaffService
 {

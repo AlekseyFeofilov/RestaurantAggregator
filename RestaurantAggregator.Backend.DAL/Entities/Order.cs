@@ -3,7 +3,7 @@ using RestaurantAggregator.Common.Models.Enums;
 
 #pragma warning disable CS8618
 
-namespace RestaurantAggregator.DAL.Entities;
+namespace RestaurantAggregator.Backend.DAL.Entities;
 
 public class Order
 {

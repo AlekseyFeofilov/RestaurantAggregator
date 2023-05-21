@@ -5,11 +5,11 @@ using RestaurantAggregator.AdminPanel.Models.Manager;
 using RestaurantAggregator.AdminPanel.Models.Restaurant;
 using RestaurantAggregator.AdminPanel.Models.Shared;
 using RestaurantAggregator.Auth.DAL.Repositories.UserRepository;
-using RestaurantAggregator.Common.Configurations;
+using RestaurantAggregator.Backend.Common.Configurations;
+using RestaurantAggregator.Backend.DAL.Entities.Staff;
+using RestaurantAggregator.Backend.DAL.Repositories.CourierRepository;
+using RestaurantAggregator.Backend.DAL.Repositories.RestaurantRepository;
 using RestaurantAggregator.Common.Extensions;
-using RestaurantAggregator.DAL.Entities.Staff;
-using RestaurantAggregator.DAL.Repositories.CourierRepository;
-using RestaurantAggregator.DAL.Repositories.RestaurantRepository;
 
 namespace RestaurantAggregator.AdminPanel.Controllers;
 

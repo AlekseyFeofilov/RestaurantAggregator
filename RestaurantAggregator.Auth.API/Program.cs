@@ -3,6 +3,7 @@ using RestaurantAggregator.Auth.API.Middleware;
 using RestaurantAggregator.Auth.BL.Extensions;
 using RestaurantAggregator.Auth.BL.Helpers;
 using RestaurantAggregator.Auth.Common.Configuration;
+using RestaurantAggregator.Backend.Common.Extensions;
 using RestaurantAggregator.Common.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);

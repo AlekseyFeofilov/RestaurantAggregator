@@ -1,16 +1,15 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using RestaurantAggregator.Common.Configurations;
-using RestaurantAggregator.Common.Exceptions;
+using RestaurantAggregator.Backend.Common.Configurations;
+using RestaurantAggregator.Backend.Common.Dto.Restaurant;
+using RestaurantAggregator.Backend.Common.Exceptions;
+using RestaurantAggregator.Backend.Common.IServices;
+using RestaurantAggregator.Backend.DAL.DbContexts;
+using RestaurantAggregator.Backend.DAL.Entities;
 using RestaurantAggregator.Common.Extensions;
-using RestaurantAggregator.Common.IServices;
 using RestaurantAggregator.Common.Models;
-using RestaurantAggregator.Common.Models.Dto;
-using RestaurantAggregator.Common.Models.Dto.Restaurant;
-using RestaurantAggregator.DAL.DbContexts;
-using RestaurantAggregator.DAL.Entities;
 
-namespace RestaurantAggregator.BL.Services;
+namespace RestaurantAggregator.Backend.BL.Services;
 
 public class RestaurantService : IRestaurantService
 {

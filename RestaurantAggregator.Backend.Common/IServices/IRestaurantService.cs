@@ -1,9 +1,7 @@
-using System.Security.Claims;
+using RestaurantAggregator.Backend.Common.Dto.Restaurant;
 using RestaurantAggregator.Common.Models;
-using RestaurantAggregator.Common.Models.Dto;
-using RestaurantAggregator.Common.Models.Dto.Restaurant;
 
-namespace RestaurantAggregator.Common.IServices;
+namespace RestaurantAggregator.Backend.Common.IServices;
 
 public interface IRestaurantService
 {

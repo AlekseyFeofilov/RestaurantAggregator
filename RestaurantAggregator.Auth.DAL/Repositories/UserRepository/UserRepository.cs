@@ -1,3 +1,7 @@
+using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
+using RestaurantAggregator.Auth.Common.Exceptions;
+using RestaurantAggregator.Auth.Common.Models.Enums;
 using RestaurantAggregator.Auth.DAL.DbContexts;
 using RestaurantAggregator.Auth.DAL.Entities.IdentityEntities;
 using RestaurantAggregator.Common.CrudRepository;
@@ -9,9 +13,12 @@ public class UserRepository : IUserRepository
 {
     private readonly ApplicationDbContext _context;
 
-    public UserRepository(ApplicationDbContext context)
+    private readonly UserManager<User> _userManager;
+
+    public UserRepository(ApplicationDbContext context, UserManager<User> userManager)
     {
         _context = context;
+        _userManager = userManager;
     }
 
     public IQueryable<User> FetchAllUsers()
@@ -40,15 +47,15 @@ public class UserRepository : IUserRepository
         return user;
     }
 
-    public User FetchDetails(Guid id)
+    public async Task AddRoleAsync(Guid id, RoleType roleType)
     {
-        var user = FetchAllUsers().SingleOrDefault(x => x.Id == id);
+        var user = FetchUserDetails(id);
+        await _userManager.AddToRoleAsync(user, roleType.ToString());
+    }
 
-        if (user == null)
-        {
-            throw new NotFoundException();
-        }
-
-        return user;
+    public async Task RemoveRoleAsync(Guid id, RoleType roleType)
+    {
+        var user = FetchUserDetails(id);
+        await _userManager.RemoveFromRoleAsync(user, roleType.ToString());
     }
 }

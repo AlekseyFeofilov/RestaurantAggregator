@@ -1,4 +1,4 @@
-using RestaurantAggregator.Common.Configurations;
+using RestaurantAggregator.Backend.Common.Configurations;
 
 namespace RestaurantAggregator.Backend.API.Middleware;
 

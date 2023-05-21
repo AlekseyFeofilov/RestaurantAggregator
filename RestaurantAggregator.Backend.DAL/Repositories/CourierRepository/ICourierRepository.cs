@@ -1,7 +1,7 @@
+using RestaurantAggregator.Backend.DAL.Entities.Staff;
 using RestaurantAggregator.Common.CrudRepository;
-using RestaurantAggregator.DAL.Entities.Staff;
 
-namespace RestaurantAggregator.DAL.Repositories.CourierRepository;
+namespace RestaurantAggregator.Backend.DAL.Repositories.CourierRepository;
 
 public interface ICourierRepository : ICrudRepository<Courier>
 {

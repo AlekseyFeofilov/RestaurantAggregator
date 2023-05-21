@@ -1,6 +1,6 @@
 using RestaurantAggregator.Auth.Common.Configuration;
 using RestaurantAggregator.Auth.Common.Exceptions;
-using RestaurantAggregator.Common.Configurations;
+using RestaurantAggregator.Backend.Common.Configurations;
 
 namespace RestaurantAggregator.Auth.API.Middleware;
 

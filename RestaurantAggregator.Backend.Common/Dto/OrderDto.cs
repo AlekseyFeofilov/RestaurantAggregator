@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using RestaurantAggregator.Common.Models.Enums;
 
-namespace RestaurantAggregator.Common.Models.Dto;
+namespace RestaurantAggregator.Backend.Common.Dto;
 
 public class OrderDto
 {

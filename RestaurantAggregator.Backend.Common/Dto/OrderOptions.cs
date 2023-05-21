@@ -1,4 +1,4 @@
-namespace RestaurantAggregator.Common.Models.Dto;
+namespace RestaurantAggregator.Backend.Common.Dto;
 
 
 public class OrderOptions

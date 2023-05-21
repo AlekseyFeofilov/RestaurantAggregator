@@ -1,9 +1,9 @@
 using Microsoft.EntityFrameworkCore;
+using RestaurantAggregator.Backend.DAL.DbContexts;
+using RestaurantAggregator.Backend.DAL.Entities.Staff;
 using RestaurantAggregator.Common.CrudRepository;
-using RestaurantAggregator.DAL.DbContexts;
-using RestaurantAggregator.DAL.Entities.Staff;
 
-namespace RestaurantAggregator.DAL.Repositories.CookRepository;
+namespace RestaurantAggregator.Backend.DAL.Repositories.CookRepository;
 
 public class CookRepository : CrudRepository<Cook>, ICookRepository
 {

@@ -1,6 +1,6 @@
-using RestaurantAggregator.Common.Models.Enums;
+using RestaurantAggregator.Backend.Common.Enums;
 
-namespace RestaurantAggregator.Common.Models.Dto;
+namespace RestaurantAggregator.Backend.Common.Dto;
 
 public class DishStaffOptionsDto
 {

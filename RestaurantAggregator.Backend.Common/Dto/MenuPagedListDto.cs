@@ -1,4 +1,6 @@
-namespace RestaurantAggregator.Common.Models.Dto;
+using RestaurantAggregator.Common.Models;
+
+namespace RestaurantAggregator.Backend.Common.Dto;
 
 public class MenuPagedListDto
 {

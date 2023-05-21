@@ -1,12 +1,13 @@
 using System.ComponentModel.DataAnnotations;
+using RestaurantAggregator.Backend.Common.Dto.Restaurant;
 using RestaurantAggregator.Common.Models.Enums;
 
-namespace RestaurantAggregator.Common.Models.Dto.Dish;
+namespace RestaurantAggregator.Backend.Common.Dto.Dish;
 
-public class DishModifyDto
-{
+public class DishDto
+{ 
     public Guid Id { get; set; }
-    
+
     [MinLength(1), Required]
     public string Name { get; set; }
  
@@ -18,8 +19,10 @@ public class DishModifyDto
     public string? Image { get; set; }
      
     public bool Vegetarian { get; set; }
-
+    
+    public int ReviewsAverageScore { get; set; }
+ 
     public DishCategory Category { get; set; }
     
-    public Guid RestaurantId { get; set; }
+    public RestaurantDto Restaurant { get; set; }
 }

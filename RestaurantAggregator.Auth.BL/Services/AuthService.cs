@@ -11,7 +11,7 @@ using RestaurantAggregator.Auth.Common.Models.Enums;
 using RestaurantAggregator.Auth.DAL.DbContexts;
 using RestaurantAggregator.Auth.DAL.Entities.IdentityEntities;
 using RestaurantAggregator.Auth.DAL.Entities.Users;
-using RestaurantAggregator.Common.Configurations;
+using RestaurantAggregator.Backend.Common.Configurations;
 
 namespace RestaurantAggregator.Auth.BL.Services;
 

@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using RestaurantAggregator.Common.Configurations;
+using RestaurantAggregator.Backend.Common.Configurations;
 
-namespace RestaurantAggregator.Common.Extensions;
+namespace RestaurantAggregator.Backend.Common.Extensions;
 
 public static class AddSchemes
 {

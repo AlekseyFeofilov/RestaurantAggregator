@@ -1,8 +1,8 @@
+using RestaurantAggregator.Backend.DAL.Entities;
+using RestaurantAggregator.Backend.DAL.Models;
 using RestaurantAggregator.Common.Models;
-using RestaurantAggregator.DAL.Entities;
-using RestaurantAggregator.DAL.Models;
 
-namespace RestaurantAggregator.DAL.Repositories.DishRepository;
+namespace RestaurantAggregator.Backend.DAL.Repositories.DishRepository;
 
 public interface IDishRepository
 {

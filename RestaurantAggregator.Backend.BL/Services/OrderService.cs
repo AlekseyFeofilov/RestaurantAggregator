@@ -1,16 +1,16 @@
 using System.Security.Claims;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using RestaurantAggregator.Common.Exceptions;
-using RestaurantAggregator.Common.IServices;
-using RestaurantAggregator.Common.Models.Dto;
+using RestaurantAggregator.Backend.Common.Dto;
+using RestaurantAggregator.Backend.Common.Exceptions;
+using RestaurantAggregator.Backend.Common.IServices;
+using RestaurantAggregator.Backend.DAL.DbContexts;
+using RestaurantAggregator.Backend.DAL.Entities;
+using RestaurantAggregator.Backend.DAL.Repositories.OrderRepository;
+using RestaurantAggregator.Backend.DAL.Repositories.ReviewRepository;
 using RestaurantAggregator.Common.Models.Enums;
-using RestaurantAggregator.DAL.DbContexts;
-using RestaurantAggregator.DAL.Entities;
-using RestaurantAggregator.DAL.Repositories.OrderRepository;
-using RestaurantAggregator.DAL.Repositories.ReviewRepository;
 
-namespace RestaurantAggregator.BL.Services;
+namespace RestaurantAggregator.Backend.BL.Services;
 
 public class OrderService : IOrderService
 {

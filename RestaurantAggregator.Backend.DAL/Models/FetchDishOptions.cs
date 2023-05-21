@@ -1,6 +1,6 @@
 using RestaurantAggregator.Common.Models.Enums;
 
-namespace RestaurantAggregator.DAL.Models;
+namespace RestaurantAggregator.Backend.DAL.Models;
 
 public class FetchDishOptions
 {

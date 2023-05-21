@@ -1,9 +1,9 @@
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
-using RestaurantAggregator.Common.Filters;
+using RestaurantAggregator.Backend.Common.Filters;
 
-namespace RestaurantAggregator.Common.Extensions;
+namespace RestaurantAggregator.Backend.Common.Extensions;
 
 public static class AddServices
 {

@@ -1,4 +1,4 @@
-namespace RestaurantAggregator.Common.Configurations;
+namespace RestaurantAggregator.Backend.Common.Configurations;
 
 public static class AppConfigurations
 {

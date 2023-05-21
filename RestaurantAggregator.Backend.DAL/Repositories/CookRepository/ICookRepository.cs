@@ -1,7 +1,7 @@
+using RestaurantAggregator.Backend.DAL.Entities.Staff;
 using RestaurantAggregator.Common.CrudRepository;
-using RestaurantAggregator.DAL.Entities.Staff;
 
-namespace RestaurantAggregator.DAL.Repositories.CookRepository;
+namespace RestaurantAggregator.Backend.DAL.Repositories.CookRepository;
 
 public interface ICookRepository : ICrudRepository<Cook>
 {

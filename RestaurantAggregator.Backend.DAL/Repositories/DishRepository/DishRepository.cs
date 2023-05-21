@@ -1,14 +1,14 @@
 using Microsoft.EntityFrameworkCore;
-using RestaurantAggregator.Common.Configurations;
-using RestaurantAggregator.Common.Exceptions;
+using RestaurantAggregator.Backend.Common.Configurations;
+using RestaurantAggregator.Backend.Common.Exceptions;
+using RestaurantAggregator.Backend.DAL.DbContexts;
+using RestaurantAggregator.Backend.DAL.Entities;
+using RestaurantAggregator.Backend.DAL.Models;
 using RestaurantAggregator.Common.Extensions;
 using RestaurantAggregator.Common.Models;
 using RestaurantAggregator.Common.Models.Enums;
-using RestaurantAggregator.DAL.DbContexts;
-using RestaurantAggregator.DAL.Entities;
-using RestaurantAggregator.DAL.Models;
 
-namespace RestaurantAggregator.DAL.Repositories.DishRepository;
+namespace RestaurantAggregator.Backend.DAL.Repositories.DishRepository;
 
 public class DishRepository : IDishRepository
 {

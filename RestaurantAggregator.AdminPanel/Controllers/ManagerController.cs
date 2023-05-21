@@ -4,18 +4,19 @@ using RestaurantAggregator.AdminPanel.Models;
 using RestaurantAggregator.AdminPanel.Models.Manager;
 using RestaurantAggregator.AdminPanel.Models.Restaurant;
 using RestaurantAggregator.AdminPanel.Models.Shared;
+using RestaurantAggregator.Auth.Common.Models.Enums;
 using RestaurantAggregator.Auth.DAL.Repositories.MangerRepository;
 using RestaurantAggregator.Auth.DAL.Repositories.UserRepository;
-using RestaurantAggregator.Common.Configurations;
+using RestaurantAggregator.Backend.Common.Configurations;
+using RestaurantAggregator.Backend.DAL.Entities.Staff;
+using RestaurantAggregator.Backend.DAL.Repositories.RestaurantRepository;
 using RestaurantAggregator.Common.Extensions;
-using RestaurantAggregator.DAL.Entities.Staff;
-using RestaurantAggregator.DAL.Repositories.RestaurantRepository;
 
 namespace RestaurantAggregator.AdminPanel.Controllers;
 
 public class ManagerController : Controller
 {
-    private readonly DAL.Repositories.ManagerRepository.IManagerRepository _managerRepository;
+    private readonly Backend.DAL.Repositories.ManagerRepository.IManagerRepository _managerRepository;
 
     private readonly IManagerRepository _authManagerRepository;
 
@@ -23,7 +24,7 @@ public class ManagerController : Controller
 
     private readonly IRestaurantRepository _restaurantRepository;
 
-    public ManagerController(IManagerRepository authManagerRepository, DAL.Repositories.ManagerRepository.IManagerRepository managerRepository, IUserRepository userRepository, IRestaurantRepository restaurantRepository)
+    public ManagerController(IManagerRepository authManagerRepository, Backend.DAL.Repositories.ManagerRepository.IManagerRepository managerRepository, IUserRepository userRepository, IRestaurantRepository restaurantRepository)
     {
         _authManagerRepository = authManagerRepository;
         _managerRepository = managerRepository;
@@ -81,6 +82,8 @@ public class ManagerController : Controller
             Restaurant = restaurant
         });
         
+        await _userRepository.AddRoleAsync(createManagerModel.Id, RoleType.Manager);
+        
         return await Index(createManagerModel.RestaurantId);
     }
     
@@ -116,6 +119,8 @@ public class ManagerController : Controller
     {
         await _managerRepository.DeleteAsync(managerId);
         await _authManagerRepository.DeleteAsync(managerId);
+        await _userRepository.RemoveRoleAsync(managerId, RoleType.Manager);//todo: make the same for Courier and Cook Controller
+        
         return RedirectToAction("Index", new {restaurantId}); //todo make this way any time that i actually redirect
     }
 }

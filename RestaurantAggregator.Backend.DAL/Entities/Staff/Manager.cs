@@ -1,6 +1,6 @@
 using RestaurantAggregator.Common.Models;
 
-namespace RestaurantAggregator.DAL.Entities.Staff;
+namespace RestaurantAggregator.Backend.DAL.Entities.Staff;
 
 public class Manager : EntityWithId
 {

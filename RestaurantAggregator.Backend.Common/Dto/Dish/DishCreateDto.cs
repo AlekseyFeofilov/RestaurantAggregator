@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using RestaurantAggregator.Common.Models.Enums;
 
-namespace RestaurantAggregator.Common.Models.Dto.Dish;
+namespace RestaurantAggregator.Backend.Common.Dto.Dish;
 
 public class DishCreateDto
 {

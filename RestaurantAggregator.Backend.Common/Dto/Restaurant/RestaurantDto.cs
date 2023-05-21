@@ -1,4 +1,4 @@
-namespace RestaurantAggregator.Common.Models.Dto.Restaurant;
+namespace RestaurantAggregator.Backend.Common.Dto.Restaurant;
 
 public class RestaurantDto
 {

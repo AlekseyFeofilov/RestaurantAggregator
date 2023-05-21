@@ -4,10 +4,8 @@ using RestaurantAggregator.Auth.DAL.Repositories.CookRepository;
 using RestaurantAggregator.Auth.DAL.Repositories.CourierRepository;
 using RestaurantAggregator.Auth.DAL.Repositories.MangerRepository;
 using RestaurantAggregator.Auth.DAL.Repositories.UserRepository;
-using RestaurantAggregator.BL.Extensions;
-using RestaurantAggregator.BL.Helper;
-using RestaurantAggregator.BL.Services;
-using RestaurantAggregator.Common.IServices;
+using RestaurantAggregator.Backend.BL.Extensions;
+using RestaurantAggregator.Backend.BL.Helper;
 
 var builder = WebApplication.CreateBuilder(args);
 

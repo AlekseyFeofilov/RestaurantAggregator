@@ -1,9 +1,9 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using RestaurantAggregator.Common.Configurations;
-using RestaurantAggregator.Common.IServices;
-using RestaurantAggregator.Common.Models.Dto;
+using RestaurantAggregator.Backend.Common.Configurations;
+using RestaurantAggregator.Backend.Common.Dto;
+using RestaurantAggregator.Backend.Common.IServices;
 
 namespace RestaurantAggregator.Backend.API.Controllers;
 

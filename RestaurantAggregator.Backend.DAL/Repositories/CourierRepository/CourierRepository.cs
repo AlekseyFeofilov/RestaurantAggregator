@@ -1,9 +1,9 @@
 using Microsoft.EntityFrameworkCore;
+using RestaurantAggregator.Backend.DAL.DbContexts;
+using RestaurantAggregator.Backend.DAL.Entities.Staff;
 using RestaurantAggregator.Common.CrudRepository;
-using RestaurantAggregator.DAL.DbContexts;
-using RestaurantAggregator.DAL.Entities.Staff;
 
-namespace RestaurantAggregator.DAL.Repositories.CourierRepository;
+namespace RestaurantAggregator.Backend.DAL.Repositories.CourierRepository;
 
 public class CourierRepository : CrudRepository<Courier>, ICourierRepository
 {

@@ -3,17 +3,17 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RestaurantAggregator.Backend.API.Models.Dish;
-using RestaurantAggregator.Common.Configurations;
-using RestaurantAggregator.Common.IServices;
+using RestaurantAggregator.Backend.Common.Configurations;
+using RestaurantAggregator.Backend.Common.Dto;
+using RestaurantAggregator.Backend.Common.Dto.Dish;
+using RestaurantAggregator.Backend.Common.IServices;
 using RestaurantAggregator.Common.Models;
-using RestaurantAggregator.Common.Models.Dto;
-using RestaurantAggregator.Common.Models.Dto.Dish;
 using RestaurantAggregator.Common.Models.Enums;
 
 namespace RestaurantAggregator.Backend.API.Controllers;
 
 [ApiController]
-[Route("api/dish")]
+[Route("api/dish")] // todo make with configuration
 public class DishController : ControllerBase
 {
     private readonly IDishService _dishService;
@@ -68,7 +68,7 @@ public class DishController : ControllerBase
     /// <response code="403">Forbidden</response>
     /// <response code="500">InternalServerError</response>
     [HttpPost]
-    [Authorize]
+    [Authorize(Roles = "Manager")]
     public async Task<IActionResult> CreateDish(DishCreateModel dishCreateModel)
     {
         var dishCreateDto = _mapper.Map<DishCreateDto>(dishCreateModel);

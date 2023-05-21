@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using RestaurantAggregator.AdminPanel.Models;
 using RestaurantAggregator.AdminPanel.Models.Restaurant;
 using RestaurantAggregator.AdminPanel.Models.Shared;
-using RestaurantAggregator.Common.IServices;
-using RestaurantAggregator.Common.Models.Dto.Restaurant;
+using RestaurantAggregator.Backend.Common.Dto.Restaurant;
+using RestaurantAggregator.Backend.Common.IServices;
 
 namespace RestaurantAggregator.AdminPanel.Controllers;
 

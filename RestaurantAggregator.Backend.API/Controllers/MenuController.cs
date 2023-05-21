@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using RestaurantAggregator.Common.IServices;
+using RestaurantAggregator.Backend.Common.IServices;
 
 namespace RestaurantAggregator.Backend.API.Controllers;
 

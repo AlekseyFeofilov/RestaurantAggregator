@@ -2,7 +2,7 @@ using AutoMapper;
 using RestaurantAggregator.AdminPanel.Models;
 using RestaurantAggregator.AdminPanel.Models.Manager;
 using RestaurantAggregator.AdminPanel.Models.Restaurant;
-using RestaurantAggregator.Common.Models.Dto.Restaurant;
+using RestaurantAggregator.Backend.Common.Dto.Restaurant;
 
 namespace RestaurantAggregator.AdminPanel.Helpers;
 

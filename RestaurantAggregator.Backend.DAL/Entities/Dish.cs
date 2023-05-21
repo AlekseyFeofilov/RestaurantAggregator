@@ -2,7 +2,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using RestaurantAggregator.Common.Models.Enums;
 
-namespace RestaurantAggregator.DAL.Entities;
+namespace RestaurantAggregator.Backend.DAL.Entities;
 
 public class Dish
 {

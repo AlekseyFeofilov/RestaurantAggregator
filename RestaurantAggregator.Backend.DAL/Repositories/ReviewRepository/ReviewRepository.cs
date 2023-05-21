@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
-using RestaurantAggregator.DAL.DbContexts;
-using RestaurantAggregator.DAL.Entities;
+using RestaurantAggregator.Backend.DAL.DbContexts;
+using RestaurantAggregator.Backend.DAL.Entities;
 
-namespace RestaurantAggregator.DAL.Repositories.ReviewRepository;
+namespace RestaurantAggregator.Backend.DAL.Repositories.ReviewRepository;
 
 public class ReviewRepository : IReviewRepository
 {

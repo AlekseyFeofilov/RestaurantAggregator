@@ -1,11 +1,9 @@
 using Microsoft.EntityFrameworkCore;
+using RestaurantAggregator.Backend.DAL.DbContexts;
+using RestaurantAggregator.Backend.DAL.Entities.Staff;
 using RestaurantAggregator.Common.CrudRepository;
-using RestaurantAggregator.Common.Exceptions;
-using RestaurantAggregator.Common.Models;
-using RestaurantAggregator.DAL.DbContexts;
-using RestaurantAggregator.DAL.Entities.Staff;
 
-namespace RestaurantAggregator.DAL.Repositories.ManagerRepository;
+namespace RestaurantAggregator.Backend.DAL.Repositories.ManagerRepository;
 
 public class ManagerRepository : CrudRepository<Manager>, IManagerRepository
 {

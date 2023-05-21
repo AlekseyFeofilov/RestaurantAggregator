@@ -1,11 +1,10 @@
 using Microsoft.EntityFrameworkCore;
-using RestaurantAggregator.DAL.Entities;
-using RestaurantAggregator.DAL.Entities.Staff;
-using Cook = RestaurantAggregator.DAL.Entities.Staff.Cook;
-using Courier = RestaurantAggregator.DAL.Entities.Staff.Courier;
-using Manager = RestaurantAggregator.DAL.Entities.Staff.Manager;
+using RestaurantAggregator.Backend.DAL.Entities;
+using Cook = RestaurantAggregator.Backend.DAL.Entities.Staff.Cook;
+using Courier = RestaurantAggregator.Backend.DAL.Entities.Staff.Courier;
+using Manager = RestaurantAggregator.Backend.DAL.Entities.Staff.Manager;
 
-namespace RestaurantAggregator.DAL.DbContexts;
+namespace RestaurantAggregator.Backend.DAL.DbContexts;
 
 public class ApplicationDbContext : DbContext
 {

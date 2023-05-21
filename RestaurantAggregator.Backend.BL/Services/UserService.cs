@@ -1,6 +1,6 @@
 using System.Security.Claims;
 
-namespace RestaurantAggregator.BL.Services;
+namespace RestaurantAggregator.Backend.BL.Services;
 
 public interface IUserService
 {

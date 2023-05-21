@@ -1,6 +1,6 @@
-using RestaurantAggregator.DAL.Entities;
+using RestaurantAggregator.Backend.DAL.Entities;
 
-namespace RestaurantAggregator.DAL.Repositories.OrderRepository;
+namespace RestaurantAggregator.Backend.DAL.Repositories.OrderRepository;
 
 public interface IOrderRepository
 {

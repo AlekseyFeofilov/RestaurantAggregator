@@ -1,6 +1,6 @@
-using RestaurantAggregator.Common.Models.Dto;
+using RestaurantAggregator.Backend.Common.Dto;
 
-namespace RestaurantAggregator.Common.IServices;
+namespace RestaurantAggregator.Backend.Common.IServices;
 
 public interface IMenuService
 {

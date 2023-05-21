@@ -1,12 +1,11 @@
 using AutoMapper;
-using RestaurantAggregator.Common.Configurations;
-using RestaurantAggregator.Common.Models.Dto;
-using RestaurantAggregator.Common.Models.Dto.Dish;
-using RestaurantAggregator.Common.Models.Dto.Restaurant;
-using RestaurantAggregator.DAL.Entities;
-using RestaurantAggregator.DAL.Models;
+using RestaurantAggregator.Backend.Common.Dto;
+using RestaurantAggregator.Backend.Common.Dto.Dish;
+using RestaurantAggregator.Backend.Common.Dto.Restaurant;
+using RestaurantAggregator.Backend.DAL.Entities;
+using RestaurantAggregator.Backend.DAL.Models;
 
-namespace RestaurantAggregator.BL.Helper;
+namespace RestaurantAggregator.Backend.BL.Helper;
 
 public class MapperProfile : Profile
 {

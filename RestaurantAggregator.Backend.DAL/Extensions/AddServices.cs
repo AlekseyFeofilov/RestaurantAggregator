@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using RestaurantAggregator.DAL.DbContexts;
+using RestaurantAggregator.Backend.DAL.DbContexts;
 
-namespace RestaurantAggregator.DAL.Extensions;
+namespace RestaurantAggregator.Backend.DAL.Extensions;
 
 public static class AddServices
 {

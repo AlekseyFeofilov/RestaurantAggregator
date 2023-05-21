@@ -1,9 +1,7 @@
-
-
+using RestaurantAggregator.Backend.DAL.Entities.Staff;
 using RestaurantAggregator.Common.CrudRepository;
-using RestaurantAggregator.DAL.Entities.Staff;
 
-namespace RestaurantAggregator.DAL.Repositories.ManagerRepository;
+namespace RestaurantAggregator.Backend.DAL.Repositories.ManagerRepository;
 
 public interface IManagerRepository : ICrudRepository<Manager>
 {

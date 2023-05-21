@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace RestaurantAggregator.Common.Filters;
+namespace RestaurantAggregator.Backend.Common.Filters;
 
 // ReSharper disable once ClassNeverInstantiated.Global
 public class AuthResponsesOperationFilter : IOperationFilter

@@ -1,7 +1,7 @@
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 
-namespace RestaurantAggregator.Common.Configurations;
+namespace RestaurantAggregator.Backend.Common.Configurations;
 
 public static class JwtConfigurations
 {

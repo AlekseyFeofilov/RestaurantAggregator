@@ -1,9 +1,9 @@
 using Microsoft.EntityFrameworkCore;
-using RestaurantAggregator.Common.Exceptions;
-using RestaurantAggregator.DAL.DbContexts;
-using RestaurantAggregator.DAL.Entities;
+using RestaurantAggregator.Backend.Common.Exceptions;
+using RestaurantAggregator.Backend.DAL.DbContexts;
+using RestaurantAggregator.Backend.DAL.Entities;
 
-namespace RestaurantAggregator.BL.Services;
+namespace RestaurantAggregator.Backend.BL.Services;
 
 public interface IRepositoryService
 {

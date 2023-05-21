@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using RestaurantAggregator.Backend.BL.MapperProfiles;
 using RestaurantAggregator.Backend.BL.Services;
 using RestaurantAggregator.Backend.Common.IServices;
 using RestaurantAggregator.Backend.DAL.Extensions;
@@ -19,6 +20,7 @@ public static class AddServices
     {
         services.AddBLServices();
         services.AddDAL();
+        services.AddAutoMapper();
     }
 
     public static void AddBLPostBuild(this WebApplication app)
@@ -42,5 +44,15 @@ public static class AddServices
         services.AddScoped<ICookRepository, CookRepository>();
         services.AddScoped<ICourierRepository, CourierRepository>();
         services.AddScoped<IUserService, UserService>();
+    }
+    
+    private static void AddAutoMapper(this IServiceCollection services)
+    {
+        services.AddAutoMapper(typeof(CartMapperProfile));
+        services.AddAutoMapper(typeof(DishMapperProfile));
+        services.AddAutoMapper(typeof(MenuMapperProfile));
+        services.AddAutoMapper(typeof(OrderMapperProfile));
+        services.AddAutoMapper(typeof(RestaurantMapperProfile));
+        
     }
 }

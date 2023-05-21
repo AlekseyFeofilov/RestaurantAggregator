@@ -1,11 +1,11 @@
 
+using RestaurantAggregator.AdminPanel.Extension;
 using RestaurantAggregator.Auth.DAL.Extensions;
 using RestaurantAggregator.Auth.DAL.Repositories.CookRepository;
 using RestaurantAggregator.Auth.DAL.Repositories.CourierRepository;
 using RestaurantAggregator.Auth.DAL.Repositories.MangerRepository;
 using RestaurantAggregator.Auth.DAL.Repositories.UserRepository;
 using RestaurantAggregator.Backend.BL.Extensions;
-using RestaurantAggregator.Backend.BL.Helper;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,8 +20,7 @@ builder.Services.AddScoped<ICourierRepository, CourierRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 builder.Services.AddBL();
-builder.Services.AddAutoMapper(typeof(MapperProfile));
-builder.Services.AddAutoMapper(typeof(RestaurantAggregator.AdminPanel.Helpers.MapperProfile));
+builder.Services.AddAutoMapper();
 
 
 var app = builder.Build();

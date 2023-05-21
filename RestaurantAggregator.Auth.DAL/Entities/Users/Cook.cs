@@ -3,7 +3,9 @@ using RestaurantAggregator.Common.Models;
 
 namespace RestaurantAggregator.Auth.DAL.Entities.Users;
 
-public class Cook : EntityWithId
+public class Cook : IClassWithId
 {
+    public Guid Id { get; set; }
+    
     public User User { get; set; }
 }

@@ -2,7 +2,7 @@ using RestaurantAggregator.Common.Models;
 
 namespace RestaurantAggregator.Backend.DAL.Entities.Staff;
 
-public class Manager : EntityWithId
+public class Manager : IClassWithId
 {
     public Guid Id { get; set; }
     

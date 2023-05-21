@@ -42,7 +42,7 @@ public class DishController : ControllerBase
         int page = 1)
     {
         var dishOptions = new DishOptions(restaurantId, menuId, categories, vegetarian, sorting, page);
-        var dishPagedListDto = await _dishService.FetchAllDishesAsync(dishOptions);
+        var dishPagedListDto = await _dishService.FetchAllAsync(dishOptions);
         
         return Ok(_mapper.Map<PagedEnumerable<DishModel>>(dishPagedListDto));
     }
@@ -58,7 +58,7 @@ public class DishController : ControllerBase
     [HttpGet, Route("{dishId:guid}")]
     public async Task<IActionResult> FetchDish(Guid dishId)
     {
-        var dishDto = await _dishService.FetchDishAsync(dishId);
+        var dishDto = await _dishService.FetchDetailsAsync(dishId);
         return Ok(_mapper.Map<DishModel>(dishDto));
     }
 
@@ -72,7 +72,7 @@ public class DishController : ControllerBase
     public async Task<IActionResult> CreateDish(DishCreateModel dishCreateModel)
     {
         var dishCreateDto = _mapper.Map<DishCreateDto>(dishCreateModel);
-        await _dishService.CreateDishAsync(dishCreateDto);
+        await _dishService.CreateAsync(dishCreateDto);
         return Ok();
     }
     
@@ -85,7 +85,7 @@ public class DishController : ControllerBase
     [Authorize]
     public async Task<IActionResult> ModifyDish(DishModifyModel dishModifyModel) {
         var dishCreateDto = _mapper.Map<DishModifyDto>(dishModifyModel);
-        await _dishService.ModifyDishAsync(dishCreateDto);
+        await _dishService.ModifyAsync(dishCreateDto);
         return Ok();
     }
     
@@ -97,7 +97,7 @@ public class DishController : ControllerBase
     [HttpDelete, Route("{dishId:guid}")]
     [Authorize]
     public async Task<IActionResult> DeleteDish(Guid dishId) {
-        await _dishService.DeleteDishAsync(dishId);
+        await _dishService.DeleteAsync(dishId);
         return Ok();
     }
 }

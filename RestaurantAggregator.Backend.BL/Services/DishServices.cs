@@ -33,7 +33,7 @@ public class DishServices : IDishService
         _restaurantRepository = restaurantRepository;
     }
 
-    public async Task<PagedEnumerable<DishDto>> FetchAllDishesAsync(DishOptions dishOptions)
+    public async Task<PagedEnumerable<DishDto>> FetchAllAsync(DishOptions dishOptions)
     {
         var fetchDishOptions = _mapper.Map<FetchDishOptions>(dishOptions);
 
@@ -46,7 +46,7 @@ public class DishServices : IDishService
         return pagedDishDtos;
     }
 
-    public async Task<DishDto> FetchDishAsync(Guid dishId)
+    public async Task<DishDto> FetchDetailsAsync(Guid dishId)
     {
         await _reviewRepository.FetchReviews(dishId);
         var dish = await _dishRepository.FetchDishAsync(dishId);
@@ -54,7 +54,7 @@ public class DishServices : IDishService
         return _mapper.Map<DishDto>(dish);
     }
 
-    public async Task CreateDishAsync(DishCreateDto dishCreateDto)
+    public async Task CreateAsync(DishCreateDto dishCreateDto)
     {
         var restaurant = await _restaurantRepository.FetchRestaurantAsync(dishCreateDto.RestaurantId);
         var dish = _mapper.Map<Dish>(dishCreateDto);
@@ -63,7 +63,7 @@ public class DishServices : IDishService
         await _dishRepository.CreateDishAsync(dish);
     }
 
-    public async Task ModifyDishAsync(DishModifyDto dishModifyDto)
+    public async Task ModifyAsync(DishModifyDto dishModifyDto)
     {
         var restaurant = await _restaurantRepository.FetchRestaurantAsync(dishModifyDto.RestaurantId);
         var dish = _mapper.Map<Dish>(dishModifyDto);
@@ -72,7 +72,7 @@ public class DishServices : IDishService
         await _dishRepository.ModifyDishAsync(dish);
     }
 
-    public Task DeleteDishAsync(Guid dishId)
+    public Task DeleteAsync(Guid dishId)
     {
         return _dishRepository.DeleteDishAsync(dishId);
     }

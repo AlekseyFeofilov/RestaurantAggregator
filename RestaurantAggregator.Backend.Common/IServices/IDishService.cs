@@ -6,13 +6,13 @@ namespace RestaurantAggregator.Backend.Common.IServices;
 
 public interface IDishService
 {
-    Task<PagedEnumerable<DishDto>> FetchAllDishesAsync(DishOptions dishOptions);
+    Task<PagedEnumerable<DishDto>> FetchAllAsync(DishOptions dishOptions);
     
-    Task<DishDto> FetchDishAsync(Guid dishId);
+    Task<DishDto> FetchDetailsAsync(Guid dishId);
     
-    Task CreateDishAsync(DishCreateDto dishCreateDto);
+    Task CreateAsync(DishCreateDto dishCreateDto);
     
-    Task ModifyDishAsync(DishModifyDto dishCreateDto);
+    Task ModifyAsync(DishModifyDto dishCreateDto);
     
-    Task DeleteDishAsync(Guid dishId);
+    Task DeleteAsync(Guid dishId);
 }

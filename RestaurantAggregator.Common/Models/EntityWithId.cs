@@ -1,6 +1,6 @@
 namespace RestaurantAggregator.Common.Models;
 
-public abstract class EntityWithId
+public interface IClassWithId
 {
-    public Guid Id;
+    public Guid Id { get; set; }
 }

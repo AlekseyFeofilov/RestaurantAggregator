@@ -31,7 +31,7 @@ public class OrderController : ControllerBase
     [Authorize]
     public async Task<IActionResult> FetchOrder(Guid orderId)
     {
-        return Ok(await _orderService.FetchOrder(User, orderId));
+        return Ok(await _orderService.FetchOrder(orderId));
     }
     
     /// <summary>
@@ -81,7 +81,7 @@ public class OrderController : ControllerBase
     /// <response code="500">InternalServerError</response>
     [HttpPost]
     [Authorize]
-    public async Task<IActionResult> CreateOrder([FromBody] OrderCreateDto orderCreateDto)
+    public async Task<IActionResult> CreateOrder([FromBody] OrderCreateDto orderCreateDto) //bug cart don't empty after order creating
     {
         await _orderService.CreateOrder(User, orderCreateDto);
         return Ok();
@@ -96,7 +96,7 @@ public class OrderController : ControllerBase
     [Authorize]
     public async Task<IActionResult> RepeatOrder(Guid orderId)
     {
-        await _orderService.RepeatOrder(User, orderId);
+        await _orderService.RepeatOrder(orderId);
         return Ok();
     }
     

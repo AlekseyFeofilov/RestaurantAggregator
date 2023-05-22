@@ -7,7 +7,6 @@ using RestaurantAggregator.Backend.Common.Exceptions.BadRequestExceptions;
 using RestaurantAggregator.Backend.Common.IServices;
 using RestaurantAggregator.Backend.DAL.DbContexts;
 using RestaurantAggregator.Backend.DAL.Entities;
-using RestaurantAggregator.Backend.DAL.Repositories.OrderRepository;
 using RestaurantAggregator.Backend.DAL.Repositories.ReviewRepository;
 using RestaurantAggregator.Common.Models.Enums;
 
@@ -16,41 +15,38 @@ namespace RestaurantAggregator.Backend.BL.Services;
 public class OrderService : IOrderService
 {
     private readonly ApplicationDbContext _context;
-    
-    private readonly IMapper _mapper;
 
-    private readonly IOrderRepository _orderRepository;
-    
-    private readonly IRepositoryService _repositoryService;
+    private readonly IMapper _mapper;
 
     private readonly IReviewRepository _reviewRepository;
 
     private readonly IUserService _userService;
 
-    public OrderService(IMapper mapper, IOrderRepository orderRepository, ApplicationDbContext context, IRepositoryService repositoryService, IReviewRepository reviewRepository, IUserService userService)
+    public OrderService(IMapper mapper, ApplicationDbContext context, IReviewRepository reviewRepository,
+        IUserService userService)
     {
         _mapper = mapper;
-        _orderRepository = orderRepository;
         _context = context;
-        _repositoryService = repositoryService;
         _reviewRepository = reviewRepository;
         _userService = userService;
     }
 
-    public async Task<OrderDto> FetchOrder(ClaimsPrincipal claimsPrincipal, Guid orderId)
+    public async Task<OrderDto> FetchOrder(Guid orderId) //todo заказ возвращает id DishInCart, а не id Dish 
     {
-        var order = await _orderRepository.FetchOrder(orderId);
-        var orderDto = _mapper.Map<OrderDto>(order);
-        var dishBasketsDto = await GetOrderDishBaskets(order);
+        var order = await _context.Orders
+            .Include(x => x.DishBaskets)
+            .ThenInclude(x => x.Dish)
+            .SingleOrDefaultAsync(x => x.Id == orderId);
 
-        orderDto.DishBaskets = dishBasketsDto;
+        var orderDto = _mapper.Map<OrderDto>(order);
         return orderDto;
     }
 
-    public async Task<IEnumerable<OrderInfoDto>> FetchAllOrders(ClaimsPrincipal claimsPrincipal, OrderOptions orderOptions)
+    public async Task<IEnumerable<OrderInfoDto>> FetchAllOrders(ClaimsPrincipal claimsPrincipal,
+        OrderOptions orderOptions)
     {
         var userId = Guid.Parse(claimsPrincipal.FindFirst(ClaimTypes.NameIdentifier)!.Value);
-        
+
         return await _context.Orders
             .Where(x => x.UserId == userId)
             .Select(x => new OrderInfoDto(x.Id, x.DeliveryTime, x.OrderTime, x.Status, x.Price))
@@ -62,11 +58,12 @@ public class OrderService : IOrderService
         var userId = Guid.Parse(claimsPrincipal.FindFirst(ClaimTypes.NameIdentifier)!.Value);
         var cart = await GetOrderDishBaskets(userId);
 
-        if (cart.Any(x => !x.Dish.Active)) throw new DishInCartNotAvailableException(); //todo make message: which one
+        if (cart.Any(x => !x.Dish.Active || x.Dish.Deleted)) throw new DishInCartNotAvailableException(); //todo make message: which one
         if (!cart.Any()) throw new CartIsEmptyException();
 
         var firstDish = cart.First().Dish;
-        var otherRestaurantDish =  cart.FirstOrDefault(cartDish => firstDish.Restaurant.Id != cartDish.Dish.Restaurant.Id);
+        var otherRestaurantDish =
+            cart.FirstOrDefault(cartDish => firstDish.Restaurant.Id != cartDish.Dish.Restaurant.Id);
 
         if (otherRestaurantDish != null)
         {
@@ -125,12 +122,12 @@ public class OrderService : IOrderService
         // }
     }
 
-    public Task RepeatOrder(ClaimsPrincipal claimsPrincipal, Guid orderId)
+    public Task RepeatOrder(Guid orderId)
     {
         throw new NotImplementedException();
     }
 
-    public Task CancelOrder(ClaimsPrincipal claimsPrincipal, Guid orderId)
+    public Task CancelOrder(Guid orderId)
     {
         throw new NotImplementedException();
     }
@@ -138,7 +135,7 @@ public class OrderService : IOrderService
     public async Task<IEnumerable<OrderDto>> FetchCurrentOrder(ClaimsPrincipal claimsPrincipal)
     {
         var userId = Guid.Parse(claimsPrincipal.FindFirst(ClaimTypes.NameIdentifier)!.Value);
-        
+
         return await _context.Orders
             .Where(x => x.UserId == userId && x.Status != OrderStatus.Canceled && x.Status != OrderStatus.Delivered)
             .Include(x => x.DishBaskets)
@@ -155,11 +152,14 @@ public class OrderService : IOrderService
     public async Task SetReview(ClaimsPrincipal claimsPrincipal, Guid dishId, int rating)
     {
         var userId = _userService.GetUserId(claimsPrincipal);
-        var dish = await _repositoryService.FetchDish(dishId);
-        var review = await FetchReview(dishId, userId); 
+
+        var dish = await _context.Dishes.SingleOrDefaultAsync(x => x.Id == dishId);
+        if (dish == null || !dish.Active || dish.Deleted) throw new DishNotFoundException();
+
+        var review = await FetchReview(dishId, userId);
         await SetReview(review, dish, userId, rating);
     }
-    
+
     private async Task<Review?> FetchReview(Guid dishId, Guid userId)
     {
         return await _reviewRepository.FetchReview(dishId, userId);

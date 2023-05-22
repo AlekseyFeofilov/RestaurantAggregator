@@ -5,15 +5,15 @@ namespace RestaurantAggregator.Backend.Common.IServices;
 
 public interface IOrderService
 {
-    Task<OrderDto> FetchOrder(ClaimsPrincipal claimsPrincipal, Guid orderId);
+    Task<OrderDto> FetchOrder(Guid orderId);
     
     Task<IEnumerable<OrderInfoDto>> FetchAllOrders(ClaimsPrincipal claimsPrincipal, OrderOptions orderOptions);
     
     Task CreateOrder(ClaimsPrincipal claimsPrincipal, OrderCreateDto orderCreateDto);
     
-    Task RepeatOrder(ClaimsPrincipal claimsPrincipal, Guid orderId); // todo проверять доступ с помощью Authorize 
+    Task RepeatOrder(Guid orderId); // todo проверять доступ с помощью Authorize 
     
-    Task CancelOrder(ClaimsPrincipal claimsPrincipal, Guid orderId);
+    Task CancelOrder(Guid orderId);
     
     Task<IEnumerable<OrderDto>> FetchCurrentOrder(ClaimsPrincipal claimsPrincipal);
     

@@ -24,6 +24,9 @@ public class Dish
     [DefaultValue(false)]
     public bool Active { get; set; }
     
+    [DefaultValue(false)]
+    public bool Deleted { get; set; }
+    
     public ICollection<Review> Reviews { get; set; }
     
     [DefaultValue(0)]

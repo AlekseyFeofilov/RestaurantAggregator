@@ -58,10 +58,10 @@ public class DishServices : IDishService
 
     public Task<PagedEnumerable<DishDto>> FetchAllAsync(DishOptions dishOptions)
     {
-        return FetchAllAsync(dishOptions, false);
+        return FetchAllAsync(dishOptions, true);
     }
 
-    public Task<PagedEnumerable<DishDto>> FetchAllAsync(ClaimsPrincipal claimsPrincipal, DishOptions dishOptions, bool onlyActive = false)
+    public Task<PagedEnumerable<DishDto>> FetchAllAsync(ClaimsPrincipal claimsPrincipal, DishOptions dishOptions, bool onlyActive = true)
     {
         var manager = _managerRepository.FetchDetails(claimsPrincipal.GetNameIdentifier());
         dishOptions.RestaurantId = manager.Restaurant.Id;
@@ -88,13 +88,13 @@ public class DishServices : IDishService
         await _dishRepository.CreateDishAsync(dish);
     }
 
-    public async Task ModifyAsync(DishModifyDto dishModifyDto)
+    public async Task<Guid> ModifyAsync(DishModifyDto dishModifyDto)
     {
-        var restaurant = await _restaurantRepository.FetchRestaurantAsync(dishModifyDto.RestaurantId);
+        var restaurant =  (await _dishRepository.FetchDishAsync(dishModifyDto.Id)).Restaurant;
         var dish = _mapper.Map<Dish>(dishModifyDto);
         dish.Restaurant = restaurant;
 
-        await _dishRepository.ModifyDishAsync(dish);
+        return await _dishRepository.ModifyDishAsync(dish);
     }
 
     public Task DeleteAsync(Guid dishId)

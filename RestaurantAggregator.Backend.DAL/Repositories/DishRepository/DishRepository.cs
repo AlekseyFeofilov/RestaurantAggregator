@@ -49,17 +49,18 @@ public class DishRepository : IDishRepository
                 throw new MenuNotFoundException();
             }
 
-            dishes = menu.Dishes.Where(x => x.Active).AsQueryable();
+            dishes = menu.Dishes.Where(x => !x.Deleted && (!onlyActive || x.Active)).AsQueryable();
         }
         else
         {
-            if ((await _restaurantRepository.FetchRestaurantAsync((Guid)fetchDishOptions.RestaurantId!)) == null)
+            if ((await _restaurantRepository.FetchRestaurantAsync(fetchDishOptions.RestaurantId)) == null)
             {
                 throw new RestaurantNotFoundException();
             }
 
             dishes = _context.Dishes.Where(dish =>
-                dish.Restaurant.Id == fetchDishOptions.RestaurantId
+                dish.Restaurant.Id == fetchDishOptions.RestaurantId 
+                && !dish.Deleted 
                 && (!onlyActive || dish.Active)
             ).AsQueryable();
         }
@@ -86,7 +87,7 @@ public class DishRepository : IDishRepository
             .SingleOrDefaultAsync(x => x.Id == dishId);
 
         if (dish == null) throw new DishNotFoundException();
-        if (!dish.Active && onlyActive) throw new DishNotFoundException();
+        if (dish.Deleted || !dish.Active && onlyActive) throw new DishNotFoundException();
 
         return dish;
     }
@@ -97,24 +98,31 @@ public class DishRepository : IDishRepository
         await _context.SaveChangesAsync();
     }
 
-    public async Task ModifyDishAsync(Dish dish)
+    public async Task<Guid> ModifyDishAsync(Dish dish)
     {
         var oldDish = await FetchDishAsync(dish.Id);
+        dish.Id = Guid.NewGuid();
+        dish.Active = true;
+        
+        await _context.Dishes.AddAsync(dish);
 
-        oldDish.Name = dish.Name;
-        oldDish.Description = dish.Description;
-        oldDish.Price = dish.Price;
-        oldDish.Image = dish.Image;
-        oldDish.Vegetarian = dish.Vegetarian;
-        oldDish.Category = dish.Category;
-        oldDish.Restaurant = dish.Restaurant;
+        if (!(await _context.Orders.AnyAsync(order => order.DishBaskets.Any(cartDish => cartDish.Dish.Id == oldDish.Id))))
+        {
+            _context.Dishes.Remove(oldDish);
+        }
+        else
+        {
+            oldDish.Deleted = true;   
+        }
 
         await _context.SaveChangesAsync();
+
+        return dish.Id;
     }
 
     public async Task DeleteDishAsync(Guid dishId)
     {
-        _context.Dishes.Remove(await FetchDishAsync(dishId));
+        (await FetchDishAsync(dishId)).Deleted = true;
         await _context.SaveChangesAsync();
     }
 

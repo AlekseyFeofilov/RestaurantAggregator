@@ -12,13 +12,12 @@ namespace RestaurantAggregator.Backend.BL.Services;
 public class CartService : ICartService
 {
     private readonly ApplicationDbContext _context;
-    private readonly IRepositoryService _repositoryService;
+
     private readonly IMapper _mapper;
 
-    public CartService(ApplicationDbContext context, IRepositoryService repositoryService, IMapper mapper)
+    public CartService(ApplicationDbContext context, IMapper mapper)
     {
         _context = context;
-        _repositoryService = repositoryService;
         _mapper = mapper;
     }
 
@@ -37,15 +36,29 @@ public class CartService : ICartService
     public async Task AddDish(ClaimsPrincipal claimsPrincipal, Guid dishId)
     {
         var userId = Guid.Parse(claimsPrincipal.FindFirst(ClaimTypes.NameIdentifier)!.Value);
-        var dishBasket = await _repositoryService.FetchCartDish(dishId, userId);
-        var dish = await _repositoryService.FetchDish(dishId);
+        var dishBasket = await _context.DishBaskets
+            .SingleOrDefaultAsync(x =>
+                x.UserId != null
+                && x.Dish.Id == dishId
+                && x.UserId == userId
+            );
+        
+        var dish = await _context.Dishes.SingleOrDefaultAsync(x => x.Id == dishId);
+
+        if (dish == null) throw new DishNotFoundException();
+        
         await AddDishBasket(dishBasket, dish, userId);
     }
 
     public async Task RemoveDish(ClaimsPrincipal claimsPrincipal, Guid dishId, bool increase = false)
     {
         var userId = Guid.Parse(claimsPrincipal.FindFirst(ClaimTypes.NameIdentifier)!.Value);
-        var cartDish = await _repositoryService.FetchCartDish(dishId, userId);
+        var cartDish = await _context.DishBaskets
+            .SingleOrDefaultAsync(x =>
+                x.UserId != null
+                && x.Dish.Id == dishId
+                && x.UserId == userId
+            );
 
         if (cartDish == null)
         {
@@ -72,7 +85,7 @@ public class CartService : ICartService
         }
         else
         {
-            if (!dish.Active) throw new DishNotFoundException();
+            if (!dish.Active || dish.Deleted) throw new DishNotFoundException();
             
             _context.DishBaskets.Add(new CartDish
             {

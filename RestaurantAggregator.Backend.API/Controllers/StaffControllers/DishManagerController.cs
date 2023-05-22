@@ -87,8 +87,7 @@ public class DishManagerController : ControllerBase
     [Authorize("ModifyDish")]
     public async Task<IActionResult> ModifyDish(DishModifyModel dishModifyModel) {
         var dishCreateDto = _mapper.Map<DishModifyDto>(dishModifyModel);
-        await _dishService.ModifyAsync(dishCreateDto);
-        return Ok();
+        return Ok(await _dishService.ModifyAsync(dishCreateDto));
     }
     
     /// <response code="200">Success</response>

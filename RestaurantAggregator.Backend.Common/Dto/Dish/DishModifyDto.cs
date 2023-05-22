@@ -20,6 +20,4 @@ public class DishModifyDto
     public bool Vegetarian { get; set; }
 
     public DishCategory Category { get; set; }
-    
-    public Guid RestaurantId { get; set; }
 }

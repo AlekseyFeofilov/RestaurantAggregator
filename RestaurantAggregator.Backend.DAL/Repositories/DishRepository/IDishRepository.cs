@@ -12,7 +12,7 @@ public interface IDishRepository
     
     Task CreateDishAsync(Dish dish);
     
-    Task ModifyDishAsync(Dish dish);
+    Task<Guid> ModifyDishAsync(Dish dish);
     
     Task DeleteDishAsync(Guid dishId);
 }

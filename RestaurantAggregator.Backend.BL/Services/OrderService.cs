@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using RestaurantAggregator.Backend.Common.Dto;
 using RestaurantAggregator.Backend.Common.Exceptions;
 using RestaurantAggregator.Backend.Common.Exceptions.BadRequestExceptions;
+using RestaurantAggregator.Backend.Common.Extensions;
 using RestaurantAggregator.Backend.Common.IServices;
 using RestaurantAggregator.Backend.DAL.DbContexts;
 using RestaurantAggregator.Backend.DAL.Entities;
@@ -71,7 +72,7 @@ public class OrderService : IOrderService
         }
 
         await _context.Orders.AddAsync(CreateOrder(orderCreateDto, cart, userId));
-        EmptyUserCart(userId);
+        EmptyUserCart(cart);
 
         await _context.SaveChangesAsync();
     }
@@ -104,22 +105,24 @@ public class OrderService : IOrderService
         return new Order
         {
             Id = Guid.NewGuid(),
+            Number = StringExtension.GenerateRandomOrderNumber(),
             DeliveryTime = orderCreateDto.DeliveryTime,
             OrderTime = DateTime.Now,
             Status = OrderStatus.Created,
             Price = cart.Sum(x => x.Amount * x.Dish.Price),
             DishBaskets = cart,
             Address = orderCreateDto.Address,
-            UserId = userId
+            UserId = userId,
+            Restaurant = cart.First().Dish.Restaurant
         };
     }
 
-    private static void EmptyUserCart(Guid userId)
+    private static void EmptyUserCart(ICollection<CartDish> cart)
     {
-        // foreach (var dishBasket in user.Cart)
-        // {
-        //     dishBasket.User = null;
-        // }
+        foreach (var dishBasket in cart)
+        {
+            dishBasket.UserId = null;
+        }
     }
 
     public Task RepeatOrder(Guid orderId)

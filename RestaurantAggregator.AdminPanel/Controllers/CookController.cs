@@ -4,6 +4,7 @@ using RestaurantAggregator.AdminPanel.Models.Cook;
 using RestaurantAggregator.AdminPanel.Models.Manager;
 using RestaurantAggregator.AdminPanel.Models.Restaurant;
 using RestaurantAggregator.AdminPanel.Models.Shared;
+using RestaurantAggregator.Auth.Common.Models.Enums;
 using RestaurantAggregator.Auth.DAL.Repositories.UserRepository;
 using RestaurantAggregator.Backend.Common.Configurations;
 using RestaurantAggregator.Backend.DAL.Entities.Staff;
@@ -81,6 +82,8 @@ public class CookController : Controller
             Restaurant = restaurant
         });
         
+        await _userRepository.AddRoleAsync(createCookModel.Id, RoleType.Cook);
+        
         return await Index(createCookModel.RestaurantId);
     }
     
@@ -115,6 +118,7 @@ public class CookController : Controller
     {
         await _cookRepository.DeleteAsync(cookId);
         await _authCookRepository.DeleteAsync(cookId);
+        await _userRepository.RemoveRoleAsync(cookId, RoleType.Cook);
         return RedirectToAction("Index", new {restaurantId}); //todo make this way any time that i actually redirect
     }
 }

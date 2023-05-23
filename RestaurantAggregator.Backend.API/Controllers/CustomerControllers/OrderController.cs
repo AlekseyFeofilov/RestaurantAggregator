@@ -46,7 +46,7 @@ public class OrderController : ControllerBase
     [Authorize]
     public async Task<IActionResult> FetchAllOrdersByCustomer(
         bool current = false,
-        int? numberStartWith = null,
+        string? numberStartWith = null,
         [FromQuery] DateTime? startDate = null,
         [FromQuery] DateTime? endDate = null,
         int? page = 1)
@@ -66,7 +66,7 @@ public class OrderController : ControllerBase
     [ProducesResponseType(typeof(OrderDto), StatusCodes.Status200OK)]
     [HttpGet, Route("current")]
     [Authorize]
-    public async Task<IActionResult> FetchCurrentOrder()
+    public async Task<IActionResult> FetchCurrentOrder() //todo что-то не работает с отображением DishInCart
     {
         return Ok(await _orderService.FetchCurrentOrder(User));
     }
@@ -81,7 +81,7 @@ public class OrderController : ControllerBase
     /// <response code="500">InternalServerError</response>
     [HttpPost]
     [Authorize]
-    public async Task<IActionResult> CreateOrder([FromBody] OrderCreateDto orderCreateDto) //bug cart don't empty after order creating
+    public async Task<IActionResult> CreateOrder([FromBody] OrderCreateDto orderCreateDto) //bug время не валидируется
     {
         await _orderService.CreateOrder(User, orderCreateDto);
         return Ok();

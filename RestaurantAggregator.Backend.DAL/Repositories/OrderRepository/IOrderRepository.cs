@@ -4,5 +4,7 @@ namespace RestaurantAggregator.Backend.DAL.Repositories.OrderRepository;
 
 public interface IOrderRepository
 {
-    Task<Order> FetchOrder(Guid orderId);
+    Task<Order> FetchOrderAsync(Guid orderId);
+
+    Task SaveChangesAsync();
 }

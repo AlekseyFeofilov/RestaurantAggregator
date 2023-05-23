@@ -1,11 +1,37 @@
+using Microsoft.EntityFrameworkCore;
+using RestaurantAggregator.Backend.Common.Exceptions.NotFoundException;
+using RestaurantAggregator.Backend.DAL.DbContexts;
 using RestaurantAggregator.Backend.DAL.Entities;
 
 namespace RestaurantAggregator.Backend.DAL.Repositories.OrderRepository;
 
 public class OrderRepository : IOrderRepository
 {
-    public Task<Order> FetchOrder(Guid orderId)
+    private readonly ApplicationDbContext _context;
+
+    public OrderRepository(ApplicationDbContext context)
     {
-        throw new NotImplementedException();
+        _context = context;
+    }
+
+    public async Task<Order> FetchOrderAsync(Guid orderId)
+    {
+        var order = await _context.Orders
+            .Include(x => x.Restaurant)
+            .Include(x => x.Cook).ThenInclude(x => x.Restaurant)
+            .Include(x => x.Courier).ThenInclude(x => x.Restaurant)
+            .SingleOrDefaultAsync(x => x.Id == orderId);
+        
+        if (order == null)
+        {
+            throw new OrderNotFoundException();
+        }
+
+        return order;
+    }
+
+    public async Task SaveChangesAsync()
+    {
+        await _context.SaveChangesAsync();
     }
 }

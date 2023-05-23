@@ -4,6 +4,7 @@ using RestaurantAggregator.AdminPanel.Models.Courier;
 using RestaurantAggregator.AdminPanel.Models.Manager;
 using RestaurantAggregator.AdminPanel.Models.Restaurant;
 using RestaurantAggregator.AdminPanel.Models.Shared;
+using RestaurantAggregator.Auth.Common.Models.Enums;
 using RestaurantAggregator.Auth.DAL.Repositories.UserRepository;
 using RestaurantAggregator.Backend.Common.Configurations;
 using RestaurantAggregator.Backend.DAL.Entities.Staff;
@@ -81,6 +82,8 @@ public class CourierController : Controller
             Restaurant = restaurant
         });
         
+        await _userRepository.AddRoleAsync(createCourierModel.Id, RoleType.Courier);
+        
         return await Index(createCourierModel.RestaurantId);
     }
     
@@ -116,6 +119,7 @@ public class CourierController : Controller
     {
         await _courierRepository.DeleteAsync(courierId);
         await _authCourierRepository.DeleteAsync(courierId);
+        await _userRepository.RemoveRoleAsync(courierId, RoleType.Courier);
         return RedirectToAction("Index", new {restaurantId}); //todo make this way any time that i actually redirect
     }
 }

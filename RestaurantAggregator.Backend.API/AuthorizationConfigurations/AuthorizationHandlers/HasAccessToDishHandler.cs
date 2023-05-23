@@ -3,7 +3,7 @@ using RestaurantAggregator.Backend.DAL.Repositories.DishRepository;
 using RestaurantAggregator.Backend.DAL.Repositories.ManagerRepository;
 using RestaurantAggregator.Common.Extensions;
 
-namespace RestaurantAggregator.Backend.API.AuthorizationHandlers;
+namespace RestaurantAggregator.Backend.API.AuthorizationConfigurations.AuthorizationHandlers;
 
 public abstract class HasAccessToDishHandler<T> : AuthorizationHandler<T> where T: IAuthorizationRequirement
 {
@@ -23,7 +23,7 @@ public abstract class HasAccessToDishHandler<T> : AuthorizationHandler<T> where 
     protected override async Task HandleRequirementAsync(AuthorizationHandlerContext context, T requirement)
     {
         var manager = _managerRepository.FetchDetails(ContextAccessor.HttpContext!.User.GetNameIdentifier());
-        var dish = await _dishRepository.FetchDishAsync(await GetDishId());
+        var dish = await _dishRepository.FetchDishAsync(await GetDishId());//todo make this thing throw BadRequest but not Unauthorized
         
         if (dish.Restaurant.Id == manager.Restaurant.Id)
         {

@@ -10,12 +10,11 @@ namespace RestaurantAggregator.Backend.API.Controllers.StaffControllers;
 [Route("api")]
 public class OrderStaffController : ControllerBase
 {
-    private readonly IOrderService _orderService;
+    private readonly IOrderStaffService _orderStaffService;
 
-
-    public OrderStaffController(IOrderService orderService)
+    public OrderStaffController(IOrderStaffService orderStaffService)
     {
-        _orderService = orderService;
+        _orderStaffService = orderStaffService;
     }
 
     /// <summary>
@@ -23,20 +22,21 @@ public class OrderStaffController : ControllerBase
     /// </summary>
     /// <response code="200">Success</response>
     /// <response code="401">Unauthorized</response>
+    /// <response code="403">Forbidden</response>
     /// <response code="500">InternalServerError</response>
     [Produces(AppConfigurations.ResponseContentType)]
     [ProducesResponseType(typeof(IEnumerable<OrderInfoDto>), StatusCodes.Status200OK)]
     [HttpGet, Route("cook/order")]
-    [Authorize]
-    public async Task<IActionResult> FetchAllOrdersByCook(
+    [Authorize(Roles = "Cook")]
+    public async Task<IActionResult> FetchAllCookOrders(
         bool current = false,
-        int? numberStartWith = null,
+        string? numberStartWith = null,
         [FromQuery] DateTime? startDate = null,
         [FromQuery] DateTime? endDate = null,
         int? page = 1)
     {
         var orderOptions = new OrderOptions(current, numberStartWith, startDate, endDate, page);
-        return Ok(await _orderService.FetchAllOrders(User, orderOptions));
+        return Ok(await _orderStaffService.FetchAllCookOrdersAsync(User, orderOptions));
     }
 
     /// <summary>
@@ -44,41 +44,21 @@ public class OrderStaffController : ControllerBase
     /// </summary>
     /// <response code="200">Success</response>
     /// <response code="401">Unauthorized</response>
-    /// <response code="500">InternalServerError</response>
-    [Produces(AppConfigurations.ResponseContentType)]
-    [ProducesResponseType(typeof(IEnumerable<OrderInfoDto>), StatusCodes.Status200OK)]
-    [HttpGet, Route("cook/order/history")]
-    [Authorize]
-    public async Task<IActionResult> FetchAllCookOrderHistory(
-        bool current = false,
-        int? numberStartWith = null,
-        [FromQuery] DateTime? startDate = null,
-        [FromQuery] DateTime? endDate = null,
-        int? page = 1)
-    {
-        var orderOptions = new OrderOptions(current, numberStartWith, startDate, endDate, page);
-        return Ok(await _orderService.FetchAllOrders(User, orderOptions));
-    }
-
-    /// <summary>
-    /// Get a list of orders
-    /// </summary>
-    /// <response code="200">Success</response>
-    /// <response code="401">Unauthorized</response>
+    /// <response code="403">Forbidden</response>
     /// <response code="500">InternalServerError</response>
     [Produces(AppConfigurations.ResponseContentType)]
     [ProducesResponseType(typeof(IEnumerable<OrderInfoDto>), StatusCodes.Status200OK)]
     [HttpGet, Route("courier/order")]
-    [Authorize]
-    public async Task<IActionResult> FetchAllOrdersByCourier(
+    [Authorize(Roles = "Courier")]
+    public async Task<IActionResult> FetchAllCourierOrder(
         bool current = false,
-        int? numberStartWith = null,
+        string? numberStartWith = null,
         [FromQuery] DateTime? startDate = null,
         [FromQuery] DateTime? endDate = null,
         int? page = 1)
     {
         var orderOptions = new OrderOptions(current, numberStartWith, startDate, endDate, page);
-        return Ok(await _orderService.FetchAllOrders(User, orderOptions));
+        return Ok(await _orderStaffService.FetchAllCourierOrdersAsync(User, orderOptions));
     }
 
     /// <summary>
@@ -86,61 +66,20 @@ public class OrderStaffController : ControllerBase
     /// </summary>
     /// <response code="200">Success</response>
     /// <response code="401">Unauthorized</response>
-    /// <response code="500">InternalServerError</response>
-    [Produces(AppConfigurations.ResponseContentType)]
-    [ProducesResponseType(typeof(IEnumerable<OrderInfoDto>), StatusCodes.Status200OK)]
-    [HttpGet, Route("courier/order/history")]
-    [Authorize]
-    public async Task<IActionResult> FetchAllCourierOrderHistory(
-        bool current = false,
-        int? numberStartWith = null,
-        [FromQuery] DateTime? startDate = null,
-        [FromQuery] DateTime? endDate = null,
-        int? page = 1)
-    {
-        var orderOptions = new OrderOptions(current, numberStartWith, startDate, endDate, page);
-        return Ok(await _orderService.FetchAllOrders(User, orderOptions));
-    }
-
-    /// <summary>
-    /// Get a list of orders
-    /// </summary>
-    /// <response code="200">Success</response>
-    /// <response code="401">Unauthorized</response>
+    /// <response code="403">Forbidden</response>
     /// <response code="500">InternalServerError</response>
     [Produces(AppConfigurations.ResponseContentType)]
     [ProducesResponseType(typeof(IEnumerable<OrderInfoDto>), StatusCodes.Status200OK)]
     [HttpGet, Route("manager/order")]
-    [Authorize]
-    public async Task<IActionResult> FetchAllOrdersByManager(
+    [Authorize(Roles = "Manager")]
+    public async Task<IActionResult> FetchAllManagerOrders(
         bool current = false,
-        int? numberStartWith = null,
+        string? numberStartWith = null,
         [FromQuery] DateTime? startDate = null,
         [FromQuery] DateTime? endDate = null,
         int? page = 1)
     {
         var orderOptions = new OrderOptions(current, numberStartWith, startDate, endDate, page);
-        return Ok(await _orderService.FetchAllOrders(User, orderOptions));
-    }
-
-    /// <summary>
-    /// Get a list of orders
-    /// </summary>
-    /// <response code="200">Success</response>
-    /// <response code="401">Unauthorized</response>
-    /// <response code="500">InternalServerError</response>
-    [Produces(AppConfigurations.ResponseContentType)]
-    [ProducesResponseType(typeof(IEnumerable<OrderInfoDto>), StatusCodes.Status200OK)]
-    [HttpGet, Route("manager/order/history")]
-    [Authorize]
-    public async Task<IActionResult> FetchAllManagerOrderHistory(
-        bool current = false,
-        int? numberStartWith = null,
-        [FromQuery] DateTime? startDate = null,
-        [FromQuery] DateTime? endDate = null,
-        int? page = 1)
-    {
-        var orderOptions = new OrderOptions(current, numberStartWith, startDate, endDate, page);
-        return Ok(await _orderService.FetchAllOrders(User, orderOptions));
+        return Ok(await _orderStaffService.FetchAllManagerOrdersAsync(User, orderOptions));
     }
 }

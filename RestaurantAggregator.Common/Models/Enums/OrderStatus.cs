@@ -8,7 +8,7 @@ public enum OrderStatus
     Created, 
     Kitchen, 
     Packaging,
-    Delivery,
+    Delivering,
     Delivered,
     Canceled
 }

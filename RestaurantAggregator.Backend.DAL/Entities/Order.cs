@@ -1,13 +1,14 @@
 using System.ComponentModel.DataAnnotations;
+using RestaurantAggregator.Backend.DAL.Entities.Staff;
 using RestaurantAggregator.Common.Models.Enums;
-
-#pragma warning disable CS8618
 
 namespace RestaurantAggregator.Backend.DAL.Entities;
 
 public class Order
 {
     public Guid Id { get; set; }
+    
+    public string Number { get; set; } //todo make it  
     
     [Required] 
     public DateTime DeliveryTime { get; set; }
@@ -28,4 +29,10 @@ public class Order
     public string Address { get; set; }
     
     public Guid UserId { get; set; }
+    
+    public Cook? Cook { get; set; }
+
+    public Courier? Courier { get; set; }
+    
+    public Restaurant Restaurant { get; set; }
 }

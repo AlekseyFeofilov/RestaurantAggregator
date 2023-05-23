@@ -39,6 +39,8 @@ public static class AddServices
         services.AddScoped<IRestaurantService, RestaurantService>();
         
         services.AddScoped<IUserService, UserService>();
+        services.AddScoped<IOrderStaffService, OrderStaffService>();
+        services.AddScoped<IStatusService, StatusService>();
     }
     
     private static void AddAutoMapper(this IServiceCollection services)

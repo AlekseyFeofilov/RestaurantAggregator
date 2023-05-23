@@ -15,6 +15,7 @@ namespace RestaurantAggregator.Backend.API.Controllers.StaffControllers;
 
 [ApiController]
 [Route("api/manager/dish")] // todo make with configuration
+[Authorize(Roles = "Manager")] //todo сделать по-человечески, а не хардкодом
 public class DishManagerController : ControllerBase
 {
     private readonly IDishService _dishService;
@@ -34,7 +35,6 @@ public class DishManagerController : ControllerBase
     [Produces(AppConfigurations.ResponseContentType)]
     [ProducesResponseType(typeof(IEnumerable<DishModel>), StatusCodes.Status200OK)]
     [HttpGet]
-    [Authorize(Roles = "Manager")] //todo сделать по-человечески, а не хардкодом
     public async Task<IActionResult> FetchAllDishes( //todo make ability to chose manager see only active dishes
         Guid? menuId = null,
         [FromQuery] DishCategory[]? categories = null,
@@ -70,7 +70,6 @@ public class DishManagerController : ControllerBase
     /// <response code="403">Forbidden</response>
     /// <response code="500">InternalServerError</response>
     [HttpPost]
-    [Authorize(Roles = "Manager")]
     public async Task<IActionResult> CreateDish(DishCreateModel dishCreateModel)
     {
         var dishCreateDto = _mapper.Map<DishCreateDto>(dishCreateModel);
@@ -85,7 +84,7 @@ public class DishManagerController : ControllerBase
     /// <response code="500">InternalServerError</response>
     [HttpPut] // todo поприкалываться с тем, чтобы сделать patch
     [Authorize("ModifyDish")]
-    public async Task<IActionResult> ModifyDish(DishModifyModel dishModifyModel) {
+    public async Task<IActionResult> ModifyDish(DishModifyModel dishModifyModel) { //todo check if reviews are saving after modifying  
         var dishCreateDto = _mapper.Map<DishModifyDto>(dishModifyModel);
         return Ok(await _dishService.ModifyAsync(dishCreateDto));
     }

@@ -1,9 +1,8 @@
-using RestaurantAggregator.Backend.API.Requirements;
+using RestaurantAggregator.Backend.API.AuthorizationConfigurations.Requirements;
 using RestaurantAggregator.Backend.DAL.Repositories.DishRepository;
 using RestaurantAggregator.Backend.DAL.Repositories.ManagerRepository;
-using RestaurantAggregator.Common.Extensions;
 
-namespace RestaurantAggregator.Backend.API.AuthorizationHandlers;
+namespace RestaurantAggregator.Backend.API.AuthorizationConfigurations.AuthorizationHandlers;
 
 public class CanRetrieveDishHandler : HasAccessToDishHandler<CanRetrieveDishRequirement>
 {

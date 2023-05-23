@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Authorization;
-using RestaurantAggregator.Backend.API.AuthorizationHandlers;
+using RestaurantAggregator.Backend.API.AuthorizationConfigurations.AuthorizationHandlers;
+using RestaurantAggregator.Backend.API.AuthorizationConfigurations.AuthorizationPolicyProviders;
+using RestaurantAggregator.Backend.API.AuthorizationConfigurations.Requirements;
 using RestaurantAggregator.Backend.API.MapperProfiles;
-using RestaurantAggregator.Backend.API.Requirements;
 
 namespace RestaurantAggregator.Backend.API.Extensions;
 
@@ -36,5 +37,11 @@ public static class AddServices
         services.AddScoped<IAuthorizationHandler, CanDeleteDishHandler>();
         services.AddScoped<IAuthorizationHandler, CanModifyDishHandler>();
         services.AddScoped<IAuthorizationHandler, CanRetrieveDishHandler>();
+        services.AddScoped<IAuthorizationHandler, CanSetOrderStatusHandler>();
+    }
+
+    public static void AddAuthorizationPolicyProvider(this IServiceCollection services)
+    {
+        services.AddSingleton<IAuthorizationPolicyProvider, OrderStatusChangerPolicyProvider>();
     }
 }

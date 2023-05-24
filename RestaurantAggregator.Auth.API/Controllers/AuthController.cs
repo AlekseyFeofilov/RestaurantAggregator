@@ -11,7 +11,7 @@ namespace RestaurantAggregator.Auth.API.Controllers;
 
 [ApiController]
 [Route("api/account")]
-[Produces(AppConfigurations.ResponseContentType)]
+[Produces("application/json")]
 public class AuthController : ControllerBase
 {
     private readonly IAuthService _authService;

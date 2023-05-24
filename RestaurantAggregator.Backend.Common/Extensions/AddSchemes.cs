@@ -2,23 +2,25 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using RestaurantAggregator.Backend.Common.Configurations;
+using RestaurantAggregator.Common.Configurations;
+using RestaurantAggregator.Common.Extensions;
 
 namespace RestaurantAggregator.Backend.Common.Extensions;
 
 public static class AddSchemes
 {
-    public static void AddJwtBearerAuthenticationScheme(this AuthenticationBuilder authenticationBuilder)
+    public static void AddJwtBearerAuthenticationScheme(this AuthenticationBuilder authenticationBuilder, JwtConfigurations jwtConfigurations)
     {
         authenticationBuilder.AddJwtBearer(options =>
         {
             options.TokenValidationParameters = new TokenValidationParameters
             {
                 ValidateIssuer = true,
-                ValidIssuer = JwtConfigurations.Issuer,
+                ValidIssuer = jwtConfigurations.Issuer,
                 ValidateAudience = true,
-                ValidAudience = JwtConfigurations.Audience,
+                ValidAudience = jwtConfigurations.Audience,
                 ValidateLifetime = true,
-                IssuerSigningKey = JwtConfigurations.GetSymmetricSecurityKey(),
+                IssuerSigningKey = jwtConfigurations.Key.ToSymmetricSecurityKey(),
                 ValidateIssuerSigningKey = true
             };
         });

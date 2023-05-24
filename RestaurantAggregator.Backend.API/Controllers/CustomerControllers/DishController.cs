@@ -28,7 +28,7 @@ public class DishController : ControllerBase
     /// <response code="400">Bad Request</response>
     /// <response code="404">Not Found</response>
     /// <response code="500">InternalServerError</response>
-    [Produces(AppConfigurations.ResponseContentType)]
+    [Produces("application/json")]
     [ProducesResponseType(typeof(IEnumerable<DishModel>), StatusCodes.Status200OK)]
     [HttpGet]
     public async Task<IActionResult> FetchAllDishes(
@@ -51,7 +51,7 @@ public class DishController : ControllerBase
     /// <response code="200">Success</response>
     /// <response code="404">Not Found</response>
     /// <response code="500">InternalServerError</response>
-    [Produces(AppConfigurations.ResponseContentType)]
+    [Produces("application/json")]
     [ProducesResponseType(typeof(DishModel), StatusCodes.Status200OK)]
     [HttpGet, Route("{dishId:guid}")]
     public async Task<IActionResult> FetchDish(Guid dishId)

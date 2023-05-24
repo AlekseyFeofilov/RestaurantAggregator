@@ -1,9 +1,8 @@
 namespace RestaurantAggregator.Backend.Common.Configurations;
 
-public static class AppConfigurations
+public class AppConfigurations //todo инкапсулировать на несколько конфигураций, чтобы PageSize было в другом классе
 {
-    public const string ResponseContentType = "application/json";
-    public const string TokenType = "bearer";
-    public const int PageSize = 5;
-    public static bool isDevelopmentEnvironment;
+    public int PageSize { get; set; }
+    
+    public bool IsDevelopmentEnvironment { get; set; }
 }

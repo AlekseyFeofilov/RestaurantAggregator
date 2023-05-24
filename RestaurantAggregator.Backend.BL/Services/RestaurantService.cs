@@ -1,5 +1,6 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using RestaurantAggregator.Backend.Common.Configurations;
 using RestaurantAggregator.Backend.Common.Dtos.Restaurant;
 using RestaurantAggregator.Backend.Common.Exceptions;
@@ -17,10 +18,13 @@ public class RestaurantService : IRestaurantService
 
     private readonly IMapper _mapper;
 
-    public RestaurantService(ApplicationDbContext context, IMapper mapper)
+    private readonly IOptions<AppConfigurations> _configurations;
+
+    public RestaurantService(ApplicationDbContext context, IMapper mapper, IOptions<AppConfigurations> configurations)
     {
         _context = context;
         _mapper = mapper;
+        _configurations = configurations;
     }
 
     public async Task<PagedEnumerable<RestaurantDto>> FetchRestaurantsAsync(string? contains, int page = 1)
@@ -28,7 +32,7 @@ public class RestaurantService : IRestaurantService
         var restaurants = _context.Restaurants
             .Where(restaurant => restaurant.Name.Contains(contains ?? ""));
 
-        var pagedRestaurants = restaurants.GetPagedQueryable(page, AppConfigurations.PageSize);
+        var pagedRestaurants = restaurants.GetPagedQueryable(page, _configurations.Value.PageSize);
         var restaurantDtos = new PagedEnumerable<RestaurantDto>(
             await pagedRestaurants.Items.Select(restaurant => _mapper.Map<RestaurantDto>(restaurant))
                 .ToListAsync(),

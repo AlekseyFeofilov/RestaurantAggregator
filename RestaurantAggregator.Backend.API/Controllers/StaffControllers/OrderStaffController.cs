@@ -24,7 +24,7 @@ public class OrderStaffController : ControllerBase
     /// <response code="401">Unauthorized</response>
     /// <response code="403">Forbidden</response>
     /// <response code="500">InternalServerError</response>
-    [Produces(AppConfigurations.ResponseContentType)]
+    [Produces("application/json")]
     [ProducesResponseType(typeof(IEnumerable<OrderInfoDto>), StatusCodes.Status200OK)]
     [HttpGet, Route("cook/order")]
     [Authorize(Roles = "Cook")]
@@ -46,7 +46,7 @@ public class OrderStaffController : ControllerBase
     /// <response code="401">Unauthorized</response>
     /// <response code="403">Forbidden</response>
     /// <response code="500">InternalServerError</response>
-    [Produces(AppConfigurations.ResponseContentType)]
+    [Produces("application/json")]
     [ProducesResponseType(typeof(IEnumerable<OrderInfoDto>), StatusCodes.Status200OK)]
     [HttpGet, Route("courier/order")]
     [Authorize(Roles = "Courier")]
@@ -68,7 +68,7 @@ public class OrderStaffController : ControllerBase
     /// <response code="401">Unauthorized</response>
     /// <response code="403">Forbidden</response>
     /// <response code="500">InternalServerError</response>
-    [Produces(AppConfigurations.ResponseContentType)]
+    [Produces("application/json")]
     [ProducesResponseType(typeof(IEnumerable<OrderInfoDto>), StatusCodes.Status200OK)]
     [HttpGet, Route("manager/order")]
     [Authorize(Roles = "Manager")]

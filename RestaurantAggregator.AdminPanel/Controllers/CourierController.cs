@@ -1,10 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using RestaurantAggregator.AdminPanel.Configurations;
 using RestaurantAggregator.AdminPanel.Models.Courier;
 using RestaurantAggregator.AdminPanel.Models.Restaurant;
 using RestaurantAggregator.AdminPanel.Models.Shared;
 using RestaurantAggregator.Auth.DAL.IRepositories;
-using RestaurantAggregator.Backend.Common.Configurations;
 using RestaurantAggregator.Backend.DAL.Entities;
 using RestaurantAggregator.Backend.DAL.IRepositories;
 using RestaurantAggregator.Common.Dtos.Enums;
@@ -22,13 +23,16 @@ public class CourierController : Controller
     private readonly IUserRepository _userRepository;
 
     private readonly IRestaurantRepository _restaurantRepository;
+    
+    private readonly IOptions<AppConfigurations> _configurations;
 
-    public CourierController(IUserRepository userRepository, IRestaurantRepository restaurantRepository, ICourierRepository authCourierRepository, Backend.DAL.IRepositories.ICourierRepository courierRepository)
+    public CourierController(IUserRepository userRepository, IRestaurantRepository restaurantRepository, ICourierRepository authCourierRepository, Backend.DAL.IRepositories.ICourierRepository courierRepository, IOptions<AppConfigurations> configurations)
     {
         _userRepository = userRepository;
         _restaurantRepository = restaurantRepository;
         _authCourierRepository = authCourierRepository;
         _courierRepository = courierRepository;
+        _configurations = configurations;
     }
 
     public async Task<ActionResult> Index(Guid restaurantId, string contains = "", int page = 1)
@@ -41,7 +45,7 @@ public class CourierController : Controller
         var users = _userRepository
             .FetchAllUsers()
             .Where(x => couriers.Select(courier => courier.Id).Contains(x.Id) && x.FullName.Contains(contains ?? ""))
-            .GetPagedQueryable(page, AppConfigurations.PageSize);
+            .GetPagedQueryable(page, _configurations.Value.PageSize);
 
         var pagedNamedListModel = new PagedNamedListModel(
             contains,

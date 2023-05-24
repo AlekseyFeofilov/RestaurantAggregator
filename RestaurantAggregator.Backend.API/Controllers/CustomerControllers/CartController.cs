@@ -28,7 +28,7 @@ public class CartController : ControllerBase
     /// <response code="200">Success</response>
     /// <response code="401">Unauthorized</response>
     /// <response code="500">InternalServerError</response>
-    [Produces(AppConfigurations.ResponseContentType)]
+    [Produces("application/json")]
     [ProducesResponseType(typeof(IEnumerable<DishInCartDto>), StatusCodes.Status200OK)]
     [HttpGet]
     [Authorize]
@@ -59,7 +59,7 @@ public class CartController : ControllerBase
     /// <response code="401">Unauthorized</response>
     /// <response code="404">Not Found</response>
     /// <response code="500">InternalServerError</response>
-    [Produces(AppConfigurations.ResponseContentType)]
+    [Produces("application/json")]
     [HttpDelete, Route("dish/{dishId:guid}")]
     [Authorize]
     public async Task<IActionResult> RemoveDish(Guid dishId, bool increase = false)

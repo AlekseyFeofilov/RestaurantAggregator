@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using RestaurantAggregator.AdminPanel.Configurations;
 using RestaurantAggregator.AdminPanel.Models.Shared;
 using RestaurantAggregator.Auth.DAL.IRepositories;
-using RestaurantAggregator.Backend.Common.Configurations;
 using RestaurantAggregator.Common.Extensions;
 
 namespace RestaurantAggregator.AdminPanel.Controllers;
@@ -10,9 +11,12 @@ public class UserController : Controller
 {
     private readonly IUserRepository _userRepository;
 
-    public UserController(IUserRepository userRepository)
+    private readonly IOptions<AppConfigurations> _configurations;
+
+    public UserController(IUserRepository userRepository, IOptions<AppConfigurations> configurations)
     {
         _userRepository = userRepository;
+        _configurations = configurations;
     }
 
     public ActionResult
@@ -22,7 +26,7 @@ public class UserController : Controller
         var users = _userRepository
             .FetchAllNonStaffUsers()
             .Where(x => x.FullName.Contains(contains ?? "") || x.Email.Contains(contains ?? ""))
-            .GetPagedQueryable(page, AppConfigurations.PageSize);
+            .GetPagedQueryable(page, _configurations.Value.PageSize);
 
         var pagedNamedListModel = new PagedNamedListModel(
             contains,

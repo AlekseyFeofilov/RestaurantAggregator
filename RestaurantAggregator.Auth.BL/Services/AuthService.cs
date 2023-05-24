@@ -2,6 +2,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using RestaurantAggregator.Auth.BL.Extensions;
 using RestaurantAggregator.Auth.Common.Dtos;
@@ -13,6 +14,8 @@ using RestaurantAggregator.Auth.DAL.Entities.IdentityEntities;
 using RestaurantAggregator.Auth.DAL.Entities.Users;
 using RestaurantAggregator.Backend.Common.Configurations;
 using RestaurantAggregator.Common.Dtos.Enums;
+using RestaurantAggregator.Common.Extensions;
+using AppConfigurations = RestaurantAggregator.Auth.Common.Configurations.AppConfigurations;
 
 namespace RestaurantAggregator.Auth.BL.Services;
 
@@ -28,13 +31,16 @@ public class AuthService : IAuthService
 
     private readonly ApplicationDbContext _context;
 
-    public AuthService(UserManager<User> userManager, IMapper mapper, IJwtService jwtService, RoleManager<Role> roleManager, ApplicationDbContext context)
+    private readonly IOptions<AppConfigurations> _configurations;
+
+    public AuthService(UserManager<User> userManager, IMapper mapper, IJwtService jwtService, RoleManager<Role> roleManager, ApplicationDbContext context, IOptions<AppConfigurations> configurations)
     {
         _userManager = userManager;
         _mapper = mapper;
         _jwtService = jwtService;
         _roleManager = roleManager;
         _context = context;
+        _configurations = configurations;
     }
 
     public async Task<TokenDto> LogInAsync(CredentialsDto credentialsDto)
@@ -124,7 +130,7 @@ public class AuthService : IAuthService
             ValidateAudience = false,
             ValidateIssuer = false,
             ValidateIssuerSigningKey = true,
-            IssuerSigningKey = JwtConfigurations.GetSymmetricSecurityKey(), //todo: не уверен, что это работает верно
+            IssuerSigningKey = _configurations.Value.JwtSecretKey.ToSymmetricSecurityKey(),
             ValidateLifetime = false
         };
 

@@ -1,4 +1,5 @@
 
+using RestaurantAggregator.AdminPanel.Configurations;
 using RestaurantAggregator.AdminPanel.Extension;
 using RestaurantAggregator.Auth.BL.Repositories;
 using RestaurantAggregator.Auth.DAL.Extensions;
@@ -20,6 +21,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddBL();
 builder.Services.AddAutoMapper();
 
+builder.Services.Configure<AppConfigurations>(builder.Configuration.GetSection("AppConfigurations"));
 
 var app = builder.Build();
 

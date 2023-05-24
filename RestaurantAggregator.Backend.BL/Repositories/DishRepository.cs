@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using RestaurantAggregator.Backend.Common.Configurations;
 using RestaurantAggregator.Backend.Common.Dtos.Dish;
 using RestaurantAggregator.Backend.Common.Exceptions;
@@ -20,13 +21,16 @@ public class DishRepository : IDishRepository
     private readonly IMenuRepository _menuRepository;
 
     private readonly IRestaurantRepository _restaurantRepository;
+    
+    private readonly IOptions<AppConfigurations> _configurations;
 
     public DishRepository(ApplicationDbContext context, IMenuRepository menuRepository,
-        IRestaurantRepository restaurantRepository)
+        IRestaurantRepository restaurantRepository, IOptions<AppConfigurations> configurations)
     {
         _context = context;
         _menuRepository = menuRepository;
         _restaurantRepository = restaurantRepository;
+        _configurations = configurations;
     }
 
     public async Task<PagedEnumerable<Dish>> FetchAllDishesAsync(DishOptions dishOptions,
@@ -68,7 +72,7 @@ public class DishRepository : IDishRepository
         dishes = GetCategory(dishes, dishOptions.Categories);
         dishes = Sort(dishes, dishOptions.Sorting);
 
-        var pagedDishes = dishes.GetPagedQueryable(dishOptions.Page, AppConfigurations.PageSize);
+        var pagedDishes = dishes.GetPagedQueryable(dishOptions.Page, _configurations.Value.PageSize);
         var pagedEnumerableDishes = new PagedEnumerable<Dish>(
             await pagedDishes.Items!
                 .Include(x => x.Restaurant)

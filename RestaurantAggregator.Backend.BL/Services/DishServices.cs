@@ -14,8 +14,6 @@ public class DishServices : IDishService
 {
     private readonly IMapper _mapper;
 
-    private const int PageSize = AppConfigurations.PageSize;
-
     private readonly IDishRepository _dishRepository;
 
     private readonly IReviewRepository _reviewRepository;

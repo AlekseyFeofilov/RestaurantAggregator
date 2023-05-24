@@ -1,6 +1,7 @@
-using RestaurantAggregator.Auth.Common.Configuration;
+using Microsoft.Extensions.Options;
 using RestaurantAggregator.Auth.Common.Exceptions;
 using RestaurantAggregator.Backend.Common.Configurations;
+using AppConfigurations = RestaurantAggregator.Auth.Common.Configurations.AppConfigurations;
 
 namespace RestaurantAggregator.Auth.API.Middleware;
 
@@ -8,9 +9,12 @@ public class ErrorHandlingMiddleware // todo попробовать сделат
 {
     private readonly RequestDelegate _next;
 
-    public ErrorHandlingMiddleware(RequestDelegate next)
+    private readonly IOptions<AppConfigurations> _configurations;
+
+    public ErrorHandlingMiddleware(RequestDelegate next, IOptions<AppConfigurations> configurations)
     {
-        this._next = next;
+        _next = next;
+        _configurations = configurations;
     }
 
     public async Task InvokeAsync(HttpContext context)
@@ -39,14 +43,14 @@ public class ErrorHandlingMiddleware // todo попробовать сделат
         {
             Console.Write(exception);
             
-            var message = Configurations.isDevelopmentEnvironment ? exception.Message : "";
+            var message = _configurations.Value.IsDevelopmentEnvironment ? exception.Message : "";
             await WriteResponse(context, StatusCodes.Status500InternalServerError, message);
         }
     }
 
     private async Task WriteResponse(HttpContext context, int statusCode, string message)
     {
-        context.Response.ContentType = AppConfigurations.ResponseContentType;
+        context.Response.ContentType = "application/json";
         context.Response.StatusCode = statusCode;
         await context.Response.WriteAsync(message);
     }

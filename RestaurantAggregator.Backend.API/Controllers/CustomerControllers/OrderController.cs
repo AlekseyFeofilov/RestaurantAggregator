@@ -30,7 +30,7 @@ public class OrderController : ControllerBase //todo заменить dto на m
     /// <response code="401">Unauthorized</response>
     /// <response code="404">Not Found</response>
     /// <response code="500">InternalServerError</response>
-    [Produces(AppConfigurations.ResponseContentType)]
+    [Produces("application/json")]
     [ProducesResponseType(typeof(OrderDto), StatusCodes.Status200OK)]
     [HttpGet, Route("{orderId:guid}")]
     [Authorize]
@@ -45,7 +45,7 @@ public class OrderController : ControllerBase //todo заменить dto на m
     /// <response code="200">Success</response>
     /// <response code="401">Unauthorized</response>
     /// <response code="500">InternalServerError</response>
-    [Produces(AppConfigurations.ResponseContentType)]
+    [Produces("application/json")]
     [ProducesResponseType(typeof(IEnumerable<OrderInfoDto>), StatusCodes.Status200OK)]
     [HttpGet]
     [Authorize]
@@ -67,7 +67,7 @@ public class OrderController : ControllerBase //todo заменить dto на m
     /// <response code="401">Unauthorized</response>
     /// <response code="404">Not Found</response>
     /// <response code="500">InternalServerError</response>
-    [Produces(AppConfigurations.ResponseContentType)]
+    [Produces("application/json")]
     [ProducesResponseType(typeof(OrderDto), StatusCodes.Status200OK)]
     [HttpGet, Route("current")]
     [Authorize]

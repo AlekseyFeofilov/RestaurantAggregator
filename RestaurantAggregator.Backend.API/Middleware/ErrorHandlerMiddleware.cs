@@ -4,6 +4,7 @@ using RestaurantAggregator.Backend.Common.Exceptions;
 using RestaurantAggregator.Backend.Common.Exceptions.BadRequestExceptions;
 using RestaurantAggregator.Backend.Common.Exceptions.ForbiddenException;
 using RestaurantAggregator.Backend.Common.Exceptions.NotFoundException;
+using RestaurantAggregator.Backend.Common.Exceptions.UnauthorizedExceptions;
 using RestaurantAggregator.Common.Exceptions;
 using CourierNotFoundException = RestaurantAggregator.Backend.Common.Exceptions.NotFoundException.CourierNotFoundException;
 using ManagerNotFoundException = RestaurantAggregator.Backend.Common.Exceptions.NotFoundException.ManagerNotFoundException;
@@ -39,16 +40,22 @@ public class ErrorHandlingMiddleware
             message = e switch
             {
                 CartIsEmptyException => "Cart is empty",
-                CourierNotFoundException courierNotFoundException => $"Courier with id {courierNotFoundException.Id} wasn't found",
+                CourierNotFoundException courierNotFoundException =>
+                    $"Courier with id {courierNotFoundException.Id} wasn't found",
                 DishNotFoundException dishNotFoundException => $"Dish with id {dishNotFoundException.Id} wasn't found",
-                ManagerNotFoundException managerNotFoundException => $"Manager with id {managerNotFoundException.Id} wasn't found",
+                ManagerNotFoundException managerNotFoundException =>
+                    $"Manager with id {managerNotFoundException.Id} wasn't found",
                 CookNotfoundException cookNotfoundException => $"Cook with id {cookNotfoundException.Id} wasn't found",
                 MenuNotFoundException menuNotFoundException => $"Menu with id {menuNotFoundException.Id} wasn't found",
-                OrderNotFoundException orderNotFoundException => $"Order with id {orderNotFoundException.Id} wasn't found",
-                RestaurantNotFoundException restaurantNotFoundException => $"Restaurant with id {restaurantNotFoundException.Id} wasn't found",
-                DishFromDifferentRestaurantsException dishFromDifferentRestaurantsException => $"Dish with id {dishFromDifferentRestaurantsException.FirstDishId} and dish with id {dishFromDifferentRestaurantsException.SecondDishId} are in different restaurants",
-                DishInCartNotAvailableException dishInCartNotAvailableException => $"Dish with id {dishInCartNotAvailableException.Message} isn't available anymore",
-                
+                OrderNotFoundException orderNotFoundException =>
+                    $"Order with id {orderNotFoundException.Id} wasn't found",
+                RestaurantNotFoundException restaurantNotFoundException =>
+                    $"Restaurant with id {restaurantNotFoundException.Id} wasn't found",
+                DishFromDifferentRestaurantsException dishFromDifferentRestaurantsException =>
+                    $"Dish with id {dishFromDifferentRestaurantsException.FirstDishId} and dish with id {dishFromDifferentRestaurantsException.SecondDishId} are in different restaurants",
+                DishInCartNotAvailableException dishInCartNotAvailableException =>
+                    $"Dish with id {dishInCartNotAvailableException.Message} isn't available anymore",
+
                 ForbiddenException => "",
                 InternalServerErrorException => "",
                 NotFoundException => "",
@@ -56,6 +63,11 @@ public class ErrorHandlingMiddleware
                 BadRequestException => "",
                 _ => ""
             };
+        }
+        catch (InvalidClaimPrincipalException)
+        {
+            message = "Invalid token";
+            exception = new InvalidTokenException();
         }
         catch (Exception e)
         {

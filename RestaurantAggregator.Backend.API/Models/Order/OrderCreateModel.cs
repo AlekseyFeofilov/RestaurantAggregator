@@ -1,11 +1,12 @@
 using System.ComponentModel.DataAnnotations;
+using RestaurantAggregator.Common.Attributes.ValidationAttributes;
 
 namespace RestaurantAggregator.Backend.API.Models.Order;
 
 public class OrderCreateModel
 {
     [Required]
-    //[DateRange(0)]
+    [DateRange(earlierThanTodayBy: -0.5, isNullable: true)]
     public DateTime DeliveryTime { get; set; }
     
     [MinLength(1), Required]

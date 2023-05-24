@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using RestaurantAggregator.Common.Exceptions;
 
 namespace RestaurantAggregator.Common.Extensions;
 
@@ -6,6 +7,13 @@ public static class ClaimsPrincipalExtension
 {
     public static Guid GetNameIdentifier(this ClaimsPrincipal claimsPrincipal)
     {
-        return Guid.Parse(claimsPrincipal.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+        var nameIdentifier = claimsPrincipal.FindFirst(ClaimTypes.NameIdentifier);
+
+        if (nameIdentifier == null)
+        {
+            throw new InvalidClaimPrincipalException();
+        }
+        
+        return Guid.Parse(nameIdentifier.Value);
     }
 }

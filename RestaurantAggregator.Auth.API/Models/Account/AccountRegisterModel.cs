@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
+using RestaurantAggregator.Common.Attributes.ValidationAttributes;
 using RestaurantAggregator.Common.Dtos.Enums;
 
 namespace RestaurantAggregator.Auth.API.Models.Account;
@@ -9,6 +10,7 @@ public class AccountRegisterModel
     [MinLength(1), Required]
     public string FullName { get; set; }
     
+    [DateRange(laterThanTodayBy: 0, isNullable: true)]
     public DateTime? BirthDate { get; set; }
     
     public Gender? Gender { get; set; }

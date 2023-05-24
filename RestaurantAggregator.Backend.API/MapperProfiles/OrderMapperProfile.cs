@@ -8,6 +8,6 @@ public class OrderMapperProfile : Profile
 {
     public OrderMapperProfile()
     {
-        CreateMap<OrderCreateDto, OrderCreateModel>();
+        CreateMap<OrderCreateModel, OrderCreateDto>();
     }
 }

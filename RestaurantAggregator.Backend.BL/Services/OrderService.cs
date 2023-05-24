@@ -7,12 +7,13 @@ using RestaurantAggregator.Backend.Common.Exceptions;
 using RestaurantAggregator.Backend.Common.Exceptions.BadRequestExceptions;
 using RestaurantAggregator.Backend.Common.Exceptions.ForbiddenException;
 using RestaurantAggregator.Backend.Common.Exceptions.NotFoundException;
-using RestaurantAggregator.Backend.Common.Extensions;
 using RestaurantAggregator.Backend.Common.IServices;
 using RestaurantAggregator.Backend.DAL.DbContexts;
 using RestaurantAggregator.Backend.DAL.Entities;
 using RestaurantAggregator.Backend.DAL.IRepositories;
 using RestaurantAggregator.Common.Dtos.Enums;
+using RestaurantAggregator.Common.Extensions;
+using StringExtension = RestaurantAggregator.Backend.Common.Extensions.StringExtension;
 
 namespace RestaurantAggregator.Backend.BL.Services;
 
@@ -49,7 +50,7 @@ public class OrderService : IOrderService
     public async Task<IEnumerable<OrderInfoDto>> FetchAllOrders(ClaimsPrincipal claimsPrincipal,
         OrderOptions orderOptions)
     {
-        var userId = Guid.Parse(claimsPrincipal.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+        var userId = claimsPrincipal.GetNameIdentifier();
 
         return await GetOrderWithOptions(orderOptions)
             .Where(x => x.UserId == userId)
@@ -62,7 +63,7 @@ public class OrderService : IOrderService
         var userId = Guid.Parse(claimsPrincipal.FindFirst(ClaimTypes.NameIdentifier)!.Value);
         var cart = await GetOrderDishBaskets(userId);
 
-        if (cart.First(x => !x.Dish.Active || x.Dish.Deleted) is var dish && dish != null) throw new DishInCartNotAvailableException(dish.Id);
+        if (cart.FirstOrDefault(x => !x.Dish.Active || x.Dish.Deleted) is var dish && dish != null) throw new DishInCartNotAvailableException(dish.Id);
         if (!cart.Any()) throw new CartIsEmptyException();
 
         var firstDish = cart.First().Dish;
@@ -145,6 +146,7 @@ public class OrderService : IOrderService
         return await _context.Orders
             .Where(x => x.UserId == userId && x.Status != OrderStatus.Canceled && x.Status != OrderStatus.Delivered)
             .Include(x => x.DishBaskets)
+            .ThenInclude(x => x.Dish)
             .Select(x => _mapper.Map<OrderDto>(x))
             .ToListAsync();
     }

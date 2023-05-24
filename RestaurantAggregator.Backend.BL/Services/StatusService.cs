@@ -64,6 +64,14 @@ public class StatusService : IStatusService
         var order = await _orderRepository.FetchOrderAsync(orderId);
         exp(order);
         await _orderRepository.SaveChangesAsync();
-        _statusChangingMessageService.SendStatusChangingMessage(new StatusChangingNotification(order.UserId, order.Number, order.Status));
+
+        try
+        {
+            _statusChangingMessageService.SendStatusChangingMessage(new StatusChangingNotification(order.UserId, order.Number, order.Status));
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("Notification Api isn't reachable");
+        }
     }
 }

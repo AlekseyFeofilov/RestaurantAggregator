@@ -9,7 +9,7 @@ using RestaurantAggregator.Backend.Common.Extensions;
 using RestaurantAggregator.Backend.Common.IServices;
 using RestaurantAggregator.Backend.DAL.DbContexts;
 using RestaurantAggregator.Backend.DAL.Entities;
-using RestaurantAggregator.Backend.DAL.Repositories.ReviewRepository;
+using RestaurantAggregator.Backend.DAL.IRepositories;
 using RestaurantAggregator.Common.Dtos.Enums;
 
 namespace RestaurantAggregator.Backend.BL.Services;

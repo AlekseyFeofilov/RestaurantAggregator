@@ -4,7 +4,7 @@ using RestaurantAggregator.Backend.Common.Dtos.Order;
 using RestaurantAggregator.Backend.Common.IServices;
 using RestaurantAggregator.Backend.DAL.DbContexts;
 using RestaurantAggregator.Backend.DAL.Entities;
-using RestaurantAggregator.Backend.DAL.Repositories.ManagerRepository;
+using RestaurantAggregator.Backend.DAL.IRepositories;
 using RestaurantAggregator.Common.Dtos.Enums;
 using RestaurantAggregator.Common.Extensions;
 

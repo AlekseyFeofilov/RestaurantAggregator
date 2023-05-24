@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using RestaurantAggregator.Auth.API.MapperProfiles;
 using RestaurantAggregator.Auth.API.Middleware;
 using RestaurantAggregator.Auth.BL.Extensions;
-using RestaurantAggregator.Auth.BL.Helpers;
+using RestaurantAggregator.Auth.BL.MapperProfiles;
 using RestaurantAggregator.Auth.Common.Configuration;
 using RestaurantAggregator.Backend.Common.Extensions;
 

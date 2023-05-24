@@ -3,27 +3,27 @@ using Microsoft.EntityFrameworkCore;
 using RestaurantAggregator.AdminPanel.Models.Cook;
 using RestaurantAggregator.AdminPanel.Models.Restaurant;
 using RestaurantAggregator.AdminPanel.Models.Shared;
-using RestaurantAggregator.Auth.DAL.Repositories.UserRepository;
+using RestaurantAggregator.Auth.DAL.IRepositories;
 using RestaurantAggregator.Backend.Common.Configurations;
 using RestaurantAggregator.Backend.DAL.Entities;
-using RestaurantAggregator.Backend.DAL.Repositories.CookRepository;
-using RestaurantAggregator.Backend.DAL.Repositories.RestaurantRepository;
+using RestaurantAggregator.Backend.DAL.IRepositories;
 using RestaurantAggregator.Common.Dtos.Enums;
 using RestaurantAggregator.Common.Extensions;
+using ICookRepository = RestaurantAggregator.Auth.DAL.IRepositories.ICookRepository;
 
 namespace RestaurantAggregator.AdminPanel.Controllers;
 
 public class CookController : Controller
 {
-    private readonly Auth.DAL.Repositories.CookRepository.ICookRepository _authCookRepository;
+    private readonly ICookRepository _authCookRepository;
     
-    private readonly ICookRepository _cookRepository;
+    private readonly Backend.DAL.IRepositories.ICookRepository _cookRepository;
 
     private readonly IUserRepository _userRepository;
     
     private readonly IRestaurantRepository _restaurantRepository;
 
-    public CookController(ICookRepository cookRepository, IUserRepository userRepository, Auth.DAL.Repositories.CookRepository.ICookRepository authCookRepository, IRestaurantRepository restaurantRepository)
+    public CookController(Backend.DAL.IRepositories.ICookRepository cookRepository, IUserRepository userRepository, ICookRepository authCookRepository, IRestaurantRepository restaurantRepository)
     {
         _cookRepository = cookRepository;
         _userRepository = userRepository;

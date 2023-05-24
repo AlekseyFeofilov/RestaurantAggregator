@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using ApplicationDbContext = RestaurantAggregator.Auth.DAL.DbContexts.ApplicationDbContext;
-using IManagerRepository = RestaurantAggregator.Auth.DAL.Repositories.MangerRepository.IManagerRepository;
+using IManagerRepository = RestaurantAggregator.Auth.DAL.IRepositories.IManagerRepository;
 
 namespace RestaurantAggregator.AdminPanel.Controllers;
 
@@ -10,7 +10,7 @@ public class RestaurantStaffController : Controller
 
     private readonly ApplicationDbContext _context;
 
-    public RestaurantStaffController(Backend.DAL.Repositories.ManagerRepository.IManagerRepository managerRepository, ApplicationDbContext context, IManagerRepository authManagerRepository)
+    public RestaurantStaffController(Backend.DAL.IRepositories.IManagerRepository managerRepository, ApplicationDbContext context, IManagerRepository authManagerRepository)
     {
         _context = context;
     }

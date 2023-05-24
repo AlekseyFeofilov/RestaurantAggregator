@@ -4,11 +4,7 @@ using RestaurantAggregator.Backend.Common.Configurations;
 using RestaurantAggregator.Backend.Common.Dtos.Dish;
 using RestaurantAggregator.Backend.Common.IServices;
 using RestaurantAggregator.Backend.DAL.Entities;
-using RestaurantAggregator.Backend.DAL.Repositories.DishRepository;
-using RestaurantAggregator.Backend.DAL.Repositories.ManagerRepository;
-using RestaurantAggregator.Backend.DAL.Repositories.MenuRepository;
-using RestaurantAggregator.Backend.DAL.Repositories.RestaurantRepository;
-using RestaurantAggregator.Backend.DAL.Repositories.ReviewRepository;
+using RestaurantAggregator.Backend.DAL.IRepositories;
 using RestaurantAggregator.Common.Dtos;
 using RestaurantAggregator.Common.Extensions;
 

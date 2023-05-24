@@ -1,8 +1,7 @@
 using RestaurantAggregator.Backend.API.AuthorizationConfigurations.Requirements;
 using RestaurantAggregator.Backend.API.Extensions;
 using RestaurantAggregator.Backend.API.Models.Dish;
-using RestaurantAggregator.Backend.DAL.Repositories.DishRepository;
-using RestaurantAggregator.Backend.DAL.Repositories.ManagerRepository;
+using RestaurantAggregator.Backend.DAL.IRepositories;
 
 namespace RestaurantAggregator.Backend.API.AuthorizationConfigurations.AuthorizationHandlers;
 

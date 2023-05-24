@@ -3,27 +3,27 @@ using Microsoft.EntityFrameworkCore;
 using RestaurantAggregator.AdminPanel.Models.Manager;
 using RestaurantAggregator.AdminPanel.Models.Restaurant;
 using RestaurantAggregator.AdminPanel.Models.Shared;
-using RestaurantAggregator.Auth.DAL.Repositories.MangerRepository;
-using RestaurantAggregator.Auth.DAL.Repositories.UserRepository;
+using RestaurantAggregator.Auth.DAL.IRepositories;
 using RestaurantAggregator.Backend.Common.Configurations;
 using RestaurantAggregator.Backend.DAL.Entities;
-using RestaurantAggregator.Backend.DAL.Repositories.RestaurantRepository;
+using RestaurantAggregator.Backend.DAL.IRepositories;
 using RestaurantAggregator.Common.Dtos.Enums;
 using RestaurantAggregator.Common.Extensions;
+using IManagerRepository = RestaurantAggregator.Backend.DAL.IRepositories.IManagerRepository;
 
 namespace RestaurantAggregator.AdminPanel.Controllers;
 
 public class ManagerController : Controller
 {
-    private readonly Backend.DAL.Repositories.ManagerRepository.IManagerRepository _managerRepository;
+    private readonly IManagerRepository _managerRepository;
 
-    private readonly IManagerRepository _authManagerRepository;
+    private readonly Auth.DAL.IRepositories.IManagerRepository _authManagerRepository;
 
     private readonly IUserRepository _userRepository;
 
     private readonly IRestaurantRepository _restaurantRepository;
 
-    public ManagerController(IManagerRepository authManagerRepository, Backend.DAL.Repositories.ManagerRepository.IManagerRepository managerRepository, IUserRepository userRepository, IRestaurantRepository restaurantRepository)
+    public ManagerController(Auth.DAL.IRepositories.IManagerRepository authManagerRepository, IManagerRepository managerRepository, IUserRepository userRepository, IRestaurantRepository restaurantRepository)
     {
         _authManagerRepository = authManagerRepository;
         _managerRepository = managerRepository;

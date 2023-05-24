@@ -1,9 +1,7 @@
 using System.Security.Claims;
 using RestaurantAggregator.Backend.Common.IServices;
 using RestaurantAggregator.Backend.DAL.Entities;
-using RestaurantAggregator.Backend.DAL.Repositories.CookRepository;
-using RestaurantAggregator.Backend.DAL.Repositories.CourierRepository;
-using RestaurantAggregator.Backend.DAL.Repositories.OrderRepository;
+using RestaurantAggregator.Backend.DAL.IRepositories;
 using RestaurantAggregator.Common.Dtos;
 using RestaurantAggregator.Common.Dtos.Enums;
 using RestaurantAggregator.Common.Extensions;

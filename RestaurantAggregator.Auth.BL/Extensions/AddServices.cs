@@ -1,11 +1,10 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using RestaurantAggregator.Auth.BL.Repositories;
 using RestaurantAggregator.Auth.BL.Services;
 using RestaurantAggregator.Auth.Common.IServices;
 using RestaurantAggregator.Auth.DAL.Extensions;
-using RestaurantAggregator.Auth.DAL.Repositories.CookRepository;
-using RestaurantAggregator.Auth.DAL.Repositories.MangerRepository;
-using RestaurantAggregator.Auth.DAL.Repositories.UserRepository;
+using RestaurantAggregator.Auth.DAL.IRepositories;
 
 namespace RestaurantAggregator.Auth.BL.Extensions;
 

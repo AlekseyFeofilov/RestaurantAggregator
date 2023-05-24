@@ -3,27 +3,27 @@ using Microsoft.EntityFrameworkCore;
 using RestaurantAggregator.AdminPanel.Models.Courier;
 using RestaurantAggregator.AdminPanel.Models.Restaurant;
 using RestaurantAggregator.AdminPanel.Models.Shared;
-using RestaurantAggregator.Auth.DAL.Repositories.UserRepository;
+using RestaurantAggregator.Auth.DAL.IRepositories;
 using RestaurantAggregator.Backend.Common.Configurations;
 using RestaurantAggregator.Backend.DAL.Entities;
-using RestaurantAggregator.Backend.DAL.Repositories.CourierRepository;
-using RestaurantAggregator.Backend.DAL.Repositories.RestaurantRepository;
+using RestaurantAggregator.Backend.DAL.IRepositories;
 using RestaurantAggregator.Common.Dtos.Enums;
 using RestaurantAggregator.Common.Extensions;
+using ICourierRepository = RestaurantAggregator.Auth.DAL.IRepositories.ICourierRepository;
 
 namespace RestaurantAggregator.AdminPanel.Controllers;
 
 public class CourierController : Controller
 {
-    private readonly Auth.DAL.Repositories.CourierRepository.ICourierRepository _authCourierRepository;
+    private readonly ICourierRepository _authCourierRepository;
     
-    private readonly ICourierRepository _courierRepository;
+    private readonly Backend.DAL.IRepositories.ICourierRepository _courierRepository;
     
     private readonly IUserRepository _userRepository;
 
     private readonly IRestaurantRepository _restaurantRepository;
 
-    public CourierController(IUserRepository userRepository, IRestaurantRepository restaurantRepository, Auth.DAL.Repositories.CourierRepository.ICourierRepository authCourierRepository, ICourierRepository courierRepository)
+    public CourierController(IUserRepository userRepository, IRestaurantRepository restaurantRepository, ICourierRepository authCourierRepository, Backend.DAL.IRepositories.ICourierRepository courierRepository)
     {
         _userRepository = userRepository;
         _restaurantRepository = restaurantRepository;

@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Authorization;
-using RestaurantAggregator.Backend.DAL.Repositories.DishRepository;
-using RestaurantAggregator.Backend.DAL.Repositories.ManagerRepository;
+using RestaurantAggregator.Backend.DAL.IRepositories;
 using RestaurantAggregator.Common.Extensions;
 
 namespace RestaurantAggregator.Backend.API.AuthorizationConfigurations.AuthorizationHandlers;

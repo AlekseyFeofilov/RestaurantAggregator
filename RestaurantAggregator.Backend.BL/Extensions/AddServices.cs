@@ -1,17 +1,11 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using RestaurantAggregator.Backend.BL.MapperProfiles;
+using RestaurantAggregator.Backend.BL.Repositories;
 using RestaurantAggregator.Backend.BL.Services;
 using RestaurantAggregator.Backend.Common.IServices;
 using RestaurantAggregator.Backend.DAL.Extensions;
-using RestaurantAggregator.Backend.DAL.Repositories.CookRepository;
-using RestaurantAggregator.Backend.DAL.Repositories.CourierRepository;
-using RestaurantAggregator.Backend.DAL.Repositories.DishRepository;
-using RestaurantAggregator.Backend.DAL.Repositories.ManagerRepository;
-using RestaurantAggregator.Backend.DAL.Repositories.MenuRepository;
-using RestaurantAggregator.Backend.DAL.Repositories.OrderRepository;
-using RestaurantAggregator.Backend.DAL.Repositories.RestaurantRepository;
-using RestaurantAggregator.Backend.DAL.Repositories.ReviewRepository;
+using RestaurantAggregator.Backend.DAL.IRepositories;
 
 namespace RestaurantAggregator.Backend.BL.Extensions;
 

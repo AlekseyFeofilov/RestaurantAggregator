@@ -1,10 +1,8 @@
 
 using RestaurantAggregator.AdminPanel.Extension;
+using RestaurantAggregator.Auth.BL.Repositories;
 using RestaurantAggregator.Auth.DAL.Extensions;
-using RestaurantAggregator.Auth.DAL.Repositories.CookRepository;
-using RestaurantAggregator.Auth.DAL.Repositories.CourierRepository;
-using RestaurantAggregator.Auth.DAL.Repositories.MangerRepository;
-using RestaurantAggregator.Auth.DAL.Repositories.UserRepository;
+using RestaurantAggregator.Auth.DAL.IRepositories;
 using RestaurantAggregator.Backend.BL.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);

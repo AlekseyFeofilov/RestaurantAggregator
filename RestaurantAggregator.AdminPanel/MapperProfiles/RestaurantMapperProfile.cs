@@ -1,6 +1,6 @@
 using AutoMapper;
 using RestaurantAggregator.AdminPanel.Models.Restaurant;
-using RestaurantAggregator.Backend.Common.Dto.Restaurant;
+using RestaurantAggregator.Backend.Common.Dtos.Restaurant;
 
 namespace RestaurantAggregator.AdminPanel.MapperProfiles;
 

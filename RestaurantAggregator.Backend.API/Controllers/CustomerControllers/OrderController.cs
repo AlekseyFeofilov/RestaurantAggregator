@@ -1,21 +1,26 @@
 using System.ComponentModel.DataAnnotations;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using RestaurantAggregator.Backend.API.Models.Order;
 using RestaurantAggregator.Backend.Common.Configurations;
-using RestaurantAggregator.Backend.Common.Dto;
+using RestaurantAggregator.Backend.Common.Dtos.Order;
 using RestaurantAggregator.Backend.Common.IServices;
 
 namespace RestaurantAggregator.Backend.API.Controllers.CustomerControllers;
 
 [ApiController]
 [Route("api/order")]
-public class OrderController : ControllerBase
+public class OrderController : ControllerBase //todo заменить dto на model
 {
     private readonly IOrderService _orderService;
 
-    public OrderController(IOrderService orderService)
+    private readonly IMapper _mapper;
+
+    public OrderController(IOrderService orderService, IMapper mapper)
     {
         _orderService = orderService;
+        _mapper = mapper;
     }
 
     /// <summary>
@@ -81,9 +86,10 @@ public class OrderController : ControllerBase
     /// <response code="500">InternalServerError</response>
     [HttpPost]
     [Authorize]
-    public async Task<IActionResult> CreateOrder([FromBody] OrderCreateDto orderCreateDto) //bug время не валидируется
+    public async Task<IActionResult> CreateOrder([FromBody] OrderCreateModel orderCreateModel) //bug время не валидируется
     {
-        await _orderService.CreateOrder(User, orderCreateDto);
+        
+        await _orderService.CreateOrder(User, _mapper.Map<OrderCreateDto>(orderCreateModel));
         return Ok();
     }
 

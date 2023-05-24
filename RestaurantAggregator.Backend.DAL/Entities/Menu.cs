@@ -1,5 +1,5 @@
 using System.ComponentModel;
-using RestaurantAggregator.Common.Models;
+using RestaurantAggregator.Common.Dtos;
 
 namespace RestaurantAggregator.Backend.DAL.Entities;
 

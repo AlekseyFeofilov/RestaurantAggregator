@@ -2,8 +2,8 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using Microsoft.IdentityModel.Tokens;
+using RestaurantAggregator.Auth.Common.Dtos;
 using RestaurantAggregator.Auth.Common.IServices;
-using RestaurantAggregator.Auth.Common.Models.Dtos;
 using RestaurantAggregator.Backend.Common.Configurations;
 
 namespace RestaurantAggregator.Auth.BL.Services;

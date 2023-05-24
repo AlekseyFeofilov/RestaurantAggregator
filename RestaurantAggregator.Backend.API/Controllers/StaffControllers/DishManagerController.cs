@@ -1,22 +1,19 @@
-using System.ComponentModel.DataAnnotations;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using RestaurantAggregator.Auth.Common.Models.Enums;
 using RestaurantAggregator.Backend.API.Models.Dish;
 using RestaurantAggregator.Backend.Common.Configurations;
-using RestaurantAggregator.Backend.Common.Dto;
-using RestaurantAggregator.Backend.Common.Dto.Dish;
+using RestaurantAggregator.Backend.Common.Dtos.Dish;
 using RestaurantAggregator.Backend.Common.IServices;
-using RestaurantAggregator.Common.Models;
-using RestaurantAggregator.Common.Models.Enums;
+using RestaurantAggregator.Common.Dtos;
+using RestaurantAggregator.Common.Dtos.Enums;
 
 namespace RestaurantAggregator.Backend.API.Controllers.StaffControllers;
 
 [ApiController]
 [Route("api/manager/dish")] // todo make with configuration
 [Authorize(Roles = "Manager")] //todo сделать по-человечески, а не хардкодом
-public class DishManagerController : ControllerBase
+public class DishManagerController : ControllerBase // todo добавить endpoind для деактивации Dish
 {
     private readonly IDishService _dishService;
 
@@ -42,7 +39,7 @@ public class DishManagerController : ControllerBase
         DishSorting? sorting = null,
         int page = 1)
     {
-        var dishOptions = new DishOptions(null, menuId, categories, vegetarian, sorting, page); //crutch: сделать разные модельки
+        var dishOptions = new DishOptions(new Guid(), menuId, categories, vegetarian, sorting, page); //crutch: сделать разные модельки
         var dishPagedListDto = await _dishService.FetchAllAsync(User, dishOptions, true);
         
         return Ok(_mapper.Map<PagedEnumerable<DishModel>>(dishPagedListDto));

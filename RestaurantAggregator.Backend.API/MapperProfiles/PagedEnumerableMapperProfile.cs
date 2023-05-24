@@ -1,9 +1,9 @@
 using AutoMapper;
 using RestaurantAggregator.Backend.API.Models.Dish;
 using RestaurantAggregator.Backend.API.Models.Restaurant;
-using RestaurantAggregator.Backend.Common.Dto.Dish;
-using RestaurantAggregator.Backend.Common.Dto.Restaurant;
-using RestaurantAggregator.Common.Models;
+using RestaurantAggregator.Backend.Common.Dtos.Dish;
+using RestaurantAggregator.Backend.Common.Dtos.Restaurant;
+using RestaurantAggregator.Common.Dtos;
 
 namespace RestaurantAggregator.Backend.API.MapperProfiles;
 

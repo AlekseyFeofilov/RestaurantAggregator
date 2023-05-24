@@ -1,9 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using RestaurantAggregator.AdminPanel.Models;
-using RestaurantAggregator.Auth.DAL.Entities.Users;
-using RestaurantAggregator.Auth.DAL.Repositories.MangerRepository;
-using RestaurantAggregator.Common.Extensions;
 using ApplicationDbContext = RestaurantAggregator.Auth.DAL.DbContexts.ApplicationDbContext;
 using IManagerRepository = RestaurantAggregator.Auth.DAL.Repositories.MangerRepository.IManagerRepository;
 

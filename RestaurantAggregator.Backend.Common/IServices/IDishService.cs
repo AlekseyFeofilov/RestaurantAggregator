@@ -1,7 +1,6 @@
 using System.Security.Claims;
-using RestaurantAggregator.Backend.Common.Dto;
-using RestaurantAggregator.Backend.Common.Dto.Dish;
-using RestaurantAggregator.Common.Models;
+using RestaurantAggregator.Backend.Common.Dtos.Dish;
+using RestaurantAggregator.Common.Dtos;
 
 namespace RestaurantAggregator.Backend.Common.IServices;
 

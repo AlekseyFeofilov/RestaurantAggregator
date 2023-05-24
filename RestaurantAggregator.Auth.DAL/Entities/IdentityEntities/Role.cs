@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Identity;
-using RestaurantAggregator.Auth.Common.Models.Enums;
+using RestaurantAggregator.Common.Dtos.Enums;
 
 namespace RestaurantAggregator.Auth.DAL.Entities.IdentityEntities;
 

@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using RestaurantAggregator.Backend.Common.Exceptions.NotFoundException;
 using RestaurantAggregator.Backend.DAL.DbContexts;
-using RestaurantAggregator.Backend.DAL.Entities.Staff;
+using RestaurantAggregator.Backend.DAL.Entities;
 using RestaurantAggregator.Common.CrudRepository;
 
 namespace RestaurantAggregator.Backend.DAL.Repositories.ManagerRepository;

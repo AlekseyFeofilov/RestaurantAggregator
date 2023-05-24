@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Authorization;
-using RestaurantAggregator.Common.Models.Enums;
+using RestaurantAggregator.Common.Dtos.Enums;
 
 namespace RestaurantAggregator.Backend.API.AuthorizationConfigurations.AuthorizationAttributes;
 

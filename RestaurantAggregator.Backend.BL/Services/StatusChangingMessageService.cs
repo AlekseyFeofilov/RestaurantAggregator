@@ -2,7 +2,7 @@ using System.Text;
 using System.Text.Json;
 using RabbitMQ.Client;
 using RestaurantAggregator.Backend.Common.IServices;
-using RestaurantAggregator.Common.Models;
+using RestaurantAggregator.Common.Dtos;
 
 namespace RestaurantAggregator.Backend.BL.Services;
 

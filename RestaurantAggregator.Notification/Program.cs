@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.SignalR;
 using RestaurantAggregator.Notification.Extensions;
 using RestaurantAggregator.Notification.Hubs;
-using RestaurantAggregator.Notification.Services.MqServices;
 using RestaurantAggregator.Notification.UserProviders;
 
 var builder = WebApplication.CreateBuilder(args);

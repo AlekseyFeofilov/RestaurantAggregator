@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore;
 using RestaurantAggregator.Auth.Common.Exceptions.NotFoundException;
 using RestaurantAggregator.Auth.DAL.DbContexts;
 using RestaurantAggregator.Auth.DAL.Entities.Users;

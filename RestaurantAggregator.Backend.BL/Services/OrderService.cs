@@ -1,7 +1,8 @@
 using System.Security.Claims;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using RestaurantAggregator.Backend.Common.Dto;
+using RestaurantAggregator.Backend.Common.Dtos.Cart;
+using RestaurantAggregator.Backend.Common.Dtos.Order;
 using RestaurantAggregator.Backend.Common.Exceptions;
 using RestaurantAggregator.Backend.Common.Exceptions.BadRequestExceptions;
 using RestaurantAggregator.Backend.Common.Extensions;
@@ -9,7 +10,7 @@ using RestaurantAggregator.Backend.Common.IServices;
 using RestaurantAggregator.Backend.DAL.DbContexts;
 using RestaurantAggregator.Backend.DAL.Entities;
 using RestaurantAggregator.Backend.DAL.Repositories.ReviewRepository;
-using RestaurantAggregator.Common.Models.Enums;
+using RestaurantAggregator.Common.Dtos.Enums;
 
 namespace RestaurantAggregator.Backend.BL.Services;
 

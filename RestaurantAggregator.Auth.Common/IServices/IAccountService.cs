@@ -1,5 +1,6 @@
 using System.Security.Claims;
-using RestaurantAggregator.Auth.Common.Models.Dtos;
+using RestaurantAggregator.Auth.Common.Dtos;
+using RestaurantAggregator.Auth.Common.Dtos.Account;
 
 namespace RestaurantAggregator.Auth.Common.IServices;
 

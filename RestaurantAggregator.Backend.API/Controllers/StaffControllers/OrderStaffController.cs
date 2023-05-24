@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RestaurantAggregator.Backend.Common.Configurations;
-using RestaurantAggregator.Backend.Common.Dto;
+using RestaurantAggregator.Backend.Common.Dtos.Order;
 using RestaurantAggregator.Backend.Common.IServices;
 
 namespace RestaurantAggregator.Backend.API.Controllers.StaffControllers;
@@ -12,7 +12,7 @@ public class OrderStaffController : ControllerBase
 {
     private readonly IOrderStaffService _orderStaffService;
 
-    public OrderStaffController(IOrderStaffService orderStaffService)
+    public OrderStaffController(IOrderStaffService orderStaffService) //todo заменить dto на model
     {
         _orderStaffService = orderStaffService;
     }

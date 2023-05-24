@@ -1,12 +1,12 @@
+using RestaurantAggregator.Backend.Common.Dtos.Dish;
 using RestaurantAggregator.Backend.DAL.Entities;
-using RestaurantAggregator.Backend.DAL.Models;
-using RestaurantAggregator.Common.Models;
+using RestaurantAggregator.Common.Dtos;
 
 namespace RestaurantAggregator.Backend.DAL.Repositories.DishRepository;
 
 public interface IDishRepository
 {
-    Task<PagedEnumerable<Dish>> FetchAllDishesAsync(FetchDishOptions fetchDishOptions, bool onlyActive = false);
+    Task<PagedEnumerable<Dish>> FetchAllDishesAsync(DishOptions dishOptions, bool onlyActive = false);
     
     Task<Dish> FetchDishAsync(Guid dishId, bool onlyActive = false);
     

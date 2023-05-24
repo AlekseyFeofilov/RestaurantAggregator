@@ -4,8 +4,6 @@ using RestaurantAggregator.Backend.API.Middleware;
 using RestaurantAggregator.Backend.BL.Extensions;
 using RestaurantAggregator.Backend.Common.Configurations;
 using RestaurantAggregator.Backend.Common.Extensions;
-using RestaurantAggregator.Backend.API.Extensions;
-using RestaurantAggregator.Common.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 

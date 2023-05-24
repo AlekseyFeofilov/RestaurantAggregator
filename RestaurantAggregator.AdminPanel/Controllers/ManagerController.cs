@@ -1,15 +1,14 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using RestaurantAggregator.AdminPanel.Models;
 using RestaurantAggregator.AdminPanel.Models.Manager;
 using RestaurantAggregator.AdminPanel.Models.Restaurant;
 using RestaurantAggregator.AdminPanel.Models.Shared;
-using RestaurantAggregator.Auth.Common.Models.Enums;
 using RestaurantAggregator.Auth.DAL.Repositories.MangerRepository;
 using RestaurantAggregator.Auth.DAL.Repositories.UserRepository;
 using RestaurantAggregator.Backend.Common.Configurations;
-using RestaurantAggregator.Backend.DAL.Entities.Staff;
+using RestaurantAggregator.Backend.DAL.Entities;
 using RestaurantAggregator.Backend.DAL.Repositories.RestaurantRepository;
+using RestaurantAggregator.Common.Dtos.Enums;
 using RestaurantAggregator.Common.Extensions;
 
 namespace RestaurantAggregator.AdminPanel.Controllers;

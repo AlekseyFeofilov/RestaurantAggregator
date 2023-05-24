@@ -1,6 +1,6 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using RestaurantAggregator.Backend.Common.Dto;
+using RestaurantAggregator.Backend.Common.Dtos.Menu;
 using RestaurantAggregator.Backend.Common.IServices;
 using RestaurantAggregator.Backend.DAL.DbContexts;
 

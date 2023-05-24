@@ -1,5 +1,5 @@
-using RestaurantAggregator.Backend.Common.Dto.Restaurant;
-using RestaurantAggregator.Common.Models;
+using RestaurantAggregator.Backend.Common.Dtos.Restaurant;
+using RestaurantAggregator.Common.Dtos;
 
 namespace RestaurantAggregator.AdminPanel.Models.Restaurant;
 

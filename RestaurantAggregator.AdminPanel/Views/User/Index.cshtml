@@ -28,5 +28,5 @@
 <form>
     <input type="hidden" name="staff" value="@Model.Item2"/>
     <input type="hidden" name="RestaurantId" value="@Model.Item3"/>
-    @{ await Html.RenderPartialAsync("PageNavigationView", Model.Item1.PageInfoModel);}
+    @{ await Html.RenderPartialAsync("PageNavigationView", Model.Item1.PageInfo);}
 </form>

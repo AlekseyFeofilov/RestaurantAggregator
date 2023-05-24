@@ -1,5 +1,4 @@
-using RestaurantAggregator.Common.Models;
-using RestaurantAggregator.Common.Models.Enums;
+using RestaurantAggregator.Common.Dtos;
 
 namespace RestaurantAggregator.Backend.Common.IServices;
 

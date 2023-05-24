@@ -1,9 +1,9 @@
 using System.ComponentModel.DataAnnotations;
-using RestaurantAggregator.Common.Models.Enums;
+using RestaurantAggregator.Common.Dtos.Enums;
 
 namespace RestaurantAggregator.Backend.API.Models.Dish;
 
-public class DishCreateModel //todo add Active field
+public class DishCreateModel 
 {
     [MinLength(1), Required]
     public string Name { get; set; }
@@ -16,6 +16,8 @@ public class DishCreateModel //todo add Active field
     public string? Image { get; set; }
      
     public bool Vegetarian { get; set; }
+    
+    public bool Active { get; set; }
 
     public DishCategory Category { get; set; }
 }

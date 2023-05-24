@@ -1,7 +1,7 @@
 using System.Security.Claims;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using RestaurantAggregator.Backend.Common.Dto;
+using RestaurantAggregator.Backend.Common.Dtos.Cart;
 using RestaurantAggregator.Backend.Common.Exceptions;
 using RestaurantAggregator.Backend.Common.IServices;
 using RestaurantAggregator.Backend.DAL.DbContexts;

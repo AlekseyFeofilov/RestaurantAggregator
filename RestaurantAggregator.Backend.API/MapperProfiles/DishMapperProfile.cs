@@ -1,6 +1,6 @@
 using AutoMapper;
 using RestaurantAggregator.Backend.API.Models.Dish;
-using RestaurantAggregator.Backend.Common.Dto.Dish;
+using RestaurantAggregator.Backend.Common.Dtos.Dish;
 
 namespace RestaurantAggregator.Backend.API.MapperProfiles;
 

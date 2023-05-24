@@ -1,6 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-using RestaurantAggregator.Backend.DAL.Entities.Staff;
-using RestaurantAggregator.Common.Models.Enums;
+using RestaurantAggregator.Common.Dtos.Enums;
 
 namespace RestaurantAggregator.Backend.DAL.Entities;
 

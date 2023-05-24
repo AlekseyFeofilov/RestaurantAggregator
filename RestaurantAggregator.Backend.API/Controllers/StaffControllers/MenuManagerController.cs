@@ -5,7 +5,7 @@ namespace RestaurantAggregator.Backend.API.Controllers.StaffControllers;
 
 [ApiController]
 [Route("api/manager/menu")]
-public class ManagerMenuController : ControllerBase
+public class ManagerMenuController : ControllerBase //todo срочно сделать этот контроллер
 {
     
     /// <response code="200">Success</response>

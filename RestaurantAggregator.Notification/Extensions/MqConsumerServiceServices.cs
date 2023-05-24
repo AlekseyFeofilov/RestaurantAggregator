@@ -1,4 +1,6 @@
-namespace RestaurantAggregator.Notification.Services.MqServices;
+using RestaurantAggregator.Notification.Services.MqServices;
+
+namespace RestaurantAggregator.Notification.Extensions;
 
 public static class MqConsumerServiceServices
 {

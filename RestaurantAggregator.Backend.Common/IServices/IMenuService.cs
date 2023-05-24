@@ -1,4 +1,4 @@
-using RestaurantAggregator.Backend.Common.Dto;
+using RestaurantAggregator.Backend.Common.Dtos.Menu;
 
 namespace RestaurantAggregator.Backend.Common.IServices;
 

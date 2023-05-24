@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using RestaurantAggregator.Backend.API.AuthorizationConfigurations.Requirements;
-using RestaurantAggregator.Common.Models.Enums;
+using RestaurantAggregator.Common.Dtos.Enums;
 
 namespace RestaurantAggregator.Backend.API.AuthorizationConfigurations.AuthorizationPolicyProviders;
 

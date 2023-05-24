@@ -4,14 +4,15 @@ using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using RestaurantAggregator.Auth.BL.Extensions;
+using RestaurantAggregator.Auth.Common.Dtos;
+using RestaurantAggregator.Auth.Common.Dtos.Account;
 using RestaurantAggregator.Auth.Common.Exceptions;
 using RestaurantAggregator.Auth.Common.IServices;
-using RestaurantAggregator.Auth.Common.Models.Dtos;
-using RestaurantAggregator.Auth.Common.Models.Enums;
 using RestaurantAggregator.Auth.DAL.DbContexts;
 using RestaurantAggregator.Auth.DAL.Entities.IdentityEntities;
 using RestaurantAggregator.Auth.DAL.Entities.Users;
 using RestaurantAggregator.Backend.Common.Configurations;
+using RestaurantAggregator.Common.Dtos.Enums;
 
 namespace RestaurantAggregator.Auth.BL.Services;
 

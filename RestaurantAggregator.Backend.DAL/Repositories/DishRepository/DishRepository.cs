@@ -1,16 +1,16 @@
 using Microsoft.EntityFrameworkCore;
 using RestaurantAggregator.Backend.Common.Configurations;
+using RestaurantAggregator.Backend.Common.Dtos.Dish;
 using RestaurantAggregator.Backend.Common.Exceptions;
 using RestaurantAggregator.Backend.Common.Exceptions.BadRequestExceptions;
 using RestaurantAggregator.Backend.Common.Exceptions.NotFoundException;
 using RestaurantAggregator.Backend.DAL.DbContexts;
 using RestaurantAggregator.Backend.DAL.Entities;
-using RestaurantAggregator.Backend.DAL.Models;
 using RestaurantAggregator.Backend.DAL.Repositories.MenuRepository;
 using RestaurantAggregator.Backend.DAL.Repositories.RestaurantRepository;
+using RestaurantAggregator.Common.Dtos;
+using RestaurantAggregator.Common.Dtos.Enums;
 using RestaurantAggregator.Common.Extensions;
-using RestaurantAggregator.Common.Models;
-using RestaurantAggregator.Common.Models.Enums;
 
 namespace RestaurantAggregator.Backend.DAL.Repositories.DishRepository;
 
@@ -30,16 +30,16 @@ public class DishRepository : IDishRepository
         _restaurantRepository = restaurantRepository;
     }
 
-    public async Task<PagedEnumerable<Dish>> FetchAllDishesAsync(FetchDishOptions fetchDishOptions,
+    public async Task<PagedEnumerable<Dish>> FetchAllDishesAsync(DishOptions dishOptions,
         bool onlyActive = true)
     {
         IQueryable<Dish> dishes;
 
-        if (fetchDishOptions.MenuId != null)
+        if (dishOptions.MenuId != null)
         {
-            var menu = _menuRepository.FetchDetails((Guid)fetchDishOptions.MenuId);
+            var menu = _menuRepository.FetchDetails((Guid)dishOptions.MenuId);
 
-            if (menu.Restaurant.Id != fetchDishOptions.RestaurantId)
+            if (menu.Restaurant.Id != dishOptions.RestaurantId)
             {
                 throw new MenuIsNotExistInRestaurant();
             }
@@ -53,23 +53,23 @@ public class DishRepository : IDishRepository
         }
         else
         {
-            if ((await _restaurantRepository.FetchRestaurantAsync(fetchDishOptions.RestaurantId)) == null)
+            if ((await _restaurantRepository.FetchRestaurantAsync(dishOptions.RestaurantId)) == null)
             {
                 throw new RestaurantNotFoundException();
             }
 
             dishes = _context.Dishes.Where(dish =>
-                dish.Restaurant.Id == fetchDishOptions.RestaurantId 
+                dish.Restaurant.Id == dishOptions.RestaurantId 
                 && !dish.Deleted 
                 && (!onlyActive || dish.Active)
             ).AsQueryable();
         }
 
-        dishes = GetVegetarian(dishes, fetchDishOptions.Vegetarian);
-        dishes = GetCategory(dishes, fetchDishOptions.Categories);
-        dishes = Sort(dishes, fetchDishOptions.Sorting);
+        dishes = GetVegetarian(dishes, dishOptions.Vegetarian);
+        dishes = GetCategory(dishes, dishOptions.Categories);
+        dishes = Sort(dishes, dishOptions.Sorting);
 
-        var pagedDishes = dishes.GetPagedQueryable(fetchDishOptions.Page, AppConfigurations.PageSize);
+        var pagedDishes = dishes.GetPagedQueryable(dishOptions.Page, AppConfigurations.PageSize);
         var pagedEnumerableDishes = new PagedEnumerable<Dish>(
             await pagedDishes.Items!
                 .Include(x => x.Restaurant)

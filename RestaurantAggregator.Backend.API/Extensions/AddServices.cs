@@ -13,6 +13,9 @@ public static class AddServices
         services.AddAutoMapper(typeof(DishMapperProfile));
         services.AddAutoMapper(typeof(PagedEnumerableMapperProfile));
         services.AddAutoMapper(typeof(RestaurantMapperProfile));
+        services.AddAutoMapper(typeof(OrderMapperProfile));
+        services.AddAutoMapper(typeof(MenuMapperProfile));
+        services.AddAutoMapper(typeof(CartMapperProfile));
     }
 
     public static void AddAuthorizationPolicies(this IServiceCollection services)

@@ -3,10 +3,10 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using RestaurantAggregator.Backend.API.Models.Dish;
 using RestaurantAggregator.Backend.Common.Configurations;
-using RestaurantAggregator.Backend.Common.Dto;
+using RestaurantAggregator.Backend.Common.Dtos.Dish;
 using RestaurantAggregator.Backend.Common.IServices;
-using RestaurantAggregator.Common.Models;
-using RestaurantAggregator.Common.Models.Enums;
+using RestaurantAggregator.Common.Dtos;
+using RestaurantAggregator.Common.Dtos.Enums;
 
 namespace RestaurantAggregator.Backend.API.Controllers.CustomerControllers;
 

@@ -1,4 +1,6 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using RestaurantAggregator.Backend.API.Models.Menu;
 using RestaurantAggregator.Backend.Common.IServices;
 
 namespace RestaurantAggregator.Backend.API.Controllers.CustomerControllers;
@@ -9,9 +11,12 @@ public class MenuController : ControllerBase
 {
     private readonly IMenuService _menuService;
 
-    public MenuController(IMenuService menuService)
+    private readonly IMapper _mapper;
+
+    public MenuController(IMenuService menuService, IMapper mapper)
     {
         _menuService = menuService;
+        _mapper = mapper;
     }
 
     /// <response code="200">Success</response>
@@ -20,6 +25,6 @@ public class MenuController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> FetchMenus([FromQuery] Guid restaurantId, int? page = 1)
     {
-        return Ok(await _menuService.FetchMenus(restaurantId, page));
+        return Ok((await _menuService.FetchMenus(restaurantId, page)).Select(x => _mapper.Map<MenuModel>(x)));
     }
 }

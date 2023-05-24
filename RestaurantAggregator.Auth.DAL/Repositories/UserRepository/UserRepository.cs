@@ -1,10 +1,7 @@
-using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
-using RestaurantAggregator.Auth.Common.Exceptions;
-using RestaurantAggregator.Auth.Common.Models.Enums;
 using RestaurantAggregator.Auth.DAL.DbContexts;
 using RestaurantAggregator.Auth.DAL.Entities.IdentityEntities;
-using RestaurantAggregator.Common.CrudRepository;
+using RestaurantAggregator.Common.Dtos.Enums;
 using RestaurantAggregator.Common.Exceptions;
 
 namespace RestaurantAggregator.Auth.DAL.Repositories.UserRepository;

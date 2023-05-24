@@ -1,4 +1,4 @@
-using RestaurantAggregator.Common.Models;
+using RestaurantAggregator.Common.Dtos;
 
 namespace RestaurantAggregator.AdminPanel.Models.Cook;
 

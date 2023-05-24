@@ -1,18 +1,16 @@
 using System.Security.Claims;
 using AutoMapper;
 using RestaurantAggregator.Backend.Common.Configurations;
-using RestaurantAggregator.Backend.Common.Dto;
-using RestaurantAggregator.Backend.Common.Dto.Dish;
+using RestaurantAggregator.Backend.Common.Dtos.Dish;
 using RestaurantAggregator.Backend.Common.IServices;
 using RestaurantAggregator.Backend.DAL.Entities;
-using RestaurantAggregator.Backend.DAL.Models;
 using RestaurantAggregator.Backend.DAL.Repositories.DishRepository;
 using RestaurantAggregator.Backend.DAL.Repositories.ManagerRepository;
 using RestaurantAggregator.Backend.DAL.Repositories.MenuRepository;
 using RestaurantAggregator.Backend.DAL.Repositories.RestaurantRepository;
 using RestaurantAggregator.Backend.DAL.Repositories.ReviewRepository;
+using RestaurantAggregator.Common.Dtos;
 using RestaurantAggregator.Common.Extensions;
-using RestaurantAggregator.Common.Models;
 
 namespace RestaurantAggregator.Backend.BL.Services;
 
@@ -45,9 +43,7 @@ public class DishServices : IDishService
 
     public async Task<PagedEnumerable<DishDto>> FetchAllAsync(DishOptions dishOptions, bool onlyActive = true)
     {
-        var fetchDishOptions = _mapper.Map<FetchDishOptions>(dishOptions); //todo remove FetchDishOptions and use DishOptions in Common
-
-        var pagedDishes = await _dishRepository.FetchAllDishesAsync(fetchDishOptions, onlyActive);
+        var pagedDishes = await _dishRepository.FetchAllDishesAsync(dishOptions, onlyActive);
         var pagedDishDtos = new PagedEnumerable<DishDto>(
             pagedDishes.Items.Select(x => _mapper.Map<DishDto>(x)),
             pagedDishes.Pagination

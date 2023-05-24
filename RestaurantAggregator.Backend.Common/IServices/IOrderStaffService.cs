@@ -1,5 +1,5 @@
 using System.Security.Claims;
-using RestaurantAggregator.Backend.Common.Dto;
+using RestaurantAggregator.Backend.Common.Dtos.Order;
 
 namespace RestaurantAggregator.Backend.Common.IServices;
 

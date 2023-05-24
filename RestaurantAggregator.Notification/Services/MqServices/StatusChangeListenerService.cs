@@ -3,7 +3,7 @@ using System.Text.Json;
 using Microsoft.AspNetCore.SignalR;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
-using RestaurantAggregator.Common.Models;
+using RestaurantAggregator.Common.Dtos;
 using RestaurantAggregator.Notification.Hubs;
 
 namespace RestaurantAggregator.Notification.Services.MqServices;

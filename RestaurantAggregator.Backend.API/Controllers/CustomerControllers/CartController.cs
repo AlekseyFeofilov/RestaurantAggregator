@@ -1,7 +1,9 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using RestaurantAggregator.Backend.API.Models.Cart;
 using RestaurantAggregator.Backend.Common.Configurations;
-using RestaurantAggregator.Backend.Common.Dto;
+using RestaurantAggregator.Backend.Common.Dtos.Cart;
 using RestaurantAggregator.Backend.Common.IServices;
 
 namespace RestaurantAggregator.Backend.API.Controllers.CustomerControllers;
@@ -12,9 +14,12 @@ public class CartController : ControllerBase
 {
     private readonly ICartService _cartService;
 
-    public CartController(ICartService cartService)
+    private readonly IMapper _mapper;
+
+    public CartController(ICartService cartService, IMapper mapper)
     {
         _cartService = cartService;
+        _mapper = mapper;
     }
 
     /// <summary>
@@ -29,7 +34,7 @@ public class CartController : ControllerBase
     [Authorize]
     public async Task<IActionResult> FetchCart()
     {
-        return Ok(await _cartService.FetchCart(User));
+        return Ok((await _cartService.FetchCart(User)).Select(x => _mapper.Map<DishInCartModel>(x)));
     }
 
     /// <summary>

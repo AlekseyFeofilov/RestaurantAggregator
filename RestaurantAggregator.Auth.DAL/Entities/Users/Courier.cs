@@ -1,5 +1,5 @@
 using RestaurantAggregator.Auth.DAL.Entities.IdentityEntities;
-using RestaurantAggregator.Common.Models;
+using RestaurantAggregator.Common.Dtos;
 
 namespace RestaurantAggregator.Auth.DAL.Entities.Users;
 

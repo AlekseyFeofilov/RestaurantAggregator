@@ -4,9 +4,9 @@ using RestaurantAggregator.Backend.DAL.Entities;
 using RestaurantAggregator.Backend.DAL.Repositories.CookRepository;
 using RestaurantAggregator.Backend.DAL.Repositories.CourierRepository;
 using RestaurantAggregator.Backend.DAL.Repositories.OrderRepository;
+using RestaurantAggregator.Common.Dtos;
+using RestaurantAggregator.Common.Dtos.Enums;
 using RestaurantAggregator.Common.Extensions;
-using RestaurantAggregator.Common.Models;
-using RestaurantAggregator.Common.Models.Enums;
 
 namespace RestaurantAggregator.Backend.BL.Services;
 

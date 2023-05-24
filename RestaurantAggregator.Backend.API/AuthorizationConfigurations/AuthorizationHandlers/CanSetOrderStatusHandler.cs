@@ -2,13 +2,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using RestaurantAggregator.Backend.API.AuthorizationConfigurations.Requirements;
 using RestaurantAggregator.Backend.Common.Exceptions;
-using RestaurantAggregator.Backend.Common.Exceptions.NotFoundException;
 using RestaurantAggregator.Backend.DAL.DbContexts;
 using RestaurantAggregator.Backend.DAL.Entities;
-using RestaurantAggregator.Backend.DAL.Entities.Staff;
 using RestaurantAggregator.Backend.DAL.Repositories.OrderRepository;
+using RestaurantAggregator.Common.Dtos.Enums;
 using RestaurantAggregator.Common.Extensions;
-using RestaurantAggregator.Common.Models.Enums;
 
 namespace RestaurantAggregator.Backend.API.AuthorizationConfigurations.AuthorizationHandlers;
 

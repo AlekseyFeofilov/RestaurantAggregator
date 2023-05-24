@@ -1,8 +1,7 @@
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RestaurantAggregator.Backend.API.AuthorizationConfigurations.AuthorizationAttributes;
 using RestaurantAggregator.Backend.Common.IServices;
-using RestaurantAggregator.Common.Models.Enums;
+using RestaurantAggregator.Common.Dtos.Enums;
 
 namespace RestaurantAggregator.Backend.API.Controllers.StaffControllers;
 

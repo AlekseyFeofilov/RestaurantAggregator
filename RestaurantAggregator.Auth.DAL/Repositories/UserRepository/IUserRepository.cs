@@ -1,6 +1,5 @@
-using System.Security.Claims;
-using RestaurantAggregator.Auth.Common.Models.Enums;
 using RestaurantAggregator.Auth.DAL.Entities.IdentityEntities;
+using RestaurantAggregator.Common.Dtos.Enums;
 
 namespace RestaurantAggregator.Auth.DAL.Repositories.UserRepository;
 

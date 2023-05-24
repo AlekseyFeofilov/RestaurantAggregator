@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using RestaurantAggregator.Backend.API.Models.Restaurant;
-using RestaurantAggregator.Common.Models.Enums;
+using RestaurantAggregator.Common.Dtos.Enums;
 
 namespace RestaurantAggregator.Backend.API.Models.Dish;
 

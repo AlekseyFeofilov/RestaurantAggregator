@@ -1,7 +1,10 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using RestaurantAggregator.Auth.API.Models.Account;
+using RestaurantAggregator.Auth.Common.Dtos;
+using RestaurantAggregator.Auth.Common.Dtos.Account;
 using RestaurantAggregator.Auth.Common.IServices;
-using RestaurantAggregator.Auth.Common.Models.Dtos;
 using RestaurantAggregator.Backend.Common.Configurations;
 
 namespace RestaurantAggregator.Auth.API.Controllers;
@@ -13,9 +16,12 @@ public class AuthController : ControllerBase
 {
     private readonly IAuthService _authService;
 
-    public AuthController(IAuthService authService)
+    private readonly IMapper _mapper;
+
+    public AuthController(IAuthService authService, IMapper mapper)
     {
         _authService = authService;
+        _mapper = mapper;
     }
 
     /// <response code="200">Success</response>
@@ -23,9 +29,9 @@ public class AuthController : ControllerBase
     /// <response code="500">InternalServerError</response>
     [ProducesResponseType(typeof(TokenDto), StatusCodes.Status200OK)]
     [HttpPost, Route("sign-up")]
-    public async Task<IActionResult> SignUp([FromBody] AccountCreateDto accountCreateDto)
+    public async Task<IActionResult> SignUp([FromBody] AccountRegisterModel accountRegisterModel)
     {
-        return Ok(await _authService.SignUpAsync(accountCreateDto));
+        return Ok(await _authService.SignUpAsync(_mapper.Map<AccountCreateDto>(accountRegisterModel)));
     }
 
     /// <response code="200">Success</response>

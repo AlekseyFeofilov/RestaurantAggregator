@@ -2,7 +2,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using RestaurantAggregator.Backend.API.Models.Restaurant;
 using RestaurantAggregator.Backend.Common.IServices;
-using RestaurantAggregator.Common.Models;
+using RestaurantAggregator.Common.Dtos;
 
 namespace RestaurantAggregator.Backend.API.Controllers.CustomerControllers;
 

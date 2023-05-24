@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using RestaurantAggregator.Auth.Common.Models.Enums;
 using RestaurantAggregator.Auth.DAL.Entities.IdentityEntities;
 using RestaurantAggregator.Auth.DAL.Entities.Users;
+using RestaurantAggregator.Common.Dtos.Enums;
 
 namespace RestaurantAggregator.Auth.DAL.DbContexts;
 

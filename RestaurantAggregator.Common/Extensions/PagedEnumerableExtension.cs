@@ -1,4 +1,4 @@
-using RestaurantAggregator.Common.Models;
+using RestaurantAggregator.Common.Dtos;
 
 namespace RestaurantAggregator.Common.Extensions;
 
@@ -14,7 +14,7 @@ public static class PagedEnumerableExtension
 
         return new PagedEnumerable<T>(
             enumerable,
-            new PageInfoModel(
+            new PageInfo(
                 enumerableCount / pageSize,
                 pageCount,
                 page

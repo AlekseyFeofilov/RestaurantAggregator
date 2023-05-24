@@ -1,4 +1,4 @@
-using RestaurantAggregator.Common.Models;
+using RestaurantAggregator.Common.Dtos;
 
 namespace RestaurantAggregator.Common.Extensions;
 
@@ -11,7 +11,7 @@ public static class PagedQueryableExtension
 
         return new PagedQueryable<T>(
             queryable.Skip(skip).Take(take),
-            new PageInfoModel((queryable.Count() + pageSize - 1) / pageSize, take, page)
+            new PageInfo((queryable.Count() + pageSize - 1) / pageSize, take, page)
         );
     }
 

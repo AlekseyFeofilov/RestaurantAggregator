@@ -1,0 +1,25 @@
+name: "restaurant_aggregator"
+services:
+  auth_db:
+    image: postgres
+    container_name: auth_db
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: auth_restaurant_aggregator_db
+      POSTGRES_HOST_AUTH_METHOD: trust
+      
+    ports:
+      - "5433:5432"
+
+  backend_db:
+    image: postgres
+    container_name: backend_db
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: backend_restaurant_aggregator_db
+      POSTGRES_HOST_AUTH_METHOD: trust
+      
+    ports:
+      - "5432:5432"

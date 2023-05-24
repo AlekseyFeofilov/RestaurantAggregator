@@ -10,7 +10,7 @@ using ManagerNotFoundException = RestaurantAggregator.Backend.Common.Exceptions.
 
 namespace RestaurantAggregator.Backend.API.Middleware;
 
-public class ErrorHandlingMiddleware // todo попробовать сделать через IErrorHandlerMiddleware
+public class ErrorHandlingMiddleware
 {
     private readonly RequestDelegate _next;
     

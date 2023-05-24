@@ -25,6 +25,6 @@ public static class AddServices
             "host=localhost;port=5432;database=backend_restaurant_aggregator_db;username=postgres;password=postgres";
         services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(connectionString, 
             b => b.MigrationsAssembly("RestaurantAggregator.Backend.API")));
-        AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true); //crutch посмотреть друие способы
+        AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
     }
 }

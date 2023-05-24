@@ -58,7 +58,7 @@ public class AuthService : IAuthService
     
     public async Task<TokenDto> SignUpAsync(AccountCreateDto accountCreateDto)
     {
-        var validationResult = await ValidateUserAsync(accountCreateDto); // bug: если пароль будет неправильный, пользователь всё равно создастся. Да и вообще хуйня какая-то эти менеджеры
+        var validationResult = await ValidateUserAsync(accountCreateDto);
 
         foreach (var identityResult in validationResult)
         {
@@ -69,7 +69,7 @@ public class AuthService : IAuthService
         }
         
         var user = _mapper.Map<User>(accountCreateDto);
-        user.UserName = Guid.NewGuid().ToString(); // Crutch: UserName is must be unique 
+        user.UserName = Guid.NewGuid().ToString(); 
 
         await _userManager.CreateAsync(user);
         await _context.Customers.AddAsync(new Customer
@@ -234,7 +234,7 @@ public class AuthService : IAuthService
     private async Task<IEnumerable<IdentityResult>> ValidateUserAsync(AccountCreateDto accountCreateDto)
     {
         var user = _mapper.Map<User>(accountCreateDto);
-        user.UserName = Guid.NewGuid().ToString(); // Crutch: UserName is must be unique 
+        user.UserName = Guid.NewGuid().ToString(); 
 
         List<IdentityResult> identityResults = new();
 

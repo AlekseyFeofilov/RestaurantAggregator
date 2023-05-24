@@ -18,7 +18,7 @@ public static class PagedQueryableExtension
     private static int CalculateTakeCount(int count, int skip, int take)
     {
         return count < skip + take
-            ? //todo maybe кидать 404, если dishCount <= skip
+            ?
             Math.Max(0, count - skip)
             : take;
     }

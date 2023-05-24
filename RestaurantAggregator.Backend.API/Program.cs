@@ -46,4 +46,4 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.Run(); //todo patch как очистить, сделать общий коммон для всего солюшена
+app.Run();

@@ -23,8 +23,7 @@ public class ApplicationDbContext : IdentityDbContext<User, Role, Guid>
         : base(options)
     {
     }
-
-    //todo: добавить has data для ролей
+    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
@@ -84,23 +83,6 @@ public class ApplicationDbContext : IdentityDbContext<User, Role, Guid>
                 NormalizedName = "COOK",
                 Type = RoleType.Cook
             },
-        });
-
-        // todo: remove this example and make real claims
-        modelBuilder.Entity<IdentityRoleClaim<Guid>>().HasData(new IdentityRoleClaim<Guid>[]
-        {
-            new()
-            {
-                Id = 1,
-                RoleId = Guid.Parse("93eb91dd-e76a-45d9-acc8-6c519e742f26"),
-                ClaimType = "FirstTestType"
-            },
-            new()
-            {
-                Id = 2,
-                RoleId = Guid.Parse("93eb91dd-e76a-45d9-acc8-6c519e742f26"),
-                ClaimType = "SecondTestType"
-            }
         });
     }
 }

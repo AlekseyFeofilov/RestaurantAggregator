@@ -56,14 +56,9 @@ public class CookController : Controller
         return View("Index", new Tuple<Guid, PagedNamedListModel>(restaurantId, pagedNamedListModel));
     }
     
-    public async Task<ActionResult> Search(Guid restaurantId, string contains = "") //todo make normalized name in database
+    public async Task<ActionResult> Search(Guid restaurantId, string contains = "") //todo нормализовать всё, по чему происходит поиск в бд
     {
         return await Index(restaurantId, contains);
-    }
-    
-    public ActionResult Create()
-    {
-        return View("../Home/Index");
     }
     
     [HttpPost]
@@ -87,12 +82,12 @@ public class CookController : Controller
         
         await _userRepository.AddRoleAsync(createCookModel.Id, RoleType.Cook);
         
-        return await Index(createCookModel.RestaurantId);
+        return RedirectToAction("Index", new {createCookModel.RestaurantId});
     }
     
     public ActionResult Edit(Guid id)
     {
-        var cook = _cookRepository.FetchDetails(id); //crutch нельзя получить ресторана( 
+        var cook = _cookRepository.FetchDetails(id); 
         var user = _userRepository.FetchUserDetails(id);
         
         return View(new CookModel
@@ -122,6 +117,6 @@ public class CookController : Controller
         await _cookRepository.DeleteAsync(cookId);
         await _authCookRepository.DeleteAsync(cookId);
         await _userRepository.RemoveRoleAsync(cookId, RoleType.Cook);
-        return RedirectToAction("Index", new {restaurantId}); //todo make this way any time that i actually redirect
+        return RedirectToAction("Index", new {restaurantId});
     }
 }

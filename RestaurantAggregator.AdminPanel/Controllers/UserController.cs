@@ -21,7 +21,7 @@ public class UserController : Controller
 
     public ActionResult
         Index(string staff, Guid restaurantId, string contains = "",
-            int page = 1) //todo высвечивать только тех, кто ещё не стафф или не добавлять стаффа, если он уже есть
+            int page = 1)
     {
         var users = _userRepository
             .FetchAllNonStaffUsers()
@@ -38,7 +38,7 @@ public class UserController : Controller
     }
 
     public ActionResult
-        Search(string staff, Guid restaurantId, string contains = "") //todo make normalized name in database
+        Search(string staff, Guid restaurantId, string contains = "")
     {
         return Index(staff, restaurantId, contains);
     }

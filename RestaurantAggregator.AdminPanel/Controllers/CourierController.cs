@@ -56,14 +56,9 @@ public class CourierController : Controller
         return View("Index", new Tuple<Guid, PagedNamedListModel>(restaurantId, pagedNamedListModel));
     }
     
-    public async Task<ActionResult> Search(Guid restaurantId, string contains = "") //todo make normalized name in database
+    public async Task<ActionResult> Search(Guid restaurantId, string contains = "")
     {
         return await Index(restaurantId, contains);
-    }
-    
-    public ActionResult Create()
-    {
-        return View("../Home/Index");
     }
     
     [HttpPost]
@@ -87,12 +82,12 @@ public class CourierController : Controller
         
         await _userRepository.AddRoleAsync(createCourierModel.Id, RoleType.Courier);
         
-        return await Index(createCourierModel.RestaurantId);
+        return RedirectToAction("Index", new {createCourierModel.RestaurantId});
     }
     
     public ActionResult Edit(Guid id)
     {
-        var courier = _courierRepository.FetchDetails(id); //crutch нельзя получить ресторана( 
+        var courier = _courierRepository.FetchDetails(id); 
         var user = _userRepository.FetchUserDetails(id);
         
         
@@ -123,6 +118,6 @@ public class CourierController : Controller
         await _courierRepository.DeleteAsync(courierId);
         await _authCourierRepository.DeleteAsync(courierId);
         await _userRepository.RemoveRoleAsync(courierId, RoleType.Courier);
-        return RedirectToAction("Index", new {restaurantId}); //todo make this way any time that i actually redirect
+        return RedirectToAction("Index", new {restaurantId});
     }
 }

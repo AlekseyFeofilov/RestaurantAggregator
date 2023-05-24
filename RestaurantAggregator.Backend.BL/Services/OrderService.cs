@@ -62,7 +62,7 @@ public class OrderService : IOrderService
         var userId = Guid.Parse(claimsPrincipal.FindFirst(ClaimTypes.NameIdentifier)!.Value);
         var cart = await GetOrderDishBaskets(userId);
 
-        if (cart.First(x => !x.Dish.Active || x.Dish.Deleted) is var dish && dish != null) throw new DishInCartNotAvailableException(dish.Id); //todo make message: which one
+        if (cart.First(x => !x.Dish.Active || x.Dish.Deleted) is var dish && dish != null) throw new DishInCartNotAvailableException(dish.Id);
         if (!cart.Any()) throw new CartIsEmptyException();
 
         var firstDish = cart.First().Dish;

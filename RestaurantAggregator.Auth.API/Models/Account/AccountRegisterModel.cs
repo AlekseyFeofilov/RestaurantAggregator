@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
 using RestaurantAggregator.Common.Dtos.Enums;
 
 namespace RestaurantAggregator.Auth.API.Models.Account;
@@ -12,10 +13,11 @@ public class AccountRegisterModel
     
     public Gender? Gender { get; set; }
     
-    [Phone]
-    public string? PhoneNumber { get; set; } //todo запретить делать заказ при неуказанном номере и адресе
+    [Phone, Required]
+    public string PhoneNumber { get; set; }
     
-    public string? Address { get; set; }
+    [Required]
+    public string Address { get; set; }
     
     [EmailAddress, Required]
     public string Email { get; set; }

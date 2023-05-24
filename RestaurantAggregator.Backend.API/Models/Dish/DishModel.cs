@@ -4,7 +4,7 @@ using RestaurantAggregator.Common.Dtos.Enums;
 
 namespace RestaurantAggregator.Backend.API.Models.Dish;
 
-public class DishModel // todo maybe сделать shortModel. За одно проверить гибкость моделей, когда они разделены по слоям
+public class DishModel
 {
     public Guid Id { get; set; }
 

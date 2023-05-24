@@ -7,7 +7,7 @@ public class Order
 {
     public Guid Id { get; set; }
     
-    public string Number { get; set; } //todo make it  
+    public string Number { get; set; }  
     
     [Required] 
     public DateTime DeliveryTime { get; set; }

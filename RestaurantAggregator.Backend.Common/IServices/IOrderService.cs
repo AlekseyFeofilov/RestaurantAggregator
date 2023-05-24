@@ -11,7 +11,7 @@ public interface IOrderService
     
     Task CreateOrder(ClaimsPrincipal claimsPrincipal, OrderCreateDto orderCreateDto);
     
-    Task RepeatOrder(Guid orderId); // todo проверять доступ с помощью Authorize 
+    Task RepeatOrder(Guid orderId); 
     
     Task CancelOrder(Guid orderId);
     

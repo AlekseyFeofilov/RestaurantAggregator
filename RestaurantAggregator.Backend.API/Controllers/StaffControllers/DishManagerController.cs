@@ -11,8 +11,8 @@ using RestaurantAggregator.Common.Dtos.Enums;
 namespace RestaurantAggregator.Backend.API.Controllers.StaffControllers;
 
 [ApiController]
-[Route("api/manager/dish")] // todo make with configuration
-[Authorize(Roles = "Manager")] //todo сделать по-человечески, а не хардкодом
+[Route("api/manager/dish")]
+[Authorize(Roles = "Manager")]
 public class DishManagerController : ControllerBase // todo добавить endpoind для деактивации Dish
 {
     private readonly IDishService _dishService;
@@ -39,7 +39,7 @@ public class DishManagerController : ControllerBase // todo добавить end
         DishSorting? sorting = null,
         int page = 1)
     {
-        var dishOptions = new DishOptions(new Guid(), menuId, categories, vegetarian, sorting, page); //crutch: сделать разные модельки
+        var dishOptions = new DishOptions(new Guid(), menuId, categories, vegetarian, sorting, page);
         var dishPagedListDto = await _dishService.FetchAllAsync(User, dishOptions, true);
         
         return Ok(_mapper.Map<PagedEnumerable<DishModel>>(dishPagedListDto));
@@ -79,7 +79,7 @@ public class DishManagerController : ControllerBase // todo добавить end
     /// <response code="401">Unauthorized</response>
     /// <response code="403">Forbidden</response>
     /// <response code="500">InternalServerError</response>
-    [HttpPut] // todo поприкалываться с тем, чтобы сделать patch
+    [HttpPut]
     [Authorize("ModifyDish")]
     public async Task<IActionResult> ModifyDish(DishModifyModel dishModifyModel) { //todo check if reviews are saving after modifying  
         var dishCreateDto = _mapper.Map<DishModifyDto>(dishModifyModel);

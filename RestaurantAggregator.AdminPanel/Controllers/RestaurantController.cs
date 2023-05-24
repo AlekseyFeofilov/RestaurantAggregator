@@ -31,7 +31,7 @@ public class RestaurantController : Controller
         return View("Index", pagedNamedListModel);
     }
 
-    public async Task<ActionResult> Search(string contains = "") //todo make normalized name in database
+    public async Task<ActionResult> Search(string contains = "")
     {
         return await Index(contains, 1);
     }
@@ -46,7 +46,7 @@ public class RestaurantController : Controller
     public async Task<ActionResult> Create(CreateRestaurantModel createRestaurantModel)
     {
         await _restaurantService.CreateRestaurantAsync(_mapper.Map<CreateRestaurantDto>(createRestaurantModel));
-        return await Index(createRestaurantModel.Name);
+        return RedirectToAction("Index", new {createRestaurantModel.Name});
     }
     
     public async Task<ActionResult> Edit(Guid id)
@@ -60,7 +60,7 @@ public class RestaurantController : Controller
     public async Task<ActionResult> Edit(ModifyRestaurantModel modifyRestaurantModel)
     {
         await _restaurantService.ModifyRestaurantAsync(_mapper.Map<ModifyRestaurantDto>(modifyRestaurantModel));
-        return await Edit(modifyRestaurantModel.Id);
+        return RedirectToAction("Edit", new {modifyRestaurantModel.Id});
     }
     
     [HttpPost]
@@ -68,6 +68,6 @@ public class RestaurantController : Controller
     public async Task<ActionResult> Delete(Guid id)
     {
         await _restaurantService.DeleteRestaurantAsync(id);
-        return await Index();
+        return RedirectToAction("Index");
     }
 }

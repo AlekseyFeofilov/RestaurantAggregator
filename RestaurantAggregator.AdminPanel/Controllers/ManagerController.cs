@@ -56,14 +56,9 @@ public class ManagerController : Controller
         return View("Index", new Tuple<Guid, PagedNamedListModel>(restaurantId, pagedNamedListModel));
     }
     
-    public async Task<ActionResult> Search(Guid restaurantId, string contains = "") //todo make normalized name in database
+    public async Task<ActionResult> Search(Guid restaurantId, string contains = "")
     {
         return await Index(restaurantId, contains);
-    }
-    
-    public ActionResult Create()
-    {
-        return View("../Home/Index");
     }
     
     [HttpPost]
@@ -87,12 +82,12 @@ public class ManagerController : Controller
         
         await _userRepository.AddRoleAsync(createManagerModel.Id, RoleType.Manager);
         
-        return await Index(createManagerModel.RestaurantId);
+        return RedirectToAction("Index", new {createManagerModel.RestaurantId});
     }
     
     public ActionResult Edit(Guid id)
     {
-        var manager = _managerRepository.FetchDetails(id); //crutch нельзя получить ресторана( 
+        var manager = _managerRepository.FetchDetails(id); 
         var user = _userRepository.FetchUserDetails(id);
         
         
@@ -122,8 +117,8 @@ public class ManagerController : Controller
     {
         await _managerRepository.DeleteAsync(managerId);
         await _authManagerRepository.DeleteAsync(managerId);
-        await _userRepository.RemoveRoleAsync(managerId, RoleType.Manager);//todo: make the same for Courier and Cook Controller
+        await _userRepository.RemoveRoleAsync(managerId, RoleType.Manager);
         
-        return RedirectToAction("Index", new {restaurantId}); //todo make this way any time that i actually redirect
+        return RedirectToAction("Index", new {restaurantId});
     }
 }

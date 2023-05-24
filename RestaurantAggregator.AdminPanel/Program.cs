@@ -22,6 +22,8 @@ builder.Services.AddBL();
 builder.Services.AddAutoMapper();
 
 builder.Services.Configure<AppConfigurations>(builder.Configuration.GetSection("AppConfigurations"));
+builder.Services.Configure<RestaurantAggregator.Backend.Common.Configurations.AppConfigurations>(builder.Configuration.GetSection("BLAppConfigurations"));
+builder.Services.Configure<RestaurantAggregator.Auth.Common.Configurations.AppConfigurations>(builder.Configuration.GetSection("AuthAppConfigurations"));
 
 var app = builder.Build();
 

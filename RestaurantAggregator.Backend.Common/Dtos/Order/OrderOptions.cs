@@ -11,9 +11,9 @@ public class OrderOptions
     
     public DateTime? EndDate { get; set; }
     
-    public int? Page { get; set; }
+    public int Page { get; set; }
 
-    public OrderOptions(bool current, string? numberContains, DateTime? startDate, DateTime? endDate, int? page)
+    public OrderOptions(bool current, string? numberContains, DateTime? startDate, DateTime? endDate, int page)
     {
         Current = current;
         NumberContains = numberContains;

@@ -10,7 +10,7 @@ public static class PagedEnumerableExtension
         
         var pageCount = (int)Math.Ceiling(totalCount * 1.0 / pageSize);
         var enumerableCount = page < pageCount ? pageSize : Math.Max(0, totalCount - pageSize * (page - 1));
-        if (enumerableCount == 0) throw new (); //crutch: нужна свой тип ошибки
+        if (enumerableCount == 0) throw new ();
 
         return new PagedEnumerable<T>(
             enumerable,

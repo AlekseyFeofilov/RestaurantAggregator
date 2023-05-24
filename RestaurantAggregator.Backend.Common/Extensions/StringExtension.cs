@@ -11,7 +11,7 @@ public static class StringExtension
         var randomString = "";
         var random = new Random();
 
-        for (var i = 0; i < 3; i++) //todo make it in configuration
+        for (var i = 0; i < 3; i++)
         {
             randomString += Chars[random.Next(Chars.Length)];
         }

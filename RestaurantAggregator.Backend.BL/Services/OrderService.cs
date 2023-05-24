@@ -1,6 +1,8 @@
 using System.Security.Claims;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using RestaurantAggregator.Backend.Common.Configurations;
 using RestaurantAggregator.Backend.Common.Dtos.Cart;
 using RestaurantAggregator.Backend.Common.Dtos.Order;
 using RestaurantAggregator.Backend.Common.Exceptions;
@@ -11,6 +13,7 @@ using RestaurantAggregator.Backend.Common.IServices;
 using RestaurantAggregator.Backend.DAL.DbContexts;
 using RestaurantAggregator.Backend.DAL.Entities;
 using RestaurantAggregator.Backend.DAL.IRepositories;
+using RestaurantAggregator.Common.Dtos;
 using RestaurantAggregator.Common.Dtos.Enums;
 using RestaurantAggregator.Common.Extensions;
 using StringExtension = RestaurantAggregator.Backend.Common.Extensions.StringExtension;
@@ -27,16 +30,19 @@ public class OrderService : IOrderService
 
     private readonly IUserService _userService;
 
+    private readonly IOptions<AppConfigurations> _configurations;
+
     public OrderService(IMapper mapper, ApplicationDbContext context, IReviewRepository reviewRepository,
-        IUserService userService)
+        IUserService userService, IOptions<AppConfigurations> configurations)
     {
         _mapper = mapper;
         _context = context;
         _reviewRepository = reviewRepository;
         _userService = userService;
+        _configurations = configurations;
     }
 
-    public async Task<OrderDto> FetchOrder(Guid orderId) //todo заказ возвращает id DishInCart, а не id Dish 
+    public async Task<OrderDto> FetchOrder(Guid orderId) 
     {
         var order = await _context.Orders
             .Include(x => x.DishBaskets)
@@ -47,15 +53,17 @@ public class OrderService : IOrderService
         return orderDto;
     }
 
-    public async Task<IEnumerable<OrderInfoDto>> FetchAllOrders(ClaimsPrincipal claimsPrincipal,
+    public async Task<PagedEnumerable<OrderInfoDto>> FetchAllOrders(ClaimsPrincipal claimsPrincipal,
         OrderOptions orderOptions)
     {
         var userId = claimsPrincipal.GetNameIdentifier();
 
-        return await GetOrderWithOptions(orderOptions)
-            .Where(x => x.UserId == userId)
-            .Select(x => new OrderInfoDto(x.Id, x.DeliveryTime, x.OrderTime, x.Status, x.Price, x.Number))
-            .ToListAsync();
+        var pagedQueryableOrders = GetOrderWithOptions(orderOptions)
+                .Where(x => x.UserId == userId)
+                .Select(x => new OrderInfoDto(x.Id, x.DeliveryTime, x.OrderTime, x.Status, x.Price, x.Number))
+                .GetPagedQueryable(orderOptions.Page, _configurations.Value.PageSize);
+        
+        return new PagedEnumerable<OrderInfoDto>(await pagedQueryableOrders.Items.ToListAsync(), pagedQueryableOrders.Pagination);
     }
 
     public async Task CreateOrder(ClaimsPrincipal claimsPrincipal, OrderCreateDto orderCreateDto)
@@ -195,10 +203,8 @@ public class OrderService : IOrderService
             Rating = rating
         };
     }
-    
-    //crutch total copy paste
-    
-    private IQueryable<Order> GetOrderWithOptions(OrderOptions orderOptions) //todo нет пагинации
+
+    private IQueryable<Order> GetOrderWithOptions(OrderOptions orderOptions)
     {
         var orders = _context.Orders.AsQueryable();
 

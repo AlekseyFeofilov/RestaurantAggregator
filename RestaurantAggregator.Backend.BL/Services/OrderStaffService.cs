@@ -1,10 +1,13 @@
 using System.Security.Claims;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using RestaurantAggregator.Backend.Common.Configurations;
 using RestaurantAggregator.Backend.Common.Dtos.Order;
 using RestaurantAggregator.Backend.Common.IServices;
 using RestaurantAggregator.Backend.DAL.DbContexts;
 using RestaurantAggregator.Backend.DAL.Entities;
 using RestaurantAggregator.Backend.DAL.IRepositories;
+using RestaurantAggregator.Common.Dtos;
 using RestaurantAggregator.Common.Dtos.Enums;
 using RestaurantAggregator.Common.Extensions;
 
@@ -16,43 +19,53 @@ public class OrderStaffService : IOrderStaffService
 
     private readonly IManagerRepository _managerRepository;
 
-    public OrderStaffService(ApplicationDbContext context, IManagerRepository managerRepository)
+    private readonly IOptions<AppConfigurations> _configurations;
+
+    public OrderStaffService(ApplicationDbContext context, IManagerRepository managerRepository, IOptions<AppConfigurations> configurations)
     {
         _context = context;
         _managerRepository = managerRepository;
+        _configurations = configurations;
     }
 
-    public Task<List<OrderInfoDto>> FetchAllCookOrdersAsync(ClaimsPrincipal claimsPrincipal, OrderOptions orderOptions)
+    public async Task<PagedEnumerable<OrderInfoDto>> FetchAllCookOrdersAsync(ClaimsPrincipal claimsPrincipal, OrderOptions orderOptions)
     {
         var cookId = claimsPrincipal.GetNameIdentifier();
         
-        return GetOrderWithOptions(orderOptions)
+        var pagedQueryableOrders = GetOrderWithOptions(orderOptions)
             .Where(x => x.Cook != null && x.Cook.Id == cookId || x.Status == OrderStatus.Created)
             .Select(x => new OrderInfoDto(x.Id, x.DeliveryTime, x.OrderTime, x.Status, x.Price, x.Number))
-            .ToListAsync();
+            .GetPagedQueryable(orderOptions.Page, _configurations.Value.PageSize);
+        
+        return new PagedEnumerable<OrderInfoDto>(await pagedQueryableOrders.Items.ToListAsync(), pagedQueryableOrders.Pagination);
     }
 
-    public Task<List<OrderInfoDto>> FetchAllManagerOrdersAsync(ClaimsPrincipal claimsPrincipal, OrderOptions orderOptions)
+    public async Task<PagedEnumerable<OrderInfoDto>> FetchAllManagerOrdersAsync(ClaimsPrincipal claimsPrincipal, OrderOptions orderOptions)
     {
         var restaurantId = _managerRepository.FetchDetails(claimsPrincipal.GetNameIdentifier()).Restaurant.Id;
 
-        return GetOrderWithOptions(orderOptions)
+        var pagedQueryableOrders = GetOrderWithOptions(orderOptions)
             .Where(x => x.Restaurant.Id == restaurantId)
             .Select(x => new OrderInfoDto(x.Id, x.DeliveryTime, x.OrderTime, x.Status, x.Price, x.Number))
-            .ToListAsync();
+            .GetPagedQueryable(orderOptions.Page, _configurations.Value.PageSize);
+        
+        return new PagedEnumerable<OrderInfoDto>(await pagedQueryableOrders.Items.ToListAsync(), pagedQueryableOrders.Pagination);
+
     }
 
-    public Task<List<OrderInfoDto>> FetchAllCourierOrdersAsync(ClaimsPrincipal claimsPrincipal, OrderOptions orderOptions)
+    public async Task<PagedEnumerable<OrderInfoDto>> FetchAllCourierOrdersAsync(ClaimsPrincipal claimsPrincipal, OrderOptions orderOptions)
     {
         var courierId = claimsPrincipal.GetNameIdentifier();
         
-        return GetOrderWithOptions(orderOptions)
+        var pagedQueryableOrders = GetOrderWithOptions(orderOptions)
             .Where(x => x.Courier != null && x.Courier.Id == courierId)
             .Select(x => new OrderInfoDto(x.Id, x.DeliveryTime, x.OrderTime, x.Status, x.Price, x.Number))
-            .ToListAsync();
+            .GetPagedQueryable(orderOptions.Page, _configurations.Value.PageSize);
+        
+        return new PagedEnumerable<OrderInfoDto>(await pagedQueryableOrders.Items.ToListAsync(), pagedQueryableOrders.Pagination);
     }
 
-    private IQueryable<Order> GetOrderWithOptions(OrderOptions orderOptions) //todo нет пагинации
+    private IQueryable<Order> GetOrderWithOptions(OrderOptions orderOptions)
     {
         var orders = _context.Orders.AsQueryable();
 

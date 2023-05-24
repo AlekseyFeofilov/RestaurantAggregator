@@ -13,7 +13,7 @@ namespace RestaurantAggregator.Backend.API.Controllers.StaffControllers;
 [ApiController]
 [Route("api/manager/dish")]
 [Authorize(Roles = "Manager")]
-public class DishManagerController : ControllerBase // todo добавить endpoind для деактивации Dish
+public class DishManagerController : ControllerBase
 {
     private readonly IDishService _dishService;
 
@@ -32,7 +32,7 @@ public class DishManagerController : ControllerBase // todo добавить end
     [Produces("application/json")]
     [ProducesResponseType(typeof(IEnumerable<DishModel>), StatusCodes.Status200OK)]
     [HttpGet]
-    public async Task<IActionResult> FetchAllDishes( //todo make ability to chose manager see only active dishes
+    public async Task<IActionResult> FetchAllDishes(
         Guid? menuId = null,
         [FromQuery] DishCategory[]? categories = null,
         bool vegetarian = false,

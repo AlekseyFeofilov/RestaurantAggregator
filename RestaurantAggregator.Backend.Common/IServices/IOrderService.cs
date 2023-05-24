@@ -1,5 +1,6 @@
 using System.Security.Claims;
 using RestaurantAggregator.Backend.Common.Dtos.Order;
+using RestaurantAggregator.Common.Dtos;
 
 namespace RestaurantAggregator.Backend.Common.IServices;
 
@@ -7,7 +8,7 @@ public interface IOrderService
 {
     Task<OrderDto> FetchOrder(Guid orderId);
     
-    Task<IEnumerable<OrderInfoDto>> FetchAllOrders(ClaimsPrincipal claimsPrincipal, OrderOptions orderOptions);
+    Task<PagedEnumerable<OrderInfoDto>> FetchAllOrders(ClaimsPrincipal claimsPrincipal, OrderOptions orderOptions);
     
     Task CreateOrder(ClaimsPrincipal claimsPrincipal, OrderCreateDto orderCreateDto);
     

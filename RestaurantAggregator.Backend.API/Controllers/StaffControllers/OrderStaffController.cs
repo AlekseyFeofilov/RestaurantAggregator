@@ -33,7 +33,7 @@ public class OrderStaffController : ControllerBase
         string? numberStartWith = null,
         [FromQuery] DateTime? startDate = null,
         [FromQuery] DateTime? endDate = null,
-        int? page = 1)
+        int page = 1)
     {
         var orderOptions = new OrderOptions(current, numberStartWith, startDate, endDate, page);
         return Ok(await _orderStaffService.FetchAllCookOrdersAsync(User, orderOptions));
@@ -55,7 +55,7 @@ public class OrderStaffController : ControllerBase
         string? numberStartWith = null,
         [FromQuery] DateTime? startDate = null,
         [FromQuery] DateTime? endDate = null,
-        int? page = 1)
+        int page = 1)
     {
         var orderOptions = new OrderOptions(current, numberStartWith, startDate, endDate, page);
         return Ok(await _orderStaffService.FetchAllCourierOrdersAsync(User, orderOptions));
@@ -77,7 +77,7 @@ public class OrderStaffController : ControllerBase
         string? numberStartWith = null,
         [FromQuery] DateTime? startDate = null,
         [FromQuery] DateTime? endDate = null,
-        int? page = 1)
+        int page = 1)
     {
         var orderOptions = new OrderOptions(current, numberStartWith, startDate, endDate, page);
         return Ok(await _orderStaffService.FetchAllManagerOrdersAsync(User, orderOptions));

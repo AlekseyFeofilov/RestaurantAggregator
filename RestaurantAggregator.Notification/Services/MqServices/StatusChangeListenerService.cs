@@ -43,7 +43,7 @@ public class StatusChangeListenerService : IStatusChangeListenerService
                     $"{DateTime.UtcNow.ToString("s")} UTC: " +
                     $"order with number {notification.OrderNumber} has {notification.OrderStatus} status");
             }
-            else //todo посмотреть, как обарбатываются ошибки с RabbitMQ
+            else
             {
                 Console.WriteLine($"Notification is broken or smt. Message was received: {message}");
             }

@@ -54,7 +54,7 @@ public class OrderController : ControllerBase //todo заменить dto на m
         string? numberStartWith = null,
         [FromQuery] DateTime? startDate = null,
         [FromQuery] DateTime? endDate = null,
-        int? page = 1)
+        int page = 1)
     {
         var orderOptions = new OrderOptions(current, numberStartWith, startDate, endDate, page);
         return Ok(await _orderService.FetchAllOrders(User, orderOptions));
@@ -71,7 +71,7 @@ public class OrderController : ControllerBase //todo заменить dto на m
     [ProducesResponseType(typeof(OrderDto), StatusCodes.Status200OK)]
     [HttpGet, Route("current")]
     [Authorize]
-    public async Task<IActionResult> FetchCurrentOrder() //todo что-то не работает с отображением DishInCart
+    public async Task<IActionResult> FetchCurrentOrder()
     {
         return Ok(await _orderService.FetchCurrentOrder(User));
     }
@@ -86,7 +86,7 @@ public class OrderController : ControllerBase //todo заменить dto на m
     /// <response code="500">InternalServerError</response>
     [HttpPost]
     [Authorize]
-    public async Task<IActionResult> CreateOrder([FromBody] OrderCreateModel orderCreateModel) //bug время не валидируется
+    public async Task<IActionResult> CreateOrder([FromBody] OrderCreateModel orderCreateModel)
     {
         
         await _orderService.CreateOrder(User, _mapper.Map<OrderCreateDto>(orderCreateModel));

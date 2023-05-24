@@ -48,9 +48,9 @@ public class OrderService : IOrderService
     {
         var userId = Guid.Parse(claimsPrincipal.FindFirst(ClaimTypes.NameIdentifier)!.Value);
 
-        return await _context.Orders
+        return await GetOrderWithOptions(orderOptions)
             .Where(x => x.UserId == userId)
-            .Select(x => new OrderInfoDto(x.Id, x.DeliveryTime, x.OrderTime, x.Status, x.Price))
+            .Select(x => new OrderInfoDto(x.Id, x.DeliveryTime, x.OrderTime, x.Status, x.Price, x.Number))
             .ToListAsync();
     }
 
@@ -189,5 +189,54 @@ public class OrderService : IOrderService
             UserId = userId,
             Rating = rating
         };
+    }
+    
+    //crutch total copy paste
+    
+    private IQueryable<Order> GetOrderWithOptions(OrderOptions orderOptions) //todo нет пагинации
+    {
+        var orders = _context.Orders.AsQueryable();
+
+        if (orderOptions.Current)
+        {
+            orders = GetActiveOrders(orders);
+        }
+
+        if (orderOptions.NumberContains != null)
+        {
+            orders = GetOrderWithNumber(orders, orderOptions.NumberContains);
+        }
+
+        if (orderOptions.StartDate != null)
+        {
+            orders = GetOrderBeforeDate(orders, (DateTime)orderOptions.StartDate);
+        }
+        
+        if (orderOptions.EndDate != null)
+        {
+            orders = GetOrderUntilDate(orders, (DateTime)orderOptions.EndDate);
+        }
+
+        return orders;
+    }
+
+    private IQueryable<Order> GetActiveOrders(IQueryable<Order> queryable)
+    {
+        return queryable.Where(x => x.Status != OrderStatus.Delivered);
+    }
+
+    private IQueryable<Order> GetOrderUntilDate(IQueryable<Order> queryable, DateTime dateTime)
+    {
+        return queryable.Where(x => x.OrderTime < dateTime);
+    }
+
+    private IQueryable<Order> GetOrderBeforeDate(IQueryable<Order> queryable, DateTime dateTime)
+    {
+        return queryable.Where(x => x.OrderTime > dateTime);
+    }
+
+    private IQueryable<Order> GetOrderWithNumber(IQueryable<Order> queryable, string contains)
+    {
+        return queryable.Where(x => x.Number.Contains(contains));
     }
 }

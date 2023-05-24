@@ -28,7 +28,7 @@ public class OrderStaffService : IOrderStaffService
         
         return GetOrderWithOptions(orderOptions)
             .Where(x => x.Cook != null && x.Cook.Id == cookId || x.Status == OrderStatus.Created)
-            .Select(x => new OrderInfoDto(x.Id, x.DeliveryTime, x.OrderTime, x.Status, x.Price)) //todo make mapping with automapper
+            .Select(x => new OrderInfoDto(x.Id, x.DeliveryTime, x.OrderTime, x.Status, x.Price, x.Number)) //todo make mapping with automapper
             .ToListAsync();
     }
 
@@ -38,7 +38,7 @@ public class OrderStaffService : IOrderStaffService
 
         return GetOrderWithOptions(orderOptions)
             .Where(x => x.Restaurant.Id == restaurantId)
-            .Select(x => new OrderInfoDto(x.Id, x.DeliveryTime, x.OrderTime, x.Status, x.Price))
+            .Select(x => new OrderInfoDto(x.Id, x.DeliveryTime, x.OrderTime, x.Status, x.Price, x.Number))
             .ToListAsync();
     }
 
@@ -48,11 +48,11 @@ public class OrderStaffService : IOrderStaffService
         
         return GetOrderWithOptions(orderOptions)
             .Where(x => x.Courier != null && x.Courier.Id == courierId)
-            .Select(x => new OrderInfoDto(x.Id, x.DeliveryTime, x.OrderTime, x.Status, x.Price))
+            .Select(x => new OrderInfoDto(x.Id, x.DeliveryTime, x.OrderTime, x.Status, x.Price, x.Number))
             .ToListAsync();
     }
 
-    private IQueryable<Order> GetOrderWithOptions(OrderOptions orderOptions)
+    private IQueryable<Order> GetOrderWithOptions(OrderOptions orderOptions) //todo нет пагинации
     {
         var orders = _context.Orders.AsQueryable();
 

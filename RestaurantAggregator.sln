@@ -22,6 +22,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantAggregator.AdminP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantAggregator.Common", "RestaurantAggregator.Common\RestaurantAggregator.Common.csproj", "{CD1BCBA2-94FB-40A7-88AD-0767242F5ACC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantAggregator.Notification", "RestaurantAggregator.Notification\RestaurantAggregator.Notification.csproj", "{DC439E92-7981-4D37-B84C-5F454C250DF8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -68,6 +70,10 @@ Global
 		{CD1BCBA2-94FB-40A7-88AD-0767242F5ACC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CD1BCBA2-94FB-40A7-88AD-0767242F5ACC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CD1BCBA2-94FB-40A7-88AD-0767242F5ACC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC439E92-7981-4D37-B84C-5F454C250DF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC439E92-7981-4D37-B84C-5F454C250DF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC439E92-7981-4D37-B84C-5F454C250DF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC439E92-7981-4D37-B84C-5F454C250DF8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{BF11B132-F167-47D8-8C9B-97790CF646EB} = {49497F89-A991-401E-988B-1751CB691F93}

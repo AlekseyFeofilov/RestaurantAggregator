@@ -41,6 +41,7 @@ public static class AddServices
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<IOrderStaffService, OrderStaffService>();
         services.AddScoped<IStatusService, StatusService>();
+        services.AddScoped<IStatusChangingMessageService, StatusChangingMessageService>();
     }
     
     private static void AddAutoMapper(this IServiceCollection services)

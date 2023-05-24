@@ -5,7 +5,9 @@ namespace RestaurantAggregator.Backend.Common.Dto;
 
 public class OrderDto
 {
-
+    [Required]
+    public string Number { get; set; }
+    
     [Required]
     public DateTime DeliveryTime { get; set; }
 

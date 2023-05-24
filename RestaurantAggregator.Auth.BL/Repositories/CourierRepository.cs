@@ -1,4 +1,4 @@
-using RestaurantAggregator.Auth.Common.Exceptions.NotFoundException;
+using RestaurantAggregator.Auth.Common.Exceptions.NotFoundExceptions;
 using RestaurantAggregator.Auth.DAL.DbContexts;
 using RestaurantAggregator.Auth.DAL.Entities.Users;
 using RestaurantAggregator.Auth.DAL.IRepositories;

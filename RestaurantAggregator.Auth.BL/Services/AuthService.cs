@@ -8,6 +8,9 @@ using RestaurantAggregator.Auth.BL.Extensions;
 using RestaurantAggregator.Auth.Common.Dtos;
 using RestaurantAggregator.Auth.Common.Dtos.Account;
 using RestaurantAggregator.Auth.Common.Exceptions;
+using RestaurantAggregator.Auth.Common.Exceptions.BadRequestExceptions;
+using RestaurantAggregator.Auth.Common.Exceptions.InternalServerErrorExceptions;
+using RestaurantAggregator.Auth.Common.Exceptions.UnauthorizedExceptions;
 using RestaurantAggregator.Auth.Common.IServices;
 using RestaurantAggregator.Auth.DAL.DbContexts;
 using RestaurantAggregator.Auth.DAL.Entities.IdentityEntities;
@@ -80,12 +83,12 @@ public class AuthService : IAuthService
 
         if (!addPasswordResult.Succeeded)
         {
-            throw new InvalidUserException(addPasswordResult.ErrorsToString());
+            throw new InvalidPasswordException(addPasswordResult.ErrorsToString());
         }
 
         if (!addToRoleResult.Succeeded)
         {
-            throw new InvalidUserException(addToRoleResult.ErrorsToString());
+            throw new InvalidRoleException(addToRoleResult.ErrorsToString());
         }
         
         var claims = await GenerateUserClaimsAsync(user);
@@ -145,7 +148,7 @@ public class AuthService : IAuthService
         catch (Exception e)
         {
             Console.WriteLine(e);
-            throw new InvalidTokenException(e);
+            throw new InvalidTokenException(e.Message);
         }
         
         if (securityToken is not JwtSecurityToken jwtSecurityToken ||

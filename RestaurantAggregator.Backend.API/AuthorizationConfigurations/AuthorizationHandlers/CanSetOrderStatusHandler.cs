@@ -39,15 +39,20 @@ public class CanSetOrderStatusHandler : AuthorizationHandler<CanSetOrderStatusRe
             OrderStatus.Created => false,
             OrderStatus.Kitchen =>
                 user.IsInRole("Cook")
-                && order.Restaurant.Id == GetCook(userId).Restaurant.Id,
+                && await GetCook(userId) is var cook && cook != null 
+                && order.Restaurant.Id == cook.Restaurant.Id,
             OrderStatus.Packaging or OrderStatus.Delivering =>
                 user.IsInRole("Cook")
-                && order.Cook?.Id == GetCook(userId).Id, // todo сделать какую-то кастомную ошибку о том, что данный статус нельзя поставить пока не будет поставлен другой
+                && await GetCook(userId) is var cook && cook != null 
+                && order.Cook?.Id == cook.Id,
             OrderStatus.Delivered =>
                 user.IsInRole("Courier")
-                && order.Courier?.Id == GetCourier(userId).Id,
+                && await GetCourier(userId) is var courier && courier != null
+                && order.Courier?.Id == courier.Id,
             OrderStatus.Canceled => 
-                user.IsInRole("Courier") && order.Courier?.Id == GetCourier(userId).Id
+                user.IsInRole("Courier") 
+                && await GetCourier(userId) is var courier && courier != null
+                && order.Courier?.Id == courier.Id
                 || user.IsInRole("Customer") && order.UserId == userId,
             _ => throw new ArgumentOutOfRangeException()
         };
@@ -55,31 +60,17 @@ public class CanSetOrderStatusHandler : AuthorizationHandler<CanSetOrderStatusRe
         if (isSucceed) context.Succeed(requirement);
     }
 
-    private Cook GetCook(Guid userId)
+    private Task<Cook?> GetCook(Guid userId)
     {
-        var cook = _context.Cooks
+        return _context.Cooks
             .Include(x => x.Restaurant)
-            .SingleOrDefault(x => x.Id == userId);
-
-        if (cook == null)
-        {
-            throw new InvalidTokenException();
-        }
-
-        return cook;
+            .SingleOrDefaultAsync(x => x.Id == userId);
     }
 
-    private Courier GetCourier(Guid userId)
+    private Task<Courier?> GetCourier(Guid userId)
     {
-        var courier = _context.Couriers
+        return _context.Couriers
             .Include(x => x.Restaurant)
-            .SingleOrDefault(x => x.Id == userId);
-
-        if (courier == null)
-        {
-            throw new InvalidTokenException();
-        }
-
-        return courier;
+            .SingleOrDefaultAsync(x => x.Id == userId);
     }
 }

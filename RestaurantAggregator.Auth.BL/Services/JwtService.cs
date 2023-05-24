@@ -30,11 +30,6 @@ public class JwtService : IJwtService
         );
     }
 
-    public TokenDto RefreshToken(TokenDto tokenDto)
-    {
-        throw new NotImplementedException();
-    }
-
     private string GenerateAccessToken(List<Claim> claims)
     {
         var now = DateTime.UtcNow;

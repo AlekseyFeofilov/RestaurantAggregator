@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using RestaurantAggregator.Backend.Common.Exceptions;
+using RestaurantAggregator.Backend.Common.Exceptions.NotFoundException;
 using RestaurantAggregator.Backend.DAL.DbContexts;
 using RestaurantAggregator.Backend.DAL.Entities;
 
@@ -38,7 +39,7 @@ public class RepositoryService : IRepositoryService
     {
         var dish = await _context.Dishes.SingleOrDefaultAsync(x => x.Id == id);
 
-        if (dish == null) throw new DishNotFoundException();
+        if (dish == null) throw new DishNotFoundException(id);
 
         return dish;
     }

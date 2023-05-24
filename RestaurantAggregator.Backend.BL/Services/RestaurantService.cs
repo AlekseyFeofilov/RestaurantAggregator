@@ -4,6 +4,7 @@ using Microsoft.Extensions.Options;
 using RestaurantAggregator.Backend.Common.Configurations;
 using RestaurantAggregator.Backend.Common.Dtos.Restaurant;
 using RestaurantAggregator.Backend.Common.Exceptions;
+using RestaurantAggregator.Backend.Common.Exceptions.NotFoundException;
 using RestaurantAggregator.Backend.Common.IServices;
 using RestaurantAggregator.Backend.DAL.DbContexts;
 using RestaurantAggregator.Backend.DAL.Entities;
@@ -48,7 +49,7 @@ public class RestaurantService : IRestaurantService
 
         if (restaurant == null)
         {
-            throw new RestaurantNotFoundException();
+            throw new RestaurantNotFoundException(id);
         }
 
         return _mapper.Map<RestaurantDto>(restaurant);
@@ -67,7 +68,7 @@ public class RestaurantService : IRestaurantService
 
         if (restaurant == null)
         {
-            throw new RestaurantNotFoundException();
+            throw new RestaurantNotFoundException(modifyRestaurantDto.Id);
         }
 
         restaurant.Name = modifyRestaurantDto.Name;
@@ -80,7 +81,7 @@ public class RestaurantService : IRestaurantService
 
         if (restaurant == null)
         {
-            throw new RestaurantNotFoundException();
+            throw new RestaurantNotFoundException(id);
         }
 
         _context.Restaurants.Remove(restaurant);

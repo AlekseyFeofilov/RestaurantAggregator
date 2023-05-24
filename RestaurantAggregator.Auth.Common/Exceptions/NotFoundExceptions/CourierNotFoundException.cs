@@ -1,4 +1,4 @@
-namespace RestaurantAggregator.Backend.Common.Exceptions.NotFoundException;
+namespace RestaurantAggregator.Auth.Common.Exceptions.NotFoundExceptions;
 
 public class CourierNotFoundException : RestaurantAggregator.Common.Exceptions.NotFoundException
 {

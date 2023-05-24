@@ -25,7 +25,7 @@ public class OrderRepository : IOrderRepository
         
         if (order == null)
         {
-            throw new OrderNotFoundException();
+            throw new OrderNotFoundException(orderId);
         }
 
         return order;

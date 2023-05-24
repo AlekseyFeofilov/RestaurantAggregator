@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using RestaurantAggregator.Backend.Common.Exceptions;
+using RestaurantAggregator.Backend.Common.Exceptions.NotFoundException;
 using RestaurantAggregator.Backend.DAL.DbContexts;
 using RestaurantAggregator.Backend.DAL.Entities;
 using RestaurantAggregator.Backend.DAL.IRepositories;
@@ -21,7 +22,7 @@ public class RestaurantRepository : IRestaurantRepository
 
         if (restaurant == null)
         {
-            throw new RestaurantNotFoundException();
+            throw new RestaurantNotFoundException(restaurantId);
         }
 
         return restaurant;

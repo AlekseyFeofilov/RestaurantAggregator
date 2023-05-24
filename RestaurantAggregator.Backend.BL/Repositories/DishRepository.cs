@@ -49,7 +49,7 @@ public class DishRepository : IDishRepository
 
             if (!menu.Active && onlyActive)
             {
-                throw new MenuNotFoundException();
+                throw new MenuNotFoundException((Guid)dishOptions.MenuId);
             }
 
             dishes = menu.Dishes.Where(x => !x.Deleted && (!onlyActive || x.Active)).AsQueryable();
@@ -58,7 +58,7 @@ public class DishRepository : IDishRepository
         {
             if ((await _restaurantRepository.FetchRestaurantAsync(dishOptions.RestaurantId)) == null)
             {
-                throw new RestaurantNotFoundException();
+                throw new RestaurantNotFoundException(dishOptions.RestaurantId);
             }
 
             dishes = _context.Dishes.Where(dish =>
@@ -89,8 +89,8 @@ public class DishRepository : IDishRepository
             .Include(x => x.Restaurant)
             .SingleOrDefaultAsync(x => x.Id == dishId);
 
-        if (dish == null) throw new DishNotFoundException();
-        if (dish.Deleted || !dish.Active && onlyActive) throw new DishNotFoundException();
+        if (dish == null) throw new DishNotFoundException(dishId);
+        if (dish.Deleted || !dish.Active && onlyActive) throw new DishNotFoundException(dishId);
 
         return dish;
     }

@@ -3,6 +3,7 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using RestaurantAggregator.Backend.Common.Dtos.Cart;
 using RestaurantAggregator.Backend.Common.Exceptions;
+using RestaurantAggregator.Backend.Common.Exceptions.NotFoundException;
 using RestaurantAggregator.Backend.Common.IServices;
 using RestaurantAggregator.Backend.DAL.DbContexts;
 using RestaurantAggregator.Backend.DAL.Entities;
@@ -45,7 +46,7 @@ public class CartService : ICartService
         
         var dish = await _context.Dishes.SingleOrDefaultAsync(x => x.Id == dishId);
 
-        if (dish == null) throw new DishNotFoundException();
+        if (dish == null) throw new DishNotFoundException(dishId);
         
         await AddDishBasket(dishBasket, dish, userId);
     }
@@ -62,7 +63,7 @@ public class CartService : ICartService
 
         if (cartDish == null)
         {
-            throw new DishNotFoundException();
+            throw new DishNotFoundException(dishId);
         }
         
         if (!increase || cartDish.Amount == 1)
@@ -85,7 +86,7 @@ public class CartService : ICartService
         }
         else
         {
-            if (!dish.Active || dish.Deleted) throw new DishNotFoundException();
+            if (!dish.Active || dish.Deleted) throw new DishNotFoundException(dish.Id);
             
             _context.DishBaskets.Add(new CartDish
             {

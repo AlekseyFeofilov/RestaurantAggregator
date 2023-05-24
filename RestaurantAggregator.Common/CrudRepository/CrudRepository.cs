@@ -1,11 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 using RestaurantAggregator.Common.Dtos;
+using RestaurantAggregator.Common.Exceptions;
 
 namespace RestaurantAggregator.Common.CrudRepository;
 
 public abstract class CrudRepository<T, TNotFoundException> : ICrudRepository<T> 
     where T : class, IClassWithId 
-    where TNotFoundException : Exception, new()
+    where TNotFoundException : NotFoundException
 {
     private readonly DbContext _context;
 
@@ -28,7 +29,7 @@ public abstract class CrudRepository<T, TNotFoundException> : ICrudRepository<T>
 
         if (entity == null)
         {
-            throw new TNotFoundException();
+            throw (TNotFoundException)Activator.CreateInstance(typeof(TNotFoundException), id)!;
         }
 
         return entity;

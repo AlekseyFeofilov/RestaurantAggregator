@@ -5,6 +5,9 @@ using RestaurantAggregator.Auth.BL.Extensions;
 using RestaurantAggregator.Auth.Common.Dtos;
 using RestaurantAggregator.Auth.Common.Dtos.Account;
 using RestaurantAggregator.Auth.Common.Exceptions;
+using RestaurantAggregator.Auth.Common.Exceptions.BadRequestExceptions;
+using RestaurantAggregator.Auth.Common.Exceptions.InternalServerErrorExceptions;
+using RestaurantAggregator.Auth.Common.Exceptions.NotFoundExceptions;
 using RestaurantAggregator.Auth.Common.IServices;
 using RestaurantAggregator.Auth.DAL.DbContexts;
 using RestaurantAggregator.Auth.DAL.Entities.IdentityEntities;
@@ -65,7 +68,7 @@ public class AccountService : IAccountService
 
             if (customer == null)
             {
-                throw new CustomerNotFoundException();
+                throw new CustomerNotFoundException(user.Id);
             }
 
             customer.Adress = accountModifyDto.Address;
@@ -86,7 +89,7 @@ public class AccountService : IAccountService
 
         if (!changePasswordResult.Succeeded)
         {
-            throw new InvalidUserException(changePasswordResult.ErrorsToString()); //crutch мне было лень писать новую ошибку
+            throw new InvalidPasswordException(changePasswordResult.ErrorsToString());
         }
     }
 }

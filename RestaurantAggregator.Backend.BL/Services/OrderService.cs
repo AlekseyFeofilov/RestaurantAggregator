@@ -5,6 +5,8 @@ using RestaurantAggregator.Backend.Common.Dtos.Cart;
 using RestaurantAggregator.Backend.Common.Dtos.Order;
 using RestaurantAggregator.Backend.Common.Exceptions;
 using RestaurantAggregator.Backend.Common.Exceptions.BadRequestExceptions;
+using RestaurantAggregator.Backend.Common.Exceptions.ForbiddenException;
+using RestaurantAggregator.Backend.Common.Exceptions.NotFoundException;
 using RestaurantAggregator.Backend.Common.Extensions;
 using RestaurantAggregator.Backend.Common.IServices;
 using RestaurantAggregator.Backend.DAL.DbContexts;
@@ -60,7 +62,7 @@ public class OrderService : IOrderService
         var userId = Guid.Parse(claimsPrincipal.FindFirst(ClaimTypes.NameIdentifier)!.Value);
         var cart = await GetOrderDishBaskets(userId);
 
-        if (cart.Any(x => !x.Dish.Active || x.Dish.Deleted)) throw new DishInCartNotAvailableException(); //todo make message: which one
+        if (cart.First(x => !x.Dish.Active || x.Dish.Deleted) is var dish && dish != null) throw new DishInCartNotAvailableException(dish.Id); //todo make message: which one
         if (!cart.Any()) throw new CartIsEmptyException();
 
         var firstDish = cart.First().Dish;
@@ -69,7 +71,7 @@ public class OrderService : IOrderService
 
         if (otherRestaurantDish != null)
         {
-            throw new DishFromDifferentRestaurantsException();
+            throw new DishFromDifferentRestaurantsException(firstDish.Id, otherRestaurantDish.Dish.Id);
         }
 
         await _context.Orders.AddAsync(CreateOrder(orderCreateDto, cart, userId));
@@ -158,7 +160,7 @@ public class OrderService : IOrderService
         var userId = _userService.GetUserId(claimsPrincipal);
 
         var dish = await _context.Dishes.SingleOrDefaultAsync(x => x.Id == dishId);
-        if (dish == null || !dish.Active || dish.Deleted) throw new DishNotFoundException();
+        if (dish == null || !dish.Active || dish.Deleted) throw new DishNotFoundException(dishId);
 
         var review = await FetchReview(dishId, userId);
         await SetReview(review, dish, userId, rating);

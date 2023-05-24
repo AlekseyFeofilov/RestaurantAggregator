@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Identity;
+using RestaurantAggregator.Auth.Common.Exceptions.NotFoundExceptions;
 using RestaurantAggregator.Auth.DAL.DbContexts;
 using RestaurantAggregator.Auth.DAL.Entities.IdentityEntities;
 using RestaurantAggregator.Auth.DAL.IRepositories;
@@ -39,7 +40,7 @@ public class UserRepository : IUserRepository
 
         if (user == null)
         {
-            throw new NotFoundException();
+            throw new UserNotFoundException(id);
         }
 
         return user;

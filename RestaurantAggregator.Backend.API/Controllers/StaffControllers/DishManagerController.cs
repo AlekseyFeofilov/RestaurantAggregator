@@ -81,7 +81,7 @@ public class DishManagerController : ControllerBase // todo добавить end
     /// <response code="500">InternalServerError</response>
     [HttpPut]
     [Authorize("ModifyDish")]
-    public async Task<IActionResult> ModifyDish(DishModifyModel dishModifyModel) { //todo check if reviews are saving after modifying  
+    public async Task<IActionResult> ModifyDish(DishModifyModel dishModifyModel) {  
         var dishCreateDto = _mapper.Map<DishModifyDto>(dishModifyModel);
         return Ok(await _dishService.ModifyAsync(dishCreateDto));
     }

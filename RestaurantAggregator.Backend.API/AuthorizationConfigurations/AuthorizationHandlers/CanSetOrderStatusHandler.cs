@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
+using RestaurantAggregator.Backend.API.AuthorizationConfigurations.AuthorizationFailureReasons;
 using RestaurantAggregator.Backend.API.AuthorizationConfigurations.Requirements;
 using RestaurantAggregator.Backend.Common.Exceptions;
 using RestaurantAggregator.Backend.DAL.DbContexts;
@@ -42,9 +43,18 @@ public class CanSetOrderStatusHandler : AuthorizationHandler<CanSetOrderStatusRe
             return;
         }
 
-
         var orderId = Guid.Parse((string)_contextAccessor.HttpContext!.GetRouteData().Values["orderId"]!);
-        var order = await _orderRepository.FetchOrderAsync(orderId);
+        Order order;
+        
+        try
+        { 
+            order = await _orderRepository.FetchOrderAsync(orderId);
+        }
+        catch (Exception e)
+        {
+            context.Fail(new NotFoundReason(this, $"Order with id {orderId} not found"));
+            return;
+        }
 
         var isSucceed = requirement.OrderStatus switch
         {

@@ -11,7 +11,7 @@ using RestaurantAggregator.Common.Dtos.Enums;
 namespace RestaurantAggregator.Backend.API.Controllers.CustomerControllers;
 
 [ApiController]
-[Route("api/dish")] // todo make with configuration
+[Route("api/dish")]
 public class DishController : ControllerBase
 {
     private readonly IDishService _dishService;

@@ -56,7 +56,7 @@ public class CookController : Controller
         return View("Index", new Tuple<Guid, PagedNamedListModel>(restaurantId, pagedNamedListModel));
     }
     
-    public async Task<ActionResult> Search(Guid restaurantId, string contains = "") //todo нормализовать всё, по чему происходит поиск в бд
+    public async Task<ActionResult> Search(Guid restaurantId, string contains = "")
     {
         return await Index(restaurantId, contains);
     }

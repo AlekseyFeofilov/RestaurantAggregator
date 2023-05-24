@@ -18,7 +18,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.Configure<AppConfigurations>(builder.Configuration.GetSection("AppConfigurations"));
 builder.Services.Configure<JwtConfigurations>(builder.Configuration.GetSection("JwtConfigurations"));
 
-builder.Services.AddBL(); //todo убраться в Program
+builder.Services.AddBL();
 builder.Services.AddSwaggerService();
 builder.Services.AddAuthorization();
 builder.Services.AddAuthentication(options =>

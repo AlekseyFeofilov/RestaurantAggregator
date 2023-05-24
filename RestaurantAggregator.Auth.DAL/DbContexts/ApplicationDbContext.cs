@@ -51,8 +51,7 @@ public class ApplicationDbContext : IdentityDbContext<User, Role, Guid>
             .HasOne<Courier>()
             .WithOne(x => x.User)
             .HasForeignKey<Courier>();
-
-        // crutch: сделать через static класс
+        
         modelBuilder.Entity<Role>().HasData(new Role[]
         {
             new()

@@ -30,7 +30,7 @@ public class AccountController : ControllerBase
     [ProducesResponseType(typeof(AccountModel), StatusCodes.Status200OK)]
     [HttpGet]
     [Authorize]
-    public async Task<IActionResult> FetchProfileInfo() //todo по идее надо сделать 4 разных эндпоинта для каждой роли, потому что в будущем колчеситво различной информации может быть гораздо больше, чем просто Adress у пользователя
+    public async Task<IActionResult> FetchProfileInfo()
     {
         return Ok(_mapper.Map<AccountModel>(await _accountService.FetchProfileInfo(User)));
     }

@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using RestaurantAggregator.Backend.API.Extensions;
 using RestaurantAggregator.Backend.API.Middleware;
 using RestaurantAggregator.Backend.BL.Extensions;
@@ -21,6 +22,8 @@ builder.Services.AddSwaggerService();
 builder.Services.AddAuthorization();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearerAuthenticationScheme(builder.Configuration.GetSection("JwtConfigurations").Get<JwtConfigurations>());
+
+builder.Services.AddSingleton<IAuthorizationMiddlewareResultHandler, AuthorizationResultTransformer>();
 
 builder.Services.AddAutoMapper();
 builder.Services.AddAuthorizationPolicies();

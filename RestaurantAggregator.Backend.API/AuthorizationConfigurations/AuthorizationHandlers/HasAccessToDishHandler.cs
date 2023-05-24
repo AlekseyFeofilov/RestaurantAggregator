@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
+using RestaurantAggregator.Backend.API.AuthorizationConfigurations.AuthorizationFailureReasons;
+using RestaurantAggregator.Backend.DAL.Entities;
 using RestaurantAggregator.Backend.DAL.IRepositories;
 using RestaurantAggregator.Common.Extensions;
 
@@ -22,8 +24,19 @@ public abstract class HasAccessToDishHandler<T> : AuthorizationHandler<T> where 
     protected override async Task HandleRequirementAsync(AuthorizationHandlerContext context, T requirement)
     {
         var manager = _managerRepository.FetchDetails(ContextAccessor.HttpContext!.User.GetNameIdentifier());
-        var dish = await _dishRepository.FetchDishAsync(await GetDishId());//todo make this thing throw BadRequest but not Unauthorized
+        var dishId = await GetDishId();
+        Dish dish;
         
+        try
+        {
+            dish = await _dishRepository.FetchDishAsync(dishId);
+        }
+        catch (Exception e)
+        {
+            context.Fail(new NotFoundReason(this, $"Order with id {dishId} not found"));
+            throw;
+        }
+
         if (dish.Restaurant.Id == manager.Restaurant.Id)
         {
             context.Succeed(requirement);

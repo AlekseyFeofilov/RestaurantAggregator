@@ -11,6 +11,6 @@ public class CanDeleteDishHandler : HasAccessToDishHandler<CanDeleteDishRequirem
 
     protected override Task<Guid> GetDishId()
     {
-        return Task.FromResult(Guid.Parse((string)ContextAccessor.HttpContext!.GetRouteData().Values["dishId"]!)); //crutch 
+        return Task.FromResult(Guid.Parse((string)ContextAccessor.HttpContext!.GetRouteData().Values["dishId"]!)); 
     }
 }
